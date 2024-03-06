@@ -1,11 +1,5 @@
-lsi: false
-safe: true
-source: /
-incremental: false
-highlighter: rouge
-gist:
-  noscript: false
-kramdown:
-  math_engine: mathjax
-  syntax_highlighter: rouge
-theme: jekyll-theme-slate
+title: Hacker theme
+description: Hacker is a theme for GitHub Pages.
+show_downloads: true
+google_analytics:
+theme: jekyll-theme-hacker

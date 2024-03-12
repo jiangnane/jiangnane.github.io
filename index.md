@@ -31,6 +31,8 @@ sudo apt install git-core gnupg flex bison build-essential zip curl zlib1g-dev l
 谷歌官方的方法不适合国内，参考
 https://source.android.google.cn/docs/setup/download/downloading
 
+> 以下两种方法说明摘自清华源站：
+
 ### 方法一：
 以下是推荐的国内下载代码方法
 

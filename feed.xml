@@ -14,13 +14,13 @@
         <author>
             <name>HEIN</name>
         </author>
-        <link href="https://blog.nasyes.cn/aosphe-lineageosde-dai-ma-jian-chugou-jianshua-ji.html"/>
-        <id>https://blog.nasyes.cn/aosphe-lineageosde-dai-ma-jian-chugou-jianshua-ji.html</id>
+        <link href="https://blog.nasyes.cn/aosphe-lineageosde-dai-ma-jian-chugou-jianshua-ji/"/>
+        <id>https://blog.nasyes.cn/aosphe-lineageosde-dai-ma-jian-chugou-jianshua-ji/</id>
 
         <updated>2024-03-26T17:39:15+08:00</updated>
             <summary>
                 <![CDATA[
-                    AOSP部分 环境要求 硬件 处理器：2.3.x以上Android版本需要64位架构的处理器 内存：官方最低16G，谷歌推荐64G；实测虚拟机32G以下内存有概率崩溃，物理机没问题，虚拟机建议至少40G内存 硬盘：代码250G，编译再加150G，建议500G以上SSD 网络：保证网络稳定，否则检出代码很容易中断 参考：虚拟机+i5 10700 + 32G内存+SSD，检出代码约4小时，编译、链接、打包约3.5个小时 Ubuntu 22.04 LTS x64 JDK AOSP自带 Make AOSP自带 Python 3 sudo apt install git-core gnupg flex bison build-essential zip curl zlib1g-dev libc6-dev-i386 libncurses5 lib32ncurses5-dev x11proto-core-dev libx11-dev lib32z1-dev libgl1-mesa-dev libxml2-utils xsltproc unzip fontconfig 以上都是针对Android9.0及以上版本的环境配置 清华源：https://mirrors.tuna.tsinghua.edu.cn/help/AOSP/&hellip;
+                    AOSP部分 环境要求 硬件 处理器：2.3.x以上Android版本需要64位架构的处理器 内存：官方最低16G，谷歌推荐64G；实测虚拟机32G以下内存有概率崩溃，物理机没问题，虚拟机建议至少40G内存 硬盘：代码250G，编译再加150G，建议500G以上SSD 网络：保证网络稳定，否则检出代码很容易中断 参考：虚拟机+i5 10700 + 32G内存+SSD，检出代码约4小时，编译、链接、打包约3.5个小时 Ubuntu 22.04 LTS x64 JDK AOSP自带 Make AOSP自带 Python 3 sudo apt install git-core&hellip;
                 ]]>
             </summary>
         <content type="html">

@@ -3,7 +3,7 @@
     <title>HEIN&#x27;s Blog</title>
     <link href="https://blog.nasyes.cn/feed.xml" rel="self" />
     <link href="https://blog.nasyes.cn" />
-    <updated>2024-05-27T14:38:09+08:00</updated>
+    <updated>2024-05-27T14:43:33+08:00</updated>
     <author>
         <name>HEIN</name>
     </author>
@@ -263,14 +263,8 @@ $PROJ_ROOT/out/rpi4/packages/phone/images/ramdisk.img</code></pre>
 <h4>5.2 可移植设备的挑选</h4>
 <p>除了官方社区支持的开发板，还有一种方案就是对现有的设备进行移植。特别是一些支持或兼容支持Android的设备是较为合适的选择。以下参考 <a href="https://ost.51cto.com/posts/20849">https://ost.51cto.com/posts/20849</a> ，根据作者的移植经验和总结，大致梳理一下可移植设备的初步挑选方法。</p>
 <h5>1) <span style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);">移植设备可行性评估</span></h5>
-<div>
-<ol style="list-style-type: lower-alpha;">
-<li>确认你要移植的设备可以解锁刷机</li>
-<li>确认你的设备有TWRP类似的第三方Recovery，方便刷机</li>
-<li>确认有可用的内核源码版本，不是内核源码开源就能移植的，OpenHarmony的内核目前为止是以标准Linux5.10内核为基础的，4.19已不再支持，移植时需要你的设备有5.10或者5.10以上的内核源码，理论上其他版本也可以，但是要求你是内核大神，精通各个版本内核的变动，并了解驱动如何升级降级适配。</li>
-<li>确认设备驱动源码、固件是否可以获取到</li>
-</ol>
-</div>
+<p> </p>
+<div>① 确认你要移植的设备可以解锁刷机<br>② 确认你的设备有TWRP类似的第三方Recovery，方便刷机<br>③ 确认有可用的内核源码版本，不是内核源码开源就能移植的，OpenHarmony的内核④ 目前为止是以标准Linux5.10内核为基础的，4.19已不再支持，移植时需要你的设备有5.10或者5.10以上的内核源码，理论上其他版本也可以，但是要求你是内核大神，精通各个版本内核的变动，并了解驱动如何升级降级适配。<br>⑤ 确认设备驱动源码、固件是否可以获取到</div>
 <p>快速评估入口：<a href="https://wiki.postmarketos.org/wiki/Devices">https://wiki.postmarketos.org/wiki/Devices</a></p>
 <p>根据表格中的提示：</p>
 <figure class="post__image align-center"><img loading="lazy"  src="https://blog.nasyes.cn/media/posts/3/devices_features_marks.png" alt="" width="381" height="181" sizes="(min-width: 920px) 703px, (min-width: 700px) calc(82vw - 35px), calc(100vw - 81px)" srcset="https://blog.nasyes.cn/media/posts/3/responsive/devices_features_marks-xs.png 300w ,https://blog.nasyes.cn/media/posts/3/responsive/devices_features_marks-sm.png 480w ,https://blog.nasyes.cn/media/posts/3/responsive/devices_features_marks-md.png 768w ,https://blog.nasyes.cn/media/posts/3/responsive/devices_features_marks-lg.png 1024w"></figure>
@@ -279,28 +273,13 @@ $PROJ_ROOT/out/rpi4/packages/phone/images/ramdisk.img</code></pre>
 <figure class="post__image align-center"><img loading="lazy"  src="https://blog.nasyes.cn/media/posts/3/rpi4_features_supported.png" alt="" width="338" height="658" sizes="(min-width: 920px) 703px, (min-width: 700px) calc(82vw - 35px), calc(100vw - 81px)" srcset="https://blog.nasyes.cn/media/posts/3/responsive/rpi4_features_supported-xs.png 300w ,https://blog.nasyes.cn/media/posts/3/responsive/rpi4_features_supported-sm.png 480w ,https://blog.nasyes.cn/media/posts/3/responsive/rpi4_features_supported-md.png 768w ,https://blog.nasyes.cn/media/posts/3/responsive/rpi4_features_supported-lg.png 1024w"></figure>
 <p>总之，查询后设备的特性支持的越多，移植成功的概率就越高。</p>
 <h5>2) <span style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);">移植概述</span></h5>
-<div>
-<ol style="list-style-type: lower-alpha;">
-<li>准备OpenHarmony代码编译环境，下载源码，比如我采用的是3.2Beta3版本（社区有大量帖子介绍OH环境安装，在此不再重复介绍）</li>
-<li>官方设备（rk3568）编译一次确认环境配置正确</li>
-<li>准备postmarketOS编译环境，并进行一次编译（方便获取boot配置，内核配置，驱动固件等）</li>
-<li>利用第三方内核移植加入OH内核特性的方式，移植适配内核</li>
-<li>移植适配OH的init启动脚本，图形渲染框架</li>
-<li>编译OH系统刷机文件</li>
-<li>利用解包打包工具，打包出自己的boot.img</li>
-<li>利用twrp刷入boot.img，system.img，vendor.img实现OH的启动</li>
-</ol>
+<p> </p>
+<div>① 准备OpenHarmony代码编译环境，下载源码，比如我采用的是3.2Beta3版本（社区有大量帖子介绍OH环境安装，在此不再重复介绍）<br>② 官方设备（rk3568）编译一次确认环境配置正确<br>③准备postmarketOS编译环境，并进行一次编译（方便获取boot配置，内核配置，驱动固件等）<br>④ 利用第三方内核移植加入OH内核特性的方式，移植适配内核<br>⑤ 移植适配OH的init启动脚本，图形渲染框架<br>⑥ 编译OH系统刷机文件<br>⑦ 利用解包打包工具，打包出自己的boot.img<br>⑧ 利用twrp刷入boot.img，system.img，vendor.img实现OH的启动<br>
 <h5>3) 移植适配相关知识储备</h5>
-<div>
-<ol style="list-style-type: lower-alpha;">
-<li>操作系统相关知识，设备启动相关知识</li>
-<li>Linux内核相关知识，驱动相关知识</li>
-<li>OpenHarmony系统相关知识</li>
-<li>Linux操作系统命令相关知识</li>
-<li>设备（安卓手机，平板，开发板等）相关知识</li>
-</ol>
+<p> </p>
+① 操作系统相关知识，设备启动相关知识<br>② Linux内核相关知识，驱动相关知识<br>③ OpenHarmony系统相关知识<br>④ Linux操作系统命令相关知识<br>⑤ 设备（安卓手机，平板，开发板等）相关知识</div>
+<div><br>
 <p>===========The End===========</p>
-</div>
 </div>
             ]]>
         </content>

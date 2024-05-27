@@ -3,7 +3,7 @@
     <title>HEIN&#x27;s Blog</title>
     <link href="https://blog.nasyes.cn/feed.xml" rel="self" />
     <link href="https://blog.nasyes.cn" />
-    <updated>2024-05-27T16:32:41+08:00</updated>
+    <updated>2024-05-27T16:54:58+08:00</updated>
     <author>
         <name>HEIN</name>
     </author>
@@ -274,7 +274,7 @@ $PROJ_ROOT/out/rpi4/packages/phone/images/ramdisk.img</code></pre>
 <p>总之，查询后设备的特性支持的越多，移植成功的概率就越高。</p>
 <h5>2) <span style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);">移植概述</span></h5>
 <p> </p>
-<div>① 准备OpenHarmony代码编译环境，下载源码（社区有大量帖子介绍OH环境安装，在此不再重复介绍）<br>② 官方设备（rk3568）编译一次确认环境配置正确<br>③准备postmarketOS编译环境，并进行一次编译（方便获取boot配置，内核配置，驱动固件等）<br>④ 利用第三方内核移植加入OH内核特性的方式，移植适配内核<br>⑤ 移植适配OH的init启动脚本，图形渲染框架<br>⑥ 编译OH系统刷机文件<br>⑦ 利用解包打包工具，打包出自己的boot.img<br>⑧ 利用twrp刷入boot.img，system.img，vendor.img实现OH的启动<br>
+<div>① 准备OpenHarmony代码编译环境，下载源码（社区有大量帖子介绍OH环境安装，在此不再重复介绍）<br>② 官方设备（rk3568）编译一次确认环境配置正确<br>③ 准备postmarketOS编译环境，并进行一次编译（方便获取boot配置，内核配置，驱动固件等）<br>④ 利用第三方内核移植加入OH内核特性的方式，移植适配内核<br>⑤ 移植适配OH的init启动脚本，图形渲染框架<br>⑥ 编译OH系统刷机文件<br>⑦ 利用解包打包工具，打包出自己的boot.img<br>⑧ 利用twrp刷入boot.img，system.img，vendor.img实现OH的启动<br>
 <h5>3) 移植适配相关知识储备</h5>
 <p> </p>
 ① 操作系统相关知识，设备启动相关知识<br>② Linux内核相关知识，驱动相关知识<br>③ OpenHarmony系统相关知识<br>④ Linux操作系统命令相关知识<br>⑤ 设备（安卓手机，平板，开发板等）相关知识</div>

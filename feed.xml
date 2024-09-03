@@ -3,7 +3,7 @@
     <title>HEIN&#x27;s Blog</title>
     <link href="https://blog.nasyes.cn/feed.xml" rel="self" />
     <link href="https://blog.nasyes.cn" />
-    <updated>2024-09-03T15:53:37+08:00</updated>
+    <updated>2024-09-03T16:03:34+08:00</updated>
     <author>
         <name>HEIN</name>
     </author>
@@ -29,7 +29,7 @@
 <ol>
 <li><p><strong>没有正确标记新 API</strong>：
 在 AOSP 中，添加新的 API 或更改现有的 API 需要符合严格的规范。例如，在 Android 框架代码中增加或修改 API 需要使用特定的注释（annotations），如 <code>@FlaggedApi</code>、<code>@SystemApi</code>、<code>@TestApi</code> 等。</p><p>如果新增加的静态方法没有正确标记或不符合 API 的规范要求，编译时会出现错误。</p><p><strong>解决方法</strong>：
-使用适当的注解来标记新的静态方法。例如：</p><pre><code class="language-java">@FlaggedApi
+使用适当的注解来标记新的静态方法。例如：</p><pre><code class="language-java">@FlaggedApi(&quot;Sth to describe the method.&quot;)
 public static void myNewStaticMethod() {
     // method implementation
 }

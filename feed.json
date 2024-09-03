@@ -10,6 +10,20 @@
     },
     "items": [
         {
+            "id": "https://blog.nasyes.cn/aosp-fwk-tian-jia-xin-fang-fa-bao-cuonew-api-must-be-flagged-with-flaggedapi.html",
+            "url": "https://blog.nasyes.cn/aosp-fwk-tian-jia-xin-fang-fa-bao-cuonew-api-must-be-flagged-with-flaggedapi.html",
+            "title": "AOSP FWK 添加新方法报错：New API must be flagged with @FlaggedApi",
+            "summary": "在编译 AOSP（Android Open Source Project）时，如果你增加了一个新的静态方法并且遇到了报错，可能有以下几个原因导致问题： 没有正确标记新 API： 在 AOSP 中，添加新的 API 或更改现有的 API 需要符合严格的规范。例如，在 Android 框架代码中增加或修改 API 需要使用特定的注释（annotations），如 @FlaggedApi、@SystemApi、@TestApi 等。 如果新增加的静态方法没有正确标记或不符合 API 的规范要求，编译时会出现错误。 解决方法： 使用适当的注解来标记新的静态方法。例如：&hellip;",
+            "content_html": "<p>在编译 AOSP（Android Open Source Project）时，如果你增加了一个新的静态方法并且遇到了报错，可能有以下几个原因导致问题：</p><h3 id=\"常见原因及解决方法\">常见原因及解决方法</h3>\n<ol>\n<li><p><strong>没有正确标记新 API</strong>：\n在 AOSP 中，添加新的 API 或更改现有的 API 需要符合严格的规范。例如，在 Android 框架代码中增加或修改 API 需要使用特定的注释（annotations），如 <code>@FlaggedApi</code>、<code>@SystemApi</code>、<code>@TestApi</code> 等。</p><p>如果新增加的静态方法没有正确标记或不符合 API 的规范要求，编译时会出现错误。</p><p><strong>解决方法</strong>：\n使用适当的注解来标记新的静态方法。例如：</p><pre><code class=\"language-java\">@FlaggedApi\npublic static void myNewStaticMethod() {\n    // method implementation\n}\n</code></pre>\n</li>\n<li><p><strong>API 签名检查失败</strong>：\n当你在 AOSP 中增加或更改 API 时，编译过程会检查这些更改是否符合 <code>current.txt</code>、<code>removed.txt</code> 等 API 签名文件的定义。如果增加的 API 不在这些文件中，编译会失败。</p><p><strong>解决方法</strong>：</p><ul>\n<li>更新相关的 API 签名文件，例如 <code>frameworks/base/api/current.txt</code>，将新增的 API 签名添加到该文件中。</li>\n<li>运行以下命令来生成和更新 API 签名：<pre><code class=\"language-bash\">make update-api\n</code></pre>\n</li>\n</ul>\n<p>这将自动更新 API 文件以匹配你所做的更改。</p></li>\n<li><p><strong>Java 语言层级不匹配</strong>：\nAOSP 使用特定的 Java 语言版本来编译代码。确保你使用的语法和语言特性与 AOSP 项目的 Java 编译器设置相匹配。</p><p><strong>解决方法</strong>：</p><ul>\n<li>确保你的代码没有使用高于当前 AOSP 项目所支持的 Java 版本的特性。</li>\n</ul>\n</li>\n<li><p><strong>依赖库或模块缺失</strong>：\n如果你的新方法使用了某些依赖，但这些依赖没有被正确地添加到相应的 <code>Android.bp</code> 或 <code>Android.mk</code> 构建文件中，也可能会导致编译错误。</p><p><strong>解决方法</strong>：</p><ul>\n<li>确保所有需要的依赖和模块已经在相应的构建文件中正确声明。</li>\n</ul>\n</li>\n<li><p><strong>ProGuard 混淆规则冲突</strong>：\n如果你在 <code>proguard-rules.pro</code> 文件中定义了混淆规则，这些规则可能会与新的静态方法发生冲突，导致编译错误。</p><p><strong>解决方法</strong>：</p><ul>\n<li>检查混淆规则文件，并确保其中的规则不会对新增加的静态方法产生不良影响。</li>\n</ul>\n</li>\n</ol>\n<h3 id=\"如何进一步排查问题\">如何进一步排查问题</h3>\n<ul>\n<li><strong>查看详细错误信息</strong>：编译 AOSP 时，查看输出日志中的错误信息，它通常会指出错误的具体位置和原因。</li>\n<li><strong>检查更改的文件</strong>：确保你修改的文件没有其他编译器不支持的更改。</li>\n<li><strong>清理构建环境</strong>：尝试清理构建环境，重新构建项目：<pre><code class=\"language-bash\">make clean\nmake\n</code></pre>\n</li>\n</ul>\n",
+            "author": {
+                "name": "HEIN"
+            },
+            "tags": [
+            ],
+            "date_published": "2024-09-03T15:22:26+08:00",
+            "date_modified": "2024-09-03T15:53:37+08:00"
+        },
+        {
             "id": "https://blog.nasyes.cn/openharmonyzai-shu-mei-pai-4shang-de-chu-bu-yi-zhi-he-bian-yishua-jidiao-shi.html",
             "url": "https://blog.nasyes.cn/openharmonyzai-shu-mei-pai-4shang-de-chu-bu-yi-zhi-he-bian-yishua-jidiao-shi.html",
             "title": "OpenHarmony在树莓派4B上的初步移植和编译、刷机",

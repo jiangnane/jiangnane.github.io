@@ -3,7 +3,7 @@
     <title>HEIN&#x27;s Blog</title>
     <link href="https://blog.nasyes.cn/feed.xml" rel="self" />
     <link href="https://blog.nasyes.cn" />
-    <updated>2024-09-03T16:09:40+08:00</updated>
+    <updated>2024-09-13T14:12:26+08:00</updated>
     <author>
         <name>HEIN</name>
     </author>
@@ -360,7 +360,7 @@ $PROJ_ROOT/out/rpi4/packages/phone/images/ramdisk.img</code></pre>
         </content>
     </entry>
     <entry>
-        <title>AOSP和LineageOS的代码检出、构建、刷机</title>
+        <title>如果是LineageOS 17.1+，还需要安装PythonAOSP和LineageOS的代码检出、构建、刷机</title>
         <author>
             <name>HEIN</name>
         </author>
@@ -440,8 +440,7 @@ fi
 </code></pre>
 <p>运行 source ~/.profile 导入环境变量配置</p><p>4. 安装编译需要的库</p><pre><code>sudo apt install bc bison build-essential ccache curl flex g++-multilib gcc-multilib git git-lfs gnupg gperf imagemagick lib32readline-dev lib32z1-dev libelf-dev liblz4-tool libsdl1.2-dev libssl-dev libxml2 libxml2-utils lzop pngcrush rsync schedtool squashfs-tools xsltproc zip zlib1g-dev
 </code></pre>
-<p>如果是低于Ubuntu 23.10，还需要安装lib32ncurses5-dev libncurses5 libncurses5-dev
-5. Java要求，如果是LineageOS 18.1+版本，源码自带JDK，无需自行安装<br>6. 如果是LineageOS 17.1+，还需要安装Python 3:<br><code>sudo apt install python-is-python3</code>  </p><h3 id="检出代码"><strong>检出代码</strong></h3>
+<p>如果是低于Ubuntu 23.10，还需要安装lib32ncurses5-dev libncurses5 libncurses5-dev  </p><p>5. Java要求，如果是LineageOS 18.1+版本，源码自带JDK，无需自行安装  </p><p>6. 如果是LineageOS 17.1+，还需要安装Python 3:<br><code>sudo apt install python-is-python3</code>  </p><h3 id="检出代码"><strong>检出代码</strong></h3>
 <p>7. 创建安装目录  </p><pre><code>mkdir -p ~/bin
 mkdir -p ~/android/lineage
 </code></pre>
@@ -453,7 +452,7 @@ if [ -d &quot;$HOME/bin&quot; ] ; then
     PATH=&quot;$HOME/bin:$PATH&quot;
 fi
 </code></pre>
-<p>运行 source ~/.profile 导入环境变量配置<br>9. 配置git  </p><pre><code>git config --global user.email &quot;you@example.com&quot;
+<p>运行 source ~/.profile 导入环境变量配置  </p><p>9. 配置git  </p><pre><code>git config --global user.email &quot;you@example.com&quot;
 git config --global user.name &quot;Your Name&quot;
 git lfs install
 </code></pre>
@@ -467,7 +466,7 @@ repo sync
 </code></pre>
 <p>注意：由于LineageOS的源代码包含AOSP，所以在repo init之后，sync之前做一点修改.  </p><pre><code>进入到源码根目录/.repo/manifests，打开default.xml，找到remote name=&quot;aosp&quot;节点，修改fetch=&quot;https://mirrors.tuna.tsinghua.edu.cn/git/AOSP&quot;，保存退出后再运行repo sync.
 </code></pre>
-<p>经过漫长的等待，就会下载完源代码。一定要保证github访问稳定，否则会导致代码不完整甚至下载中断，可通过多次运行repo sync来保证代码完整性<br>12. 准备设备特殊代码<br>在源代码根目录运行以下命令  </p><pre><code>source build/envsetup.sh
+<p>经过漫长的等待，就会下载完源代码。一定要保证github访问稳定，否则会导致代码不完整甚至下载中断，可通过多次运行repo sync来保证代码完整性  </p><p>12. 准备设备特殊代码<br>在源代码根目录运行以下命令  </p><pre><code>source build/envsetup.sh
 breakfast polaris
 </code></pre>
 <p>这会下载mix 2s的特殊设备配置文件和内核<br>如果你的设备已经刷过LineageOS，可以使用设备获取这些文件。<br>进入~/android/lineage/device/xiaomi/polaris 目录，接上手机并开启adb调试模式，运行<br><code>./extract-files.sh</code><br>脚本会从手机上直接获取所需的配置文件和内核。  </p><h3 id="编译代码-1"><strong>编译代码</strong></h3>

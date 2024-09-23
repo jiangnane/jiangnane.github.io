@@ -3,7 +3,7 @@
     <title>HEIN&#x27;s Blog</title>
     <link href="https://blog.nasyes.cn/feed.xml" rel="self" />
     <link href="https://blog.nasyes.cn" />
-    <updated>2024-09-23T16:08:51+08:00</updated>
+    <updated>2024-09-23T16:14:38+08:00</updated>
     <author>
         <name>HEIN</name>
     </author>
@@ -26,7 +26,7 @@
         <content type="html">
             <![CDATA[
                 <p><code>ota_from_target_files</code> 是 Android 构建系统中的一个脚本，用于从生成的 <code>target_files.zip</code> 包中创建 OTA（Over-The-Air）更新包。该工具在 Android 固件更新和设备维护过程中非常关键，通常与 AOSP 编译过程一起使用。</p><h3 id="1-什么是-ota_from_target_files">1. 什么是 <code>ota_from_target_files</code></h3>
-<figure class="jop-noMdConv"><code>ota_from_target_files</code> 是 Android 的 <code>releasetools</code> 脚本之一，它的作用是从包含系统镜像、内核、启动映像、分区表等内容的 <code>target_files.zip</code> 中生成一个完整的 OTA 更新包（<code>.zip</code> 文件）。生成的 OTA 包可以用于通过 <code>adb sideload</code> 或者直接通过系统的 OTA 机制进行升级。<br><img loading="lazy" src="./releasetools.jpg"  data-is-external-image="true"></figure>
+<figure class="jop-noMdConv"><code>ota_from_target_files</code> 是 Android 的 <code>releasetools</code> 脚本之一，它的作用是从包含系统镜像、内核、启动映像、分区表等内容的 <code>target_files.zip</code> 中生成一个完整的 OTA 更新包（<code>.zip</code> 文件）。生成的 OTA 包可以用于通过 <code>adb sideload</code> 或者直接通过系统的 OTA 机制进行升级。<br><img loading="lazy" src="./media/files/releasetools.jpg"  data-is-external-image="true"></figure>
 
 <h3 id="2-使用场景">2. 使用场景</h3>
 <ul>

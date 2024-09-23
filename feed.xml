@@ -3,7 +3,7 @@
     <title>HEIN&#x27;s Blog</title>
     <link href="https://blog.nasyes.cn/feed.xml" rel="self" />
     <link href="https://blog.nasyes.cn" />
-    <updated>2024-09-23T17:09:50+08:00</updated>
+    <updated>2024-09-23T17:52:49+08:00</updated>
     <author>
         <name>HEIN</name>
     </author>
@@ -20,12 +20,12 @@
         <updated>2024-09-23T17:08:50+08:00</updated>
             <summary>
                 <![CDATA[
-                    要进一步详细分析 Android 的 UpdateEngine 模块并且结合图文说明，下面的内容会更加深入介绍 UpdateEngine 的工作流程、关键组件、以及 A/B 分区更新机制。由于这是一个技术性强的模块，插图可以帮助理解 UpdateEngine 是如何在不同阶段执行任务的。通过流程图、分区示意图和代码片段，我们能更好地解释它的复杂性。 UpdateEngine 是 Android OTA (Over-The-Air) 更新的核心模块，它负责安全高效地下载、验证并应用系统更新。在 Android 设备升级过程中，UpdateEngine 保证了设备不会因为更新失败而损坏，这通过 A/B 分区机制完成。 完整更新会替换系统的所有文件和分区。这适用于系统大版本更新，尽管包比较大，但能够确保完整性和一致性。 增量更新只下载相对于旧版本变化的部分，大大减小了更新包的大小，节省了下载时间和流量。这种更新方式是 UpdateEngine&hellip;
+                    1. UpdateEngine 简介 UpdateEngine 是 Android OTA (Over-The-Air) 更新的核心模块，它负责安全高效地下载、验证并应用系统更新。在 Android 设备升级过程中，UpdateEngine 保证了设备不会因为更新失败而损坏，这通过 A/B 分区机制完成。 完整更新会替换系统的所有文件和分区。这适用于系统大版本更新，尽管包比较大，但能够确保完整性和一致性。 增量更新只下载相对于旧版本变化的部分，大大减小了更新包的大小，节省了下载时间和流量。这种更新方式是 UpdateEngine 的重要特性。 A/B 分区是 Android 引入的一项技术，它将系统镜像分为两个分区 (slot A 和&hellip;
                 ]]>
             </summary>
         <content type="html">
             <![CDATA[
-                <p>要进一步详细分析 Android 的 <strong>UpdateEngine</strong> 模块并且结合图文说明，下面的内容会更加深入介绍 UpdateEngine 的工作流程、关键组件、以及 A/B 分区更新机制。由于这是一个技术性强的模块，插图可以帮助理解 UpdateEngine 是如何在不同阶段执行任务的。通过流程图、分区示意图和代码片段，我们能更好地解释它的复杂性。</p><h3 id="1-updateengine-简介">1. <strong>UpdateEngine 简介</strong></h3>
+                <h3 id="1-updateengine-简介">1. <strong>UpdateEngine 简介</strong></h3>
 <p>UpdateEngine 是 Android OTA (Over-The-Air) 更新的核心模块，它负责安全高效地下载、验证并应用系统更新。在 Android 设备升级过程中，UpdateEngine 保证了设备不会因为更新失败而损坏，这通过 A/B 分区机制完成。</p><h3 id="2-ota-更新方式">2. <strong>OTA 更新方式</strong></h3>
 <h4 id="21-完整更新-full-ota">2.1 <strong>完整更新 (Full OTA)</strong></h4>
 <p>完整更新会替换系统的所有文件和分区。这适用于系统大版本更新，尽管包比较大，但能够确保完整性和一致性。</p><h4 id="22-增量更新-delta-ota">2.2 <strong>增量更新 (Delta OTA)</strong></h4>

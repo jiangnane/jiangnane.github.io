@@ -3,14 +3,14 @@
     <title>HEIN&#x27;s Blog</title>
     <link href="https://blog.nasyes.cn/feed.xml" rel="self" />
     <link href="https://blog.nasyes.cn" />
-    <updated>2024-09-23T17:52:49+08:00</updated>
+    <updated>2024-09-23T17:53:34+08:00</updated>
     <author>
         <name>HEIN</name>
     </author>
     <id>https://blog.nasyes.cn</id>
 
     <entry>
-        <title>AOSP OTA的应用：UpdateEngine流程解读</title>
+        <title>AOSP OTA包的应用：UpdateEngine流程解读</title>
         <author>
             <name>HEIN</name>
         </author>

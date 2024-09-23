@@ -3,12 +3,140 @@
     <title>HEIN&#x27;s Blog</title>
     <link href="https://blog.nasyes.cn/feed.xml" rel="self" />
     <link href="https://blog.nasyes.cn" />
-    <updated>2024-09-23T16:39:22+08:00</updated>
+    <updated>2024-09-23T17:09:50+08:00</updated>
     <author>
         <name>HEIN</name>
     </author>
     <id>https://blog.nasyes.cn</id>
 
+    <entry>
+        <title>AOSP OTA的应用：UpdateEngine流程解读</title>
+        <author>
+            <name>HEIN</name>
+        </author>
+        <link href="https://blog.nasyes.cn/aosp-otade-ying-yongupdateengineliu-cheng-jie-du.html"/>
+        <id>https://blog.nasyes.cn/aosp-otade-ying-yongupdateengineliu-cheng-jie-du.html</id>
+
+        <updated>2024-09-23T17:08:50+08:00</updated>
+            <summary>
+                <![CDATA[
+                    要进一步详细分析 Android 的 UpdateEngine 模块并且结合图文说明，下面的内容会更加深入介绍 UpdateEngine 的工作流程、关键组件、以及 A/B 分区更新机制。由于这是一个技术性强的模块，插图可以帮助理解 UpdateEngine 是如何在不同阶段执行任务的。通过流程图、分区示意图和代码片段，我们能更好地解释它的复杂性。 UpdateEngine 是 Android OTA (Over-The-Air) 更新的核心模块，它负责安全高效地下载、验证并应用系统更新。在 Android 设备升级过程中，UpdateEngine 保证了设备不会因为更新失败而损坏，这通过 A/B 分区机制完成。 完整更新会替换系统的所有文件和分区。这适用于系统大版本更新，尽管包比较大，但能够确保完整性和一致性。 增量更新只下载相对于旧版本变化的部分，大大减小了更新包的大小，节省了下载时间和流量。这种更新方式是 UpdateEngine&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                <p>要进一步详细分析 Android 的 <strong>UpdateEngine</strong> 模块并且结合图文说明，下面的内容会更加深入介绍 UpdateEngine 的工作流程、关键组件、以及 A/B 分区更新机制。由于这是一个技术性强的模块，插图可以帮助理解 UpdateEngine 是如何在不同阶段执行任务的。通过流程图、分区示意图和代码片段，我们能更好地解释它的复杂性。</p><h3 id="1-updateengine-简介">1. <strong>UpdateEngine 简介</strong></h3>
+<p>UpdateEngine 是 Android OTA (Over-The-Air) 更新的核心模块，它负责安全高效地下载、验证并应用系统更新。在 Android 设备升级过程中，UpdateEngine 保证了设备不会因为更新失败而损坏，这通过 A/B 分区机制完成。</p><h3 id="2-ota-更新方式">2. <strong>OTA 更新方式</strong></h3>
+<h4 id="21-完整更新-full-ota">2.1 <strong>完整更新 (Full OTA)</strong></h4>
+<p>完整更新会替换系统的所有文件和分区。这适用于系统大版本更新，尽管包比较大，但能够确保完整性和一致性。</p><h4 id="22-增量更新-delta-ota">2.2 <strong>增量更新 (Delta OTA)</strong></h4>
+<p>增量更新只下载相对于旧版本变化的部分，大大减小了更新包的大小，节省了下载时间和流量。这种更新方式是 UpdateEngine 的重要特性。</p><h3 id="3-ab-分区机制">3. <strong>A/B 分区机制</strong></h3>
+<p>A/B 分区是 Android 引入的一项技术，它将系统镜像分为两个分区 (slot A 和 slot B)。在更新过程中，UpdateEngine 会将更新应用到非活动分区。例如，当 <code>slot A</code> 正在运行时，更新包会写入 <code>slot B</code>，更新完成后，设备重启并从 <code>slot B</code> 启动。</p><h4 id="31-好处">3.1 <strong>好处</strong></h4>
+<ul>
+<li><strong>无缝更新</strong>：更新发生在后台，不影响用户使用设备。</li>
+<li><strong>回滚机制</strong>：如果更新失败，设备可以回滚到之前的状态，确保不会变砖。</li>
+</ul>
+<h3 id="4-工作流程">4. <strong>工作流程</strong></h3>
+<p>以下是 UpdateEngine 处理 OTA 更新的流程：</p><ol>
+<li><strong>下载更新包</strong>：通过网络下载增量或完整更新包。</li>
+<li><strong>验证更新包</strong>：在解包之前，UpdateEngine 通过校验签名和哈希值来验证更新包的真实性和完整性。</li>
+<li><strong>解压并应用更新</strong>：使用 <code>PayloadProcessor</code> 解压并将更新包写入到备用分区中。</li>
+<li><strong>切换分区</strong>：在更新完成后，系统通过重启切换到已更新的分区。</li>
+<li><strong>验证更新</strong>：更新后，系统会进行自检，确保更新已成功应用，未检测到问题时，旧分区将被标记为可以重用。</li>
+</ol>
+<h4 id="41-流程图">4.1 <strong>流程图</strong></h4>
+<p>下图展示了 UpdateEngine 的工作流程：</p><pre><code>+----------------------+  
+|     下载更新包       |
++----------+-----------+  
+           |
+           v
++----------+-----------+
+|    验证包完整性       |
++----------+-----------+
+           |
+           v
++----------+-----------+
+|   将更新写入备用分区   |
++----------+-----------+
+           |
+           v
++----------+-----------+
+|    切换分区并重启     |
++----------------------+
+</code></pre>
+<h3 id="5-关键模块">5. <strong>关键模块</strong></h3>
+<p>UpdateEngine 的设计是模块化的，主要包括以下几个部分：</p><h4 id="51-updateengineclient">5.1 <strong>UpdateEngineClient</strong></h4>
+<p>这是 UpdateEngine 的接口，用于和 Android 系统的其他组件（如系统更新界面）进行交互。它允许启动更新、监控进度以及提供回调信息。</p><pre><code class="language-cpp">class UpdateEngineClient {
+  // Starts an update process with a given URL for the OTA package.
+  void StartUpdate(const std::string&amp; update_url);
+  
+  // Provides progress updates on the OTA process.
+  void OnProgressUpdate(double progress);
+  
+  // Notifies the client when the update is completed or failed.
+  void OnComplete(bool success);
+};
+</code></pre>
+<h4 id="52-payloadprocessor">5.2 <strong>PayloadProcessor</strong></h4>
+<p>该模块处理 OTA 包的解包与更新内容的写入工作。它将下载的更新包拆解并应用到目标分区。</p><pre><code class="language-cpp">bool PayloadProcessor::ApplyPayload(const std::string&amp; payload_path, ...);
+</code></pre>
+<h4 id="53-分区验证-dm-verity">5.3 <strong>分区验证 (dm-verity)</strong></h4>
+<p>Android 使用 <code>dm-verity</code> 技术来保证系统分区在运行时没有被篡改。UpdateEngine 通过这一机制验证更新后的分区的完整性。</p><h3 id="6-ab分区的增量更新">6. <strong>A/B分区的增量更新</strong></h3>
+<p>增量更新包中的数据是基于现有的系统文件生成的。如果在 <code>slot B</code> 中没有 <code>slot A</code> 的系统文件，增量更新无法直接应用，因为它依赖于对旧文件的差异计算。</p><p>为了解决这个问题，A/B 更新机制会先确保当前活动分区（如 <code>slot A</code>）中的文件完好无损，然后将增量更新包应用到 <code>slot B</code>。这是因为增量更新包只包含相对 <code>slot A</code> 的变化，而不是整个系统。如果 <code>slot A</code> 缺失文件，更新将失败。</p><h4 id="61-增量更新关键步骤：">6.1 增量更新关键步骤：</h4>
+<ol>
+<li><p><strong>验证 <code>slot A</code> 文件的完整性</strong>：在应用增量更新之前，系统首先检查 <code>slot A</code> 是否有完整的系统文件。如果文件丢失或损坏，系统将无法继续应用增量更新。</p></li>
+<li><p><strong>差异计算与文件修补</strong>：增量更新包的内容基于 <code>slot A</code> 当前文件与目标版本的差异，<code>PayloadProcessor</code> 通过计算差异来修补 <code>slot B</code>。</p></li>
+<li><p><strong>复制缺失文件</strong>：如果 <code>slot B</code> 缺少 <code>slot A</code> 中的重要文件，系统会从 <code>slot A</code> 复制必要的文件，确保 <code>slot B</code> 能够接收增量更新。</p></li>
+</ol>
+<h4 id="62--流程图">6.2  流程图</h4>
+<pre><code>+------------------------+
+| 验证 Slot A 文件完整性  |
++-----------+------------+
+            |
+            v
++-----------+------------+
+|  从 Slot A 复制缺失文件  |
++-----------+------------+
+            |
+            v
++-----------+------------+
+|  应用增量更新到 Slot B   |
++-----------+------------+
+            |
+            v
++-----------+------------+
+|    重启并切换到 Slot B   |
++------------------------+
+</code></pre>
+<h4 id="63-核心代码流程">6.3 核心代码流程</h4>
+<p>在实际代码中，<code>PayloadProcessor</code> 负责对系统分区进行修补。具体操作步骤如下：</p><pre><code class="language-cpp">// Step 1: 验证 slot A 的文件是否完整
+if (!VerifySlotAIntegrity()) {
+    LOG(ERROR) &lt;&lt; &quot;Slot A missing critical files, cannot apply delta update.&quot;;
+    return false;
+}
+
+// Step 2: 从 slot A 复制文件到 slot B (如果需要)
+if (IsFileMissingInSlotB()) {
+    CopyFileFromSlotAtoB(&quot;system_file&quot;);
+}
+
+// Step 3: 应用增量更新到 slot B
+ApplyDeltaUpdateToSlotB(&quot;delta_update.bin&quot;);
+</code></pre>
+<h3 id="7-安全性与回滚">7. <strong>安全性与回滚</strong></h3>
+<p>UpdateEngine 提供了丰富的安全特性，确保 OTA 更新过程中的数据安全：</p><ul>
+<li><strong>签名验证</strong>：每个更新包必须经过签名，防止恶意包被执行。</li>
+<li><strong>完整性检查</strong>：更新包被验证哈希值，确保传输过程中数据没有损坏。</li>
+<li><strong>回滚机制</strong>：如果系统在新分区启动失败，会自动回滚到旧分区，保证设备正常运行。</li>
+</ul>
+<h3 id="8-日志记录与调试">8. <strong>日志记录与调试</strong></h3>
+<p>UpdateEngine 会详细记录更新过程中的日志，帮助开发者调试更新失败或其他问题。通过以下命令可以查看日志：</p><pre><code class="language-bash">adb logcat | grep update_engine
+</code></pre>
+<p>常见问题如更新包损坏、签名无效等都可以从日志中找到相关信息。</p><h3 id="9-应用实例">9. <strong>应用实例</strong></h3>
+<p>UpdateEngine 是大多数 Android 设备升级的核心部分。无论是每月的安全补丁，还是年度的 Android 大版本更新，用户通常通过 OTA 更新接收到这些变更。例如，Pixel 设备采用 A/B 分区机制，提供无缝更新体验，而其他厂商（如三星、华为）则有自己定制的更新实现。</p><p>=================================</p><p>参考文章： </p><p><a href="https://source.android.com/docs/core/ota">https://source.android.com/docs/core/ota</a>
+<a href="https://blog.csdn.net/yang_mao_shan/category_12373702.html">https://blog.csdn.net/yang_mao_shan/category_12373702.html</a></p>
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>AOSP OTA包的制作：ota_from_target_files 的详细介绍</title>
         <author>

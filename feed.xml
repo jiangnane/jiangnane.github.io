@@ -3,14 +3,14 @@
     <title>HEIN&#x27;s Blog</title>
     <link href="https://blog.nasyes.cn/feed.xml" rel="self" />
     <link href="https://blog.nasyes.cn" />
-    <updated>2024-09-26T11:20:29+08:00</updated>
+    <updated>2024-09-26T11:34:24+08:00</updated>
     <author>
         <name>HEIN</name>
     </author>
     <id>https://blog.nasyes.cn</id>
 
     <entry>
-        <title>Android11系统分区介绍</title>
+        <title>Android系统分区构成和解析：以AOSP11为例</title>
         <author>
             <name>HEIN</name>
         </author>
@@ -92,7 +92,7 @@
 <li><strong>存储效率和安全性</strong>: Android 的 A/B 分区更新方式已经通过动态分区和其他机制优化了存储使用。而 ext4 快照会占用额外的磁盘空间，并且快照的增量更新可能导致复杂性和性能问题。</li>
 <li><strong>快照回滚不适合系统级更新</strong>: 虽然快照适合文件级别的恢复，但系统更新涉及到核心系统组件，快照回滚可能不够稳定或安全。而 A/B 分区通过 Verified Boot 等机制确保系统更新的完整性和回滚的安全性。</li>
 </ol>
-
+<p>===========The End===========</p>
             ]]>
         </content>
     </entry>
@@ -286,7 +286,7 @@ boolean isUpdateAvailable = systemUpdateManager.isUpdateAvailable();
 <p><code>scripts/</code> 目录包含了一些辅助脚本，用于自动化构建、部署、测试等任务。</p><h5 id="29-tests（测试）">2.9 <code>tests/</code>（测试）</h5>
 <p>该目录包含了 <code>update_engine</code> 的单元测试和集成测试代码。确保各个模块在不同条件下都能正常工作。</p><h5 id="210-tools（工具）">2.10 <code>tools/</code>（工具）</h5>
 <p>工具目录下包含一些调试和诊断工具，用于开发者在调试 OTA 更新功能时使用。</p><hr>
-<p>Android 11 的 OTA 更新流程将更新包的下载与应用分离。APP 层负责检查和下载更新，<code>update_engine</code> 则专注于更新包的验证、应用和分区管理。增量更新技术的引入有效减少了更新包的大小，使得系统更新更加高效。</p>
+<p>Android 11 的 OTA 更新流程将更新包的下载与应用分离。APP 层负责检查和下载更新，<code>update_engine</code> 则专注于更新包的验证、应用和分区管理。增量更新技术的引入有效减少了更新包的大小，使得系统更新更加高效。</p><p>===========The End===========</p>
             ]]>
         </content>
     </entry>
@@ -374,7 +374,7 @@ RADIO/
 adb sideload out/target/product/&lt;device&gt;/ota_update_full.zip
 </code></pre>
 <p>设备进入恢复模式后，通过 <code>adb sideload</code> 命令加载并安装 OTA 包。</p><h3 id="8-总结">8. 总结</h3>
-<p><code>ota_from_target_files</code> 工具是 Android 构建系统中关键的一部分，用于生成适用于 OTA 更新的 <code>.zip</code> 包。通过正确配置和使用该工具，你可以生成完整或增量的 OTA 包，并使用这些包进行系统升级。</p>
+<p><code>ota_from_target_files</code> 工具是 Android 构建系统中关键的一部分，用于生成适用于 OTA 更新的 <code>.zip</code> 包。通过正确配置和使用该工具，你可以生成完整或增量的 OTA 包，并使用这些包进行系统升级。</p><p>===========The End===========</p>
             ]]>
         </content>
     </entry>
@@ -390,7 +390,7 @@ adb sideload out/target/product/&lt;device&gt;/ota_update_full.zip
         <updated>2024-09-20T16:23:04+08:00</updated>
             <summary>
                 <![CDATA[
-                    车联网中的 TBox（Telematics Box）是一种关键的车载终端设备，负责车辆与外部网络之间的数据交互。TBox 系统通常用于车辆远程控制、位置跟踪、故障诊断等功能。其操作系统和软件实现因不同厂商和功能需求而有所不同。以下是关于 TBox 一般运行的操作系统以及是否有开源实现的详细介绍： 虽然很多 TBox 系统采用专有技术，并且出于安全性和商业竞争原因，厂商往往不会公开其核心实现，但仍然有一些开源项目可以帮助开发 TBox 系统或其中的功能模块： GENIVI Alliance： 简介：GENIVI 是一个开源项目联盟，致力于提供标准化的汽车软件平台。虽然它主要专注于车载信息娱乐系统（IVI），但其一些开源组件也可以用于 TBox 系统开发。 地址：GENIVI AGL (Automotive Grade Linux)： 简介：AGL 是一个专注于汽车应用的开源项目，支持各种车载应用，包括 IVI、TBox、仪表盘等。AGL&hellip;
+                    车联网中的 TBox（Telematics Box）是一种关键的车载终端设备，负责车辆与外部网络之间的数据交互。TBox 系统通常用于车辆远程控制、位置跟踪、故障诊断等功能。其操作系统和软件实现因不同厂商和功能需求而有所不同。以下是关于 TBox 一般运行的操作系统以及是否有开源实现的详细介绍： 虽然很多 TBox 系统采用专有技术，并且出于安全性和商业竞争原因，厂商往往不会公开其核心实现，但仍然有一些开源项目可以帮助开发 TBox 系统或其中的功能模块： ===========The End===========
                 ]]>
             </summary>
         <content type="html">
@@ -455,7 +455,7 @@ adb sideload out/target/product/&lt;device&gt;/ota_update_full.zip
 <li><strong>常用操作系统</strong>：TBox 通常运行嵌入式 Linux、QNX、Android Automotive 或 RTOS，如 FreeRTOS 和 VxWorks。</li>
 <li><strong>开源项目</strong>：GENIVI、AGL、Yocto Project 和 OpenXC 提供了部分车联网相关的开源实现，这些项目可以用于开发定制的 TBox 系统。</li>
 </ul>
-
+<p>===========The End===========</p>
             ]]>
         </content>
     </entry>
@@ -470,12 +470,12 @@ adb sideload out/target/product/&lt;device&gt;/ota_update_full.zip
         <updated>2024-09-03T15:22:26+08:00</updated>
             <summary>
                 <![CDATA[
-                    在编译 AOSP（Android Open Source Project）时，如果你增加了一个新的静态方法并且遇到了报错，可能有以下几个原因导致问题： 没有正确标记新 API： 在 AOSP 中，添加新的 API 或更改现有的 API 需要符合严格的规范。例如，在 Android 框架代码中增加或修改 API 需要使用特定的注释（annotations），如 @FlaggedApi、@SystemApi、@TestApi 等。 如果新增加的静态方法没有正确标记或不符合 API 的规范要求，编译时会出现错误。 解决方法： 使用适当的注解来标记新的静态方法。例如：&hellip;
+                    在编译 AOSP（Android Open Source Project）时，如果你增加了一个新的静态方法并且遇到了报错，可参考以下方法解决。 没有正确标记新 API： 在 AOSP 中，添加新的 API 或更改现有的 API 需要符合严格的规范。例如，在 Android 框架代码中增加或修改 API 需要使用特定的注释（annotations），如 @FlaggedApi、@SystemApi、@TestApi 等。 如果新增加的静态方法没有正确标记或不符合 API 的规范要求，编译时会出现错误。 解决方法： 使用适当的注解来标记新的静态方法。例如：&hellip;
                 ]]>
             </summary>
         <content type="html">
             <![CDATA[
-                <p>在编译 AOSP（Android Open Source Project）时，如果你增加了一个新的静态方法并且遇到了报错，可能有以下几个原因导致问题：</p><h3 id="常见原因及解决方法">常见原因及解决方法</h3>
+                <p>在编译 AOSP（Android Open Source Project）时，如果你增加了一个新的静态方法并且遇到了报错，可参考以下方法解决。</p><h3 id="常见原因及解决方法">常见原因及解决方法</h3>
 <ol>
 <li><p><strong>没有正确标记新 API</strong>：
 在 AOSP 中，添加新的 API 或更改现有的 API 需要符合严格的规范。例如，在 Android 框架代码中增加或修改 API 需要使用特定的注释（annotations），如 <code>@FlaggedApi</code>、<code>@SystemApi</code>、<code>@TestApi</code> 等。</p><p>如果新增加的静态方法没有正确标记或不符合 API 的规范要求，编译时会出现错误。</p><p><strong>解决方法</strong>：

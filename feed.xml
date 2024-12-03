@@ -3,12 +3,447 @@
     <title>HEIN&#x27;s Blog</title>
     <link href="https://blog.nasyes.cn/feed.xml" rel="self" />
     <link href="https://blog.nasyes.cn" />
-    <updated>2024-12-03T15:08:36+08:00</updated>
+    <updated>2024-12-03T15:54:51+08:00</updated>
     <author>
         <name>HEIN</name>
     </author>
     <id>https://blog.nasyes.cn</id>
 
+    <entry>
+        <title>[GPT]Tauri技术介绍大纲</title>
+        <author>
+            <name>HEIN</name>
+        </author>
+        <link href="https://blog.nasyes.cn/gpttauriji-shu-jie-shao-da-gang.html"/>
+        <id>https://blog.nasyes.cn/gpttauriji-shu-jie-shao-da-gang.html</id>
+
+        <updated>2024-12-03T15:54:51+08:00</updated>
+            <summary>
+                <![CDATA[
+                    以下是基于 Tauri 最新版本 (2024) 特性的完整 PPT 内容提纲，涵盖全面介绍、新特性、技术架构、开发流程及未来展望等，内容丰富，适合用于技术分享。整体约 4000 字。 【参考资料】： 这套内容完整覆盖 Tauri 的最新特性，适用于技术讲解、培训或宣传场合。
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                <p>以下是基于 Tauri 最新版本 (2024) 特性的完整 PPT 内容提纲，涵盖全面介绍、新特性、技术架构、开发流程及未来展望等，内容丰富，适合用于技术分享。整体约 4000 字。</p><hr>
+<h2 id="tauri-最新技术介绍-ppt"><strong>Tauri 最新技术介绍 PPT</strong></h2>
+<h3 id="1-封面">1. <strong>封面</strong></h3>
+<ul>
+<li><strong>标题</strong>：Tauri 技术全面解析（2024 年最新版本）</li>
+<li><strong>副标题</strong>：轻量级跨平台应用开发的未来</li>
+<li><strong>作者信息</strong>：团队或演讲者名</li>
+</ul>
+<hr>
+<h3 id="2-目录">2. <strong>目录</strong></h3>
+<ol>
+<li>什么是 Tauri？</li>
+<li>Tauri 的核心特点</li>
+<li>Tauri 的新特性（2024 年更新）</li>
+<li>技术架构分析</li>
+<li>开发流程与工具支持</li>
+<li>Tauri 的跨平台能力（桌面 + 移动端）</li>
+<li>典型应用场景</li>
+<li>与其他框架的对比</li>
+<li>未来展望</li>
+<li>总结</li>
+</ol>
+<hr>
+<h3 id="3-什么是-tauri？">3. <strong>什么是 Tauri？</strong></h3>
+<h4 id="31-定义">3.1 定义</h4>
+<ul>
+<li>Tauri 是一个基于 <strong>Rust</strong> 和 <strong>Web 技术</strong> 的开源框架，用于构建跨平台桌面和移动应用。</li>
+</ul>
+<h4 id="32-设计目标">3.2 设计目标</h4>
+<ul>
+<li><strong>轻量化</strong>：生成的应用程序体积小于 10MB。</li>
+<li><strong>高性能</strong>：基于 Rust 提供系统资源接口。</li>
+<li><strong>安全性</strong>：内置强大的权限管理机制。</li>
+</ul>
+<h4 id="33-tauri-的发展">3.3 Tauri 的发展</h4>
+<ul>
+<li><strong>2019</strong> 年：框架初步发布。</li>
+<li><strong>2024</strong> 年：发布 2.0 版本，正式支持移动端【28】。</li>
+</ul>
+<hr>
+<h3 id="4-tauri-的核心特点">4. <strong>Tauri 的核心特点</strong></h3>
+<h4 id="41-跨平台支持">4.1 跨平台支持</h4>
+<ul>
+<li>覆盖桌面平台（Windows、macOS、Linux）和移动端（iOS、Android）。</li>
+</ul>
+<h4 id="42-应用体积小">4.2 应用体积小</h4>
+<ul>
+<li>无需捆绑浏览器内核，使用系统 WebView，生成应用体积通常小于 10MB。</li>
+</ul>
+<h4 id="43-高性能">4.3 高性能</h4>
+<ul>
+<li>使用 Rust 编写后端逻辑，具备强大的并发能力和低内存占用。</li>
+</ul>
+<h4 id="44-高安全性">4.4 高安全性</h4>
+<ul>
+<li>Rust 的内存安全特性减少漏洞风险。</li>
+<li>提供严格的资源访问控制。</li>
+</ul>
+<h4 id="45-模块化与灵活性">4.5 模块化与灵活性</h4>
+<ul>
+<li>支持插件机制，开发者可扩展功能，如深层链接、文件操作等。</li>
+</ul>
+<hr>
+<h3 id="5-tauri-的新特性（2024-更新）">5. <strong>Tauri 的新特性（2024 更新）</strong></h3>
+<h4 id="51-tauri-20-发布">5.1 Tauri 2.0 发布</h4>
+<ul>
+<li><strong>多窗口改进</strong>：提升多窗口应用的渲染性能。</li>
+<li><strong>状态管理增强</strong>：更高效的应用状态管理工具【28】。</li>
+</ul>
+<h4 id="52-移动端支持">5.2 移动端支持</h4>
+<ul>
+<li>全面支持 <strong>iOS</strong> 和 <strong>Android</strong>，实现桌面与移动应用统一开发。</li>
+<li>增强硬件集成，如 NFC、摄像头和条码扫描【28】。</li>
+</ul>
+<h4 id="53-插件生态扩展">5.3 插件生态扩展</h4>
+<ul>
+<li>新增功能插件，如 WebAssembly 集成、位置服务支持。</li>
+</ul>
+<h4 id="54-性能优化">5.4 性能优化</h4>
+<ul>
+<li>加快启动时间和渲染性能，尤其在资源受限的设备上表现优异。</li>
+</ul>
+<hr>
+<h3 id="6-技术架构分析">6. <strong>技术架构分析</strong></h3>
+<h4 id="61-核心架构">6.1 核心架构</h4>
+<ul>
+<li><strong>前端</strong>：现代 Web 技术（HTML、CSS、JavaScript）。</li>
+<li><strong>后端</strong>：基于 Rust，提供系统级功能支持。</li>
+<li><strong>桥接层</strong>：通过 IPC 实现前后端通信。</li>
+</ul>
+<h4 id="62-工作流程">6.2 工作流程</h4>
+<ol>
+<li>前端处理用户界面和交互。</li>
+<li>后端通过安全 API 访问文件系统、网络、设备硬件等资源。</li>
+</ol>
+<h4 id="63-插件机制">6.3 插件机制</h4>
+<ul>
+<li>插件模块化设计，可轻松集成与卸载功能。</li>
+</ul>
+<hr>
+<h3 id="7-开发流程与工具支持">7. <strong>开发流程与工具支持</strong></h3>
+<h4 id="71-开发流程">7.1 开发流程</h4>
+<ol>
+<li>安装 Tauri CLI 工具。</li>
+<li>创建项目并选择前端框架（如 React、Vue）。</li>
+<li>定义前后端通信逻辑，配置权限与插件。</li>
+<li>使用 CLI 构建桌面或移动应用。</li>
+</ol>
+<h4 id="72-工具支持">7.2 工具支持</h4>
+<ul>
+<li><strong>CLI 工具</strong>：简化项目初始化与管理。</li>
+<li><strong>调试支持</strong>：提供日志跟踪和热加载功能。</li>
+<li><strong>文档与社区</strong>：丰富的教程与插件资源。</li>
+</ul>
+<hr>
+<h3 id="8-tauri-的跨平台能力">8. <strong>Tauri 的跨平台能力</strong></h3>
+<h4 id="81-桌面支持">8.1 桌面支持</h4>
+<ul>
+<li>支持 Windows、macOS 和 Linux，适合开发企业级或消费级桌面应用。</li>
+</ul>
+<h4 id="82-移动端支持">8.2 移动端支持</h4>
+<ul>
+<li><strong>iOS 和 Android</strong>：<ul>
+<li>应用体积小，性能优越。</li>
+<li>兼容移动设备特性（如通知、深层链接）。</li>
+</ul>
+</li>
+</ul>
+<h4 id="83-全平台一致性">8.3 全平台一致性</h4>
+<ul>
+<li>代码共享，统一的开发体验。</li>
+</ul>
+<hr>
+<h3 id="9-典型应用场景">9. <strong>典型应用场景</strong></h3>
+<ul>
+<li><strong>企业工具</strong>：CRM、ERP 系统。</li>
+<li><strong>生产力工具</strong>：跨平台笔记、任务管理应用。</li>
+<li><strong>消费级应用</strong>：媒体播放器、协作软件。</li>
+</ul>
+<hr>
+<h3 id="10-与其他框架对比">10. <strong>与其他框架对比</strong></h3>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th><strong>Tauri</strong></th>
+<th><strong>Electron</strong></th>
+<th><strong>Flutter</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>应用体积</td>
+<td>小于 10MB</td>
+<td>平均 50MB 以上</td>
+<td>中等</td>
+</tr>
+<tr>
+<td>性能</td>
+<td>Rust 高效</td>
+<td>Node.js 较低</td>
+<td>Dart 性能良好</td>
+</tr>
+<tr>
+<td>跨平台能力</td>
+<td>桌面 + 移动</td>
+<td>桌面为主</td>
+<td>桌面 + 移动 + Web</td>
+</tr>
+<tr>
+<td>安全性</td>
+<td>高</td>
+<td>中等</td>
+<td>高</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="11-未来展望">11. <strong>未来展望</strong></h3>
+<h4 id="111-tauri-生态扩展">11.1 Tauri 生态扩展</h4>
+<ul>
+<li>增加更多插件支持，增强开发者体验。</li>
+</ul>
+<h4 id="112-深化移动端优化">11.2 深化移动端优化</h4>
+<ul>
+<li>提供更流畅的移动平台性能和更多硬件支持。</li>
+</ul>
+<h4 id="113-社区驱动">11.3 社区驱动</h4>
+<ul>
+<li>通过开源社区不断完善功能，支持更多平台。</li>
+</ul>
+<hr>
+<h3 id="12-总结">12. <strong>总结</strong></h3>
+<ul>
+<li><strong>轻量化</strong>：体积小、性能高，是桌面和移动开发的优质选择。</li>
+<li><strong>高安全性</strong>：Rust 提供可靠的内存安全。</li>
+<li><strong>未来潜力</strong>：移动端支持和插件生态将进一步增强其竞争力。</li>
+</ul>
+<p>【参考资料】：</p><ol>
+<li><a href="https://v2.tauri.app/">Tauri 官方博客</a>【28】</li>
+<li><a href="https://github.com/tauri-apps/tauri">GitHub 官方项目页面</a></li>
+</ol>
+<hr>
+<p>这套内容完整覆盖 Tauri 的最新特性，适用于技术讲解、培训或宣传场合。</p>
+            ]]>
+        </content>
+    </entry>
+    <entry>
+        <title>[GPT]Flutter技术介绍大纲</title>
+        <author>
+            <name>HEIN</name>
+        </author>
+        <link href="https://blog.nasyes.cn/gptflutterji-shu-jie-shao-da-gang.html"/>
+        <id>https://blog.nasyes.cn/gptflutterji-shu-jie-shao-da-gang.html</id>
+
+        <updated>2024-12-03T15:47:29+08:00</updated>
+            <summary>
+                <![CDATA[
+                    以下是关于Flutter技术介绍的完整PPT内容建议，包括背景介绍、技术特点、生态系统、应用场景、核心架构、开发工具、生态支持及未来发展等，内容丰富且全面，大约4000字： void main() { runApp(MyApp()); } class MyApp extends StatelessWidget { @override Widget build(BuildContext context) { return MaterialApp( home: Scaffold( appBar: AppBar(title: Text(&quot;Hello Flutter&quot;)), body:&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                <p>以下是关于Flutter技术介绍的完整PPT内容建议，包括背景介绍、技术特点、生态系统、应用场景、核心架构、开发工具、生态支持及未来发展等，内容丰富且全面，大约4000字：</p><hr>
+<h3 id="1-封面">1. <strong>封面</strong></h3>
+<ul>
+<li>标题：Flutter 技术介绍</li>
+<li>副标题：跨平台开发的未来</li>
+<li>作者/公司信息</li>
+</ul>
+<hr>
+<h3 id="2-目录">2. <strong>目录</strong></h3>
+<ol>
+<li>什么是 Flutter</li>
+<li>Flutter 的优势</li>
+<li>Flutter 的核心架构</li>
+<li>Dart 语言介绍</li>
+<li>Flutter 的常见组件和布局</li>
+<li>Flutter 的生态系统</li>
+<li>Flutter 在不同领域的应用</li>
+<li>Flutter 的开发工具</li>
+<li>与其他框架的对比</li>
+<li>Flutter 的未来发展</li>
+<li>总结</li>
+</ol>
+<hr>
+<h3 id="3-什么是-flutter">3. <strong>什么是 Flutter</strong></h3>
+<ul>
+<li>Flutter 是 Google 开发的一款开源跨平台 UI 框架。</li>
+<li>发布于 2017 年，支持快速构建 iOS、Android、Web、桌面及嵌入式应用。</li>
+<li>基于 Dart 编程语言，拥有高性能渲染引擎。</li>
+<li>核心理念：一次编写，多端部署（Write Once, Run Anywhere）。</li>
+</ul>
+<hr>
+<h3 id="4-flutter-的优势">4. <strong>Flutter 的优势</strong></h3>
+<ul>
+<li><strong>跨平台支持</strong>：支持 Android、iOS、Web、Windows、macOS 和 Linux 等多种平台。</li>
+<li><strong>高性能</strong>：基于自定义渲染引擎，能达到接近原生的性能。</li>
+<li><strong>丰富的组件库</strong>：提供了Material Design和Cupertino风格的组件，快速构建美观的UI。</li>
+<li><strong>开发效率高</strong>：热重载功能支持即时调试和预览。</li>
+<li><strong>灵活性高</strong>：可深度自定义控件，适应复杂的UI需求。</li>
+<li><strong>强大的社区支持</strong>：持续增长的社区贡献，提供大量插件和学习资源。</li>
+</ul>
+<hr>
+<h3 id="5-flutter-的核心架构">5. <strong>Flutter 的核心架构</strong></h3>
+<h4 id="51-分层架构">5.1 <strong>分层架构</strong></h4>
+<ol>
+<li><strong>Embedder（嵌入器）</strong>：<ul>
+<li>负责与底层操作系统交互。</li>
+<li>提供窗口创建、事件处理等功能。</li>
+</ul>
+</li>
+<li><strong>Engine（引擎）</strong>：<ul>
+<li>基于 Skia 图形库的高性能渲染引擎。</li>
+<li>支持 2D 图形、文本渲染、输入处理等。</li>
+</ul>
+</li>
+<li><strong>Framework（框架）</strong>：<ul>
+<li>使用 Dart 实现，包含 Widgets、绘图等开发接口。</li>
+</ul>
+</li>
+</ol>
+<h4 id="52-渲染流程">5.2 <strong>渲染流程</strong></h4>
+<ul>
+<li>Flutter 的渲染通过自己的 GPU 加速渲染引擎完成，避免依赖原生组件，保证一致性。</li>
+</ul>
+<hr>
+<h3 id="6-dart-语言介绍">6. <strong>Dart 语言介绍</strong></h3>
+<h4 id="61-为什么选择-dart">6.1 <strong>为什么选择 Dart</strong></h4>
+<ul>
+<li><strong>高性能</strong>：支持 JIT 和 AOT 编译。</li>
+<li><strong>轻量级</strong>：语言简洁，开发效率高。</li>
+<li><strong>易用性</strong>：语法接近 Java 和 JavaScript，适合开发者快速上手。</li>
+<li><strong>单线程模型</strong>：通过异步机制避免 UI 阻塞。</li>
+</ul>
+<h4 id="62-示例代码">6.2 <strong>示例代码</strong></h4>
+<pre><code class="language-dart">void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(title: Text(&quot;Hello Flutter&quot;)),
+        body: Center(child: Text(&quot;Welcome to Flutter!&quot;)),
+      ),
+    );
+  }
+}
+</code></pre>
+<hr>
+<h3 id="7-flutter-的常见组件和布局">7. <strong>Flutter 的常见组件和布局</strong></h3>
+<h4 id="71-基础组件">7.1 <strong>基础组件</strong></h4>
+<ul>
+<li><strong>Material Design</strong>：<ul>
+<li>提供标准的Android样式组件，如<code>AppBar</code>、<code>FloatingActionButton</code>。</li>
+</ul>
+</li>
+<li><strong>Cupertino</strong>：<ul>
+<li>提供标准的iOS样式组件，如<code>CupertinoButton</code>。</li>
+</ul>
+</li>
+</ul>
+<h4 id="72-布局系统">7.2 <strong>布局系统</strong></h4>
+<ul>
+<li>基于Widget树的声明式布局：<ul>
+<li>常用布局组件包括<code>Row</code>、<code>Column</code>、<code>Stack</code>、<code>Container</code>。</li>
+</ul>
+</li>
+</ul>
+<h4 id="73-示例代码">7.3 <strong>示例代码</strong></h4>
+<pre><code class="language-dart">Column(
+  children: [
+    Text(&#39;Hello Flutter&#39;),
+    ElevatedButton(onPressed: () {}, child: Text(&#39;Click Me&#39;)),
+  ],
+);
+</code></pre>
+<hr>
+<h3 id="8-flutter-的生态系统">8. <strong>Flutter 的生态系统</strong></h3>
+<ul>
+<li><strong>插件支持</strong>：提供丰富的开源插件库，如 <code>http</code>、<code>provider</code>、<code>shared_preferences</code>。</li>
+<li><strong>第三方工具</strong>：与 Firebase 集成支持推送、数据库、认证等功能。</li>
+<li><strong>强大的社区</strong>：通过 <a href="https://pub.dev/">pub.dev</a> 平台获取官方和社区插件。</li>
+</ul>
+<hr>
+<h3 id="9-flutter-在不同领域的应用">9. <strong>Flutter 在不同领域的应用</strong></h3>
+<h4 id="91-移动应用">9.1 <strong>移动应用</strong></h4>
+<ul>
+<li>支持 iOS 和 Android 的高性能跨平台开发。</li>
+<li>案例：Google Ads、阿里巴巴闲鱼。</li>
+</ul>
+<h4 id="92-web-应用">9.2 <strong>Web 应用</strong></h4>
+<ul>
+<li>通过 Dart 的 Web 编译器实现现代化网页。</li>
+</ul>
+<h4 id="93-桌面应用">9.3 <strong>桌面应用</strong></h4>
+<ul>
+<li>支持 Windows、macOS、Linux 原生桌面应用。</li>
+</ul>
+<h4 id="94-嵌入式设备">9.4 <strong>嵌入式设备</strong></h4>
+<ul>
+<li>在嵌入式硬件中实现高效的图形界面开发。</li>
+</ul>
+<hr>
+<h3 id="10-flutter-的开发工具">10. <strong>Flutter 的开发工具</strong></h3>
+<ul>
+<li><strong>IDE</strong>：<ul>
+<li>支持 IntelliJ IDEA、Android Studio、Visual Studio Code 等。</li>
+</ul>
+</li>
+<li><strong>调试工具</strong>：<ul>
+<li>Dart DevTools 提供性能监控、内存分析、UI 调试等功能。</li>
+</ul>
+</li>
+<li><strong>热重载</strong>：<ul>
+<li>支持在运行时即时查看代码变更效果。</li>
+</ul>
+</li>
+<li><strong>测试框架</strong>：<ul>
+<li>提供单元测试、集成测试和UI自动化测试工具。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="11-与其他框架的对比">11. <strong>与其他框架的对比</strong></h3>
+<h4 id="111-与-react-native-对比">11.1 <strong>与 React Native 对比</strong></h4>
+<ul>
+<li>Flutter 的 UI 完全独立于原生组件，React Native 依赖桥接调用。</li>
+<li>Flutter 性能更优，特别是复杂动画场景。</li>
+</ul>
+<h4 id="112-与原生开发对比">11.2 <strong>与原生开发对比</strong></h4>
+<ul>
+<li>Flutter 提供统一的代码库，节省时间，但部分平台特性需要自定义桥接。</li>
+</ul>
+<h4 id="113-与其他跨平台框架对比">11.3 <strong>与其他跨平台框架对比</strong></h4>
+<ul>
+<li>如 Xamarin、Ionic 等，Flutter 的社区活跃度和渲染性能更有优势。</li>
+</ul>
+<hr>
+<h3 id="12-flutter-的未来发展">12. <strong>Flutter 的未来发展</strong></h3>
+<ul>
+<li><strong>持续优化性能</strong>：通过减少延迟和内存占用，提升复杂场景的渲染效率。</li>
+<li><strong>Web 和桌面端的全面支持</strong>：优化 Web 和桌面端的开发体验。</li>
+<li><strong>与 Fuchsia 系统深度集成</strong>：作为 Google 新系统的默认 UI 框架。</li>
+<li><strong>生态的持续丰富</strong>：通过更多插件和社区支持满足复杂需求。</li>
+</ul>
+<hr>
+<h3 id="13-总结">13. <strong>总结</strong></h3>
+<ul>
+<li>Flutter 是一款强大且前景广阔的跨平台开发框架。</li>
+<li>它不仅提升了开发效率，还通过高性能和灵活性满足了多种场景的需求。</li>
+<li>无论是初学者还是专业开发者，都可以通过 Flutter 实现更高效的开发流程。</li>
+</ul>
+<hr>
+<p>有了这套详细内容的框架，你可以用 PowerPoint 将其制作为一套图文并茂的PPT，加入一些可视化的代码片段、架构图和应用示例，增强展示效果。</p>
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>[GPT]编译型语言和解释型语言的优缺点对比</title>
         <author>
@@ -1000,356 +1435,6 @@ adb sideload out/target/product/&lt;device&gt;/ota_update_full.zip
 <li><strong>开源项目</strong>：GENIVI、AGL、Yocto Project 和 OpenXC 提供了部分车联网相关的开源实现，这些项目可以用于开发定制的 TBox 系统。</li>
 </ul>
 <p>===========The End===========</p>
-            ]]>
-        </content>
-    </entry>
-    <entry>
-        <title>AOSP FWK 添加新方法报错：New API must be flagged with @FlaggedApi</title>
-        <author>
-            <name>HEIN</name>
-        </author>
-        <link href="https://blog.nasyes.cn/aosp-fwk-tian-jia-xin-fang-fa-bao-cuonew-api-must-be-flagged-with-flaggedapi.html"/>
-        <id>https://blog.nasyes.cn/aosp-fwk-tian-jia-xin-fang-fa-bao-cuonew-api-must-be-flagged-with-flaggedapi.html</id>
-
-        <updated>2024-09-03T15:22:26+08:00</updated>
-            <summary>
-                <![CDATA[
-                    在编译 AOSP（Android Open Source Project）时，如果你增加了一个新的静态方法并且遇到了报错，可参考以下方法解决。 没有正确标记新 API： 在 AOSP 中，添加新的 API 或更改现有的 API 需要符合严格的规范。例如，在 Android 框架代码中增加或修改 API 需要使用特定的注释（annotations），如 @FlaggedApi、@SystemApi、@TestApi 等。 如果新增加的静态方法没有正确标记或不符合 API 的规范要求，编译时会出现错误。 解决方法： 使用适当的注解来标记新的静态方法。例如：&hellip;
-                ]]>
-            </summary>
-        <content type="html">
-            <![CDATA[
-                <p>在编译 AOSP（Android Open Source Project）时，如果你增加了一个新的静态方法并且遇到了报错，可参考以下方法解决。</p><h3 id="常见原因及解决方法">常见原因及解决方法</h3>
-<ol>
-<li><p><strong>没有正确标记新 API</strong>：
-在 AOSP 中，添加新的 API 或更改现有的 API 需要符合严格的规范。例如，在 Android 框架代码中增加或修改 API 需要使用特定的注释（annotations），如 <code>@FlaggedApi</code>、<code>@SystemApi</code>、<code>@TestApi</code> 等。</p><p>如果新增加的静态方法没有正确标记或不符合 API 的规范要求，编译时会出现错误。</p><p><strong>解决方法</strong>：
-使用适当的注解来标记新的静态方法。例如：</p><pre><code class="language-java">@FlaggedApi(&quot;Sth to describe the method.&quot;)
-public static void myNewStaticMethod() {
-    // method implementation
-}
-</code></pre>
-</li>
-<li><p><strong>API 签名检查失败</strong>：
-当你在 AOSP 中增加或更改 API 时，编译过程会检查这些更改是否符合 <code>current.txt</code>、<code>removed.txt</code> 等 API 签名文件的定义。如果增加的 API 不在这些文件中，编译会失败。</p><p><strong>解决方法</strong>：</p><ul>
-<li>更新相关的 API 签名文件，例如 <code>frameworks/base/api/current.txt</code>，将新增的 API 签名添加到该文件中。</li>
-<li>运行以下命令来生成和更新 API 签名：<pre><code class="language-bash">make update-api
-</code></pre>
-</li>
-</ul>
-<p>这将自动更新 API 文件以匹配你所做的更改。</p></li>
-<li><p><strong>Java 语言层级不匹配</strong>：
-AOSP 使用特定的 Java 语言版本来编译代码。确保你使用的语法和语言特性与 AOSP 项目的 Java 编译器设置相匹配。</p><p><strong>解决方法</strong>：</p><ul>
-<li>确保你的代码没有使用高于当前 AOSP 项目所支持的 Java 版本的特性。</li>
-</ul>
-</li>
-<li><p><strong>依赖库或模块缺失</strong>：
-如果你的新方法使用了某些依赖，但这些依赖没有被正确地添加到相应的 <code>Android.bp</code> 或 <code>Android.mk</code> 构建文件中，也可能会导致编译错误。</p><p><strong>解决方法</strong>：</p><ul>
-<li>确保所有需要的依赖和模块已经在相应的构建文件中正确声明。</li>
-</ul>
-</li>
-<li><p><strong>ProGuard 混淆规则冲突</strong>：
-如果你在 <code>proguard-rules.pro</code> 文件中定义了混淆规则，这些规则可能会与新的静态方法发生冲突，导致编译错误。</p><p><strong>解决方法</strong>：</p><ul>
-<li>检查混淆规则文件，并确保其中的规则不会对新增加的静态方法产生不良影响。</li>
-</ul>
-</li>
-</ol>
-<h3 id="如何进一步排查问题">如何进一步排查问题</h3>
-<ul>
-<li><strong>查看详细错误信息</strong>：编译 AOSP 时，查看输出日志中的错误信息，它通常会指出错误的具体位置和原因。</li>
-<li><strong>检查更改的文件</strong>：确保你修改的文件没有其他编译器不支持的更改。</li>
-<li><strong>清理构建环境</strong>：尝试清理构建环境，重新构建项目：<pre><code class="language-bash">make clean
-make
-</code></pre>
-</li>
-</ul>
-
-            ]]>
-        </content>
-    </entry>
-    <entry>
-        <title>OpenHarmony在树莓派4B上的初步移植和编译、刷机</title>
-        <author>
-            <name>HEIN</name>
-        </author>
-        <link href="https://blog.nasyes.cn/openharmonyzai-shu-mei-pai-4shang-de-chu-bu-yi-zhi-he-bian-yishua-jidiao-shi.html"/>
-        <id>https://blog.nasyes.cn/openharmonyzai-shu-mei-pai-4shang-de-chu-bu-yi-zhi-he-bian-yishua-jidiao-shi.html</id>
-
-        <updated>2024-05-23T10:06:07+08:00</updated>
-            <summary>
-                <![CDATA[
-                    1. OpenHarmony简介 仓库主页：https://gitee.com/openharmony 项目官网：https://www.openharmony.cn/mainPlay OpenHarmony是由开放原子开源基金会（OpenAtom Foundation）孵化及运营的开源项目，目标是面向全场景、全连接、全智能时代，基于开源的方式，搭建一个智能终端设备操作系统的框架和平台，促进万物互联产业的繁荣发展。 鸿蒙从华为诞生之后，华为在2020年9月和2021年5月分两次将HarmonyOS的基础能力代码全部捐献给开放原子开源基金会（https://www.openatom.org），这是鸿蒙操作系统发展历程中非常重要的事件。所谓“基础能力代码”，是HarmonyOS中与华为自家的产品和商业模式无关的那部分代码。 开放原子开源基金会成立于2020年，是国内第一家开源基金会。 开放原子开源基金会在接收到华为捐赠的代码之后，就遵循 Apache 许可协议代码开源了，同时创立了一个开源项目，并将其命名为 OpenHarmony（开源鸿蒙）。下面是OpenHarmony的部分发展历程，可查阅https://gitee.com/openharmony/docs/tree/master/zh-cn/release-notes 获取更详细的信息。 Android 是一个基于 Linux 的开源软件堆栈，针对多种不同设备类型打造。下图显示了 Android 平台的主要组件。 详情可参考：https://developer.android.google.cn/guide/platform?hl=zh-cn OpenHarmony支持如下几种系统类型： 轻量系统（mini system） 面向MCU类处理器例如Arm Cortex-M、RISC-V&hellip;
-                ]]>
-            </summary>
-        <content type="html">
-            <![CDATA[
-                <h2>1. OpenHarmony简介</h2>
-<p>仓库主页：<a href="https://www.openharmony.cn/mainPlay" target="_blank" rel="noopener noreferrer">https://gitee.com/openharmony</a></p>
-<p>项目官网：<a href="https://www.openharmony.cn/mainPlay" target="_blank" rel="noopener noreferrer"></a><a href="https://www.openharmony.cn/mainPlay" target="_blank" rel="noopener noreferrer"></a><a href="https://www.openharmony.cn/mainPlay" target="_blank" rel="noopener noreferrer">https://www.openharmony.cn/mainPlay</a></p>
-<blockquote>
-<p>OpenHarmony是由开放原子开源基金会（OpenAtom Foundation）孵化及运营的开源项目，目标是面向全场景、全连接、全智能时代，基于开源的方式，搭建一个智能终端设备操作系统的框架和平台，促进万物互联产业的繁荣发展。</p>
-</blockquote>
-<div>
-<div>
-<div>
-<div> </div>
-</div>
-鸿蒙操作系统最早是由华为进行研发和发布，可查阅：<a href="https://www.harmonyos.com/cn/information/">https://www.harmonyos.com/cn/information/</a>获取华为发布鸿蒙的信息。</div>
-<div>
-<div>
-<p data-pid="nAI-2kSQ">鸿蒙从华为诞生之后，华为在2020年9月和2021年5月分两次将HarmonyOS的基础能力代码全部捐献给开放原子开源基金会<svg width="10px" height="10px" viewbox="0 0 15 15" class="css-1dvsrp"><path d="M10.89 9.477l3.06 3.059a1 1 0 0 1-1.414 1.414l-3.06-3.06a6 6 0 1 1 1.414-1.414zM6 10a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" fill="currentColor"></path></svg>（https://www.openatom.org），这是鸿蒙操作系统发展历程中非常重要的事件。所谓“基础能力代码”，是HarmonyOS中与华为自家的产品和商业模式无关的那部分代码。</p>
-<p data-pid="nAI-2kSQ">开放原子开源基金会成立于2020年，是国内第一家开源基金会。</p>
-<p data-pid="7BBS3Zl_">开放原子开源基金会在接收到华为捐赠的代码之后，就遵循 Apache 许可协议代码开源了，同时创立了一个开源项目，并将其命名为 OpenHarmony（开源鸿蒙）。下面是OpenHarmony的部分发展历程，可查阅<a href="https://gitee.com/openharmony/docs/tree/master/zh-cn/release-notes">https://gitee.com/openharmony/docs/tree/master/zh-cn/release-notes</a> 获取更详细的信息。</p>
-</div>
-</div>
-<div>下图是HarmonyOS(右)和OpenHarmony(左)的发展时间线，供参考。</div>
-<div>
-<figure class="post__image"><img loading="lazy"  src="https://blog.nasyes.cn/media/posts/3/OH-Tileline.png" alt="" width="2369" height="1347" sizes="(min-width: 920px) 703px, (min-width: 700px) calc(82vw - 35px), calc(100vw - 81px)" srcset="https://blog.nasyes.cn/media/posts/3/responsive/OH-Tileline-xs.png 300w ,https://blog.nasyes.cn/media/posts/3/responsive/OH-Tileline-sm.png 480w ,https://blog.nasyes.cn/media/posts/3/responsive/OH-Tileline-md.png 768w ,https://blog.nasyes.cn/media/posts/3/responsive/OH-Tileline-lg.png 1024w"><figcaption>HarmonyOS(右)和OpenHarmony(左)的发展时间线</figcaption></figure>
-</div>
-<h2>2. OpenHarmony和AOSP的技术架构对比</h2>
-<h3>· OpenHarmony</h3>
-OpenHarmony整体遵从分层设计，从下向上依次为：内核层、系统服务层、框架层和应用层。系统功能按照“系统 &gt; 子系统 &gt; 组件”逐级展开，在多设备部署场景下，支持根据实际需求裁剪某些非必要的组件。OpenHarmony技术架构如下所示：<br>
-<figure class="post__image" ><img loading="lazy" style="outline: 3px solid rgba(var(--color-primary-rgb), 0.55) !important;" src="https://blog.nasyes.cn/media/posts/3/OH-Stack.png" alt="OpenHarmony技术架构" width="1783" height="866" sizes="(min-width: 920px) 703px, (min-width: 700px) calc(82vw - 35px), calc(100vw - 81px)" srcset="https://blog.nasyes.cn/media/posts/3/responsive/OH-Stack-xs.png 300w ,https://blog.nasyes.cn/media/posts/3/responsive/OH-Stack-sm.png 480w ,https://blog.nasyes.cn/media/posts/3/responsive/OH-Stack-md.png 768w ,https://blog.nasyes.cn/media/posts/3/responsive/OH-Stack-lg.png 1024w">
-<figcaption >OpenHarmony技术架构</figcaption>
-</figure>
-</div>
-<blockquote>
-<div>详情可参考：<a href="https://gitee.com/openharmony#%E6%8A%80%E6%9C%AF%E6%9E%B6%E6%9E%84">https://gitee.com/openharmony#技术架构</a></div>
-</blockquote>
-<div>
-<h3>· AOSP</h3>
-<p>Android 是一个基于 Linux 的开源软件堆栈，针对多种不同设备类型打造。下图显示了 Android 平台的主要组件。</p>
-<figure class="post__image"><img loading="lazy"  src="https://blog.nasyes.cn/media/posts/3/android-stack_2x-3.png" alt="" width="800" height="1178" sizes="(min-width: 920px) 703px, (min-width: 700px) calc(82vw - 35px), calc(100vw - 81px)" srcset="https://blog.nasyes.cn/media/posts/3/responsive/android-stack_2x-3-xs.png 300w ,https://blog.nasyes.cn/media/posts/3/responsive/android-stack_2x-3-sm.png 480w ,https://blog.nasyes.cn/media/posts/3/responsive/android-stack_2x-3-md.png 768w ,https://blog.nasyes.cn/media/posts/3/responsive/android-stack_2x-3-lg.png 1024w"><figcaption>Android 软件栈</figcaption></figure>
-<blockquote>
-<p>详情可参考：<a href="https://developer.android.google.cn/guide/platform?hl=zh-cn">https://developer.android.google.cn/guide/platform?hl=zh-cn</a></p>
-</blockquote>
-</div>
-<h2>3. OpenHarmony主库版本编译</h2>
-<p>OpenHarmony支持如下几种系统类型：</p>
-<ul>
-<li>
-<p><strong>轻量系统（mini system）</strong></p>
-<p>面向MCU类处理器例如Arm Cortex-M、RISC-V 32位的设备，硬件资源极其有限，支持的设备最小内存为128KiB，可以提供多种轻量级网络协议，轻量级的图形框架，以及丰富的IOT总线读写部件等。可支撑的产品如智能家居领域的连接类模组、传感器设备、穿戴类设备等。</p>
-</li>
-<li>
-<p><strong>小型系统（small system）</strong></p>
-<p>面向应用处理器例如Arm Cortex-A的设备，支持的设备最小内存为1MiB，可以提供更高的安全能力、标准的图形框架、视频编解码的多媒体能力。可支撑的产品如智能家居领域的IP Camera、电子猫眼、路由器以及智慧出行域的行车记录仪等。</p>
-</li>
-<li>
-<p><strong>标准系统（standard system）</strong></p>
-<p>面向应用处理器例如Arm Cortex-A的设备，支持的设备最小内存为128MiB，可以提供增强的交互能力、3D GPU以及硬件合成能力、更多控件以及动效更丰富的图形能力、完整的应用框架。可支撑的产品如高端的冰箱显示屏。</p>
-</li>
-</ul>
-<p>后续内容如果没有特别说明，都是以标准系统为示例进行介绍的。</p>
-<p>官方的文档中也有详细的说明，此处仅作简要总结。</p>
-<h4>3.1 下载源码</h4>
-<p>OpenHarmony的代码以组件的形式开放，开发者可以通过如下其中一种方式获取：</p>
-<ul>
-<li>
-<p><strong>获取方式1</strong>：从码云代码仓库获取。通过repo或git工具从代码仓库中下载，此方式可获取最新代码。</p>
-</li>
-<li>
-<p><strong>获取方式2</strong>：通过<a href="https://gitee.com/link?target=https%3A%2F%2Frepo.harmonyos.com%2F%23%2Fcn%2Fhome">DevEco Marketplace</a>网站获取。访问<a href="https://gitee.com/link?target=https%3A%2F%2Frepo.harmonyos.com%2F%23%2Fcn%2Fhome">DevEco Marketplace</a>网站，查找满足需求的开源发行版，直接下载（或者定制后下载），再通过hpm-cli命令工具将所需的组件及工具链下载、安装到本地。</p>
-</li>
-<li>
-<p><strong>获取方式3</strong>：从镜像站点下载归档后的发行版压缩文件。如果要获取旧版本的源码，也可通过此方式获取，此方式下载速度较快。</p>
-</li>
-<li>
-<p><strong>获取方式4</strong>：从github代码仓库获取。通过repo或git工具从代码仓库中下载，此方式可获取最新代码。</p>
-</li>
-</ul>
-<p>详细获取方式可参考 <a href="https://gitee.com/openharmony/docs/blob/master/zh-cn/device-dev/get-code/sourcecode-acquire.md">https://gitee.com/openharmony/docs/blob/master/zh-cn/device-dev/get-code/sourcecode-acquire.md</a></p>
-<h4>3.2 编译构建</h4>
-<p>OpenHarmony编译子系统是以GN和Ninja构建为基座，对构建和配置粒度进行部件化抽象、对内建模块进行功能增强、对业务模块进行功能扩展的系统，该系统提供以下基本功能：</p>
-<ul>
-<li>以部件为最小粒度拼装产品和独立编译。</li>
-<li>支持轻量、小型、标准三种系统的解决方案级版本构建，以及用于支撑应用开发者使用IDE开发的SDK开发套件的构建。</li>
-<li>支持芯片解决方案厂商的灵活定制和独立编译。</li>
-</ul>
-<figure class="post__image"><img loading="lazy"  src="https://blog.nasyes.cn/media/posts/3/compilation_process.png" alt="" width="882" height="563" sizes="(min-width: 920px) 703px, (min-width: 700px) calc(82vw - 35px), calc(100vw - 81px)" srcset="https://blog.nasyes.cn/media/posts/3/responsive/compilation_process-xs.png 300w ,https://blog.nasyes.cn/media/posts/3/responsive/compilation_process-sm.png 480w ,https://blog.nasyes.cn/media/posts/3/responsive/compilation_process-md.png 768w ,https://blog.nasyes.cn/media/posts/3/responsive/compilation_process-lg.png 1024w"><figcaption>编译构建流程</figcaption></figure>
-<p>根据官网的提醒，编译环境目前主要支持Ubuntu18.04和Ubuntu20.04（Ubuntu22.04暂不支持）。后面会介绍22.04上的编译适配方法。</p>
-<p>完整的编译步骤可以参考<a href="https://gitee.com/openharmony/docs/blob/master/zh-cn/device-dev/subsystems/subsys-build-all.md">https://gitee.com/openharmony/docs/blob/master/zh-cn/device-dev/subsystems/subsys-build-all.md</a></p>
-<h4>3.3 打包及刷机</h4>
-<p>在不同的设备和开发板上打包和刷机的方式不完全相同，后面介绍树莓派4B设备上的打包和刷机步骤，可供其它设备参考。</p>
-<h2>4. OpenHarmony在树莓派4B上的编译和刷机步骤</h2>
-<blockquote>
-<p>IT之家 2 月 8 日消息，据<span class="profile_nickname"> OpenAtom OpenHarmony 官方消息，</span>近期，在中国科学院软件研究所的技术支撑下，<span class="accentTextColor">树莓派 4B（Raspberry Pi 4 Model B）开发板顺利通过 OpenHarmony 3.2.4 Release 版本兼容性测评</span>，并 获 颁 OpenHarmony 生 态 产 品 兼 容 性 证 书 ，突破性推动树莓派 4B 开发板加入 OpenHarmony 生态，为 OpenHarmony 落地教育、物联网和嵌入式等开发领域提供了新的支点。<br><a href="https://baijiahao.baidu.com/s?id=1790323159836926636">树莓派 4B 开发板通过开源鸿蒙 OpenHarmony 兼容性测评 </a></p>
-</blockquote>
-<p>在OpenHarmony-SIG上可以找到用于兼容性测试的树莓派4B分支，基于3.2R版本。但是这个版本在实际操作后，产生的版本无法在开发板上运行，所以参考它的步骤，做一些调整后，可产生可用的系统镜像。原步骤文档可参考：<a href="https://gitee.com/openharmony-sig/device_board_rpi/blob/OpenHarmony-3.2-Release/rpi4/README_zh.md">https://gitee.com/openharmony-sig/device_board_rpi/blob/OpenHarmony-3.2-Release/rpi4/README_zh.md</a></p>
-<h4>4.1 树莓派4B开发板介绍</h4>
-<p>树莓派由注册于英国的“Raspberry Pi 慈善基金会”开发，<span style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);">它是一款基于ARM的微型电脑主板。技术文档可参考：<a href="https://datasheets.raspberrypi.com/rpi4/raspberry-pi-4-product-brief.pdf">https://datasheets.raspberrypi.com/rpi4/raspberry-pi-4-product-brief.pdf</a></span></p>
-<figure class="post__image"><img loading="lazy"  src="https://blog.nasyes.cn/media/posts/3/rpi4.png" alt="" width="1171" height="723" sizes="(min-width: 920px) 703px, (min-width: 700px) calc(82vw - 35px), calc(100vw - 81px)" srcset="https://blog.nasyes.cn/media/posts/3/responsive/rpi4-xs.png 300w ,https://blog.nasyes.cn/media/posts/3/responsive/rpi4-sm.png 480w ,https://blog.nasyes.cn/media/posts/3/responsive/rpi4-md.png 768w ,https://blog.nasyes.cn/media/posts/3/responsive/rpi4-lg.png 1024w"><figcaption>树莓派4B开发板外观和接口介绍</figcaption></figure>
-<figure class="post__image" ><img loading="lazy" src="https://blog.nasyes.cn/media/posts/3/rpi4_specification.jpg" alt="" width="977" height="1235" sizes="(min-width: 920px) 703px, (min-width: 700px) calc(82vw - 35px), calc(100vw - 81px)" srcset="https://blog.nasyes.cn/media/posts/3/responsive/rpi4_specification-xs.jpg 300w ,https://blog.nasyes.cn/media/posts/3/responsive/rpi4_specification-sm.jpg 480w ,https://blog.nasyes.cn/media/posts/3/responsive/rpi4_specification-md.jpg 768w ,https://blog.nasyes.cn/media/posts/3/responsive/rpi4_specification-lg.jpg 1024w">
-<figcaption >树莓派4B 技术规格</figcaption>
-</figure>
-<h4>4.2 搭建开发环境</h4>
-<p>根据SIG-3.2R分支上的编译步骤进行配置后，多次尝试编译的镜像都有无法启动(黑屏)的问题，所以我们采用拉取主仓库代码+Vendor适配的方式进行配置，多次尝试后，4.0R版本可以运行在树莓派4B的版本上，此处感谢Gitee上 <a href="https://gitee.com/diemit">@diemit</a> 的答疑解惑，帮助解决和排查了很多补丁和编译的问题。</p>
-<h5>1) <span style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);">下载repo脚本文件</span></h5>
-<div>
-<ul>
-<li>注册码云gitee账号。</li>
-<li>注册码云SSH公钥，请参考码云帮助中心。</li>
-<li>安装git客户端和git-lfs并配置用户信息。</li>
-</ul>
-</div>
-<pre class="language-apacheconf"><code>git config --global user.name "yourname"
-git config --global user.email "your-email-address"
-git config --global credential.helper store</code></pre>
-<div>
-<ul>
-<li>安装码云repo工具，可以执行如下命令。</li>
-</ul>
-</div>
-<pre class="language-apacheconf"><code>curl -s https://gitee.com/oschina/repo/raw/fork_flow/repo-py3 &gt; /usr/local/bin/repo  
-pip3 install -i https://repo.huaweicloud.com/repository/pypi/simple requests</code></pre>
-<div>
-<div>如果没有权限，可下载至其他目录，并将其配置到环境变量中<br>
-<pre class="language-apacheconf"><code>mkdir ~/bin
-curl https://gitee.com/oschina/repo/raw/fork_flow/repo-py3 -o ~/bin/repo 
-chmod a+x ~/bin/repo
-pip3 install -i https://repo.huaweicloud.com/repository/pypi/simple requests</code></pre>
-</div>
-</div>
-<pre class="language-apacheconf"><code>vim ~/.bashrc               # 编辑环境变量
-export PATH=~/bin:$PATH     # 在环境变量的最后添加一行repo路径信息
-source ~/.bashrc            # 应用环境变量</code></pre>
-<h5>2) <span style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);">获取OpenHarmony标准系统源码</span></h5>
-<p><span style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);">通过repo + ssh 下载（需注册公钥，请参考码云帮助中心）。</span></p>
-<div>
-<div>
-<pre class="language-apacheconf"><code>export WORK_SPACE=/home/xxx/OpenHarmony #替换成自己定义的workspace路径
-export PROJ_ROOT=$WORK_SPACE/4.0-Release
-mkdir $WORK_SPACE
-mkdir $PROJ_ROOT
-cd $PROJ_ROOT
-#repo init -u https://gitee.com/openharmony/manifest -b OpenHarmony-4.0-Release --no-repo-verify
-repo init -u https://gitee.com/openharmony/manifest -b refs/tags/OpenHarmony-v4.0-Release --no-repo-verify
-repo sync -c
-repo forall -c 'git lfs pull'</code></pre>
-</div>
-</div>
-<p>这里要注意，上面注释掉的一行是原来的官方提供的检出4.0R版本的代码的方式，但是经过我的编译和运行测试，发现4.0R分支释放之后仍然是有代码合入的，从而引入了一些问题，导致树莓派4B移植的补丁合入出现兼容性问题。所以为了防止出现此类问题，改为检出4.0R TAG的代码，保证代码的一致性。</p>
-<h5>3) <span style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);">获取编译工具链</span></h5>
-<p>参考<a href="https://gitee.com/openharmony/docs/tree/master/zh-cn/device-dev/quick-start">OpenHamony快速入门文档</a>，基于命令行入门。</p>
-<pre class="language-apacheconf"><code>sudo apt-get update &amp;&amp; sudo apt-get install binutils git git-lfs gnupg flex bison gperf build-essential zip curl zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 lib32ncurses5-dev x11proto-core-dev libx11-dev lib32z1-dev ccache libgl1-mesa-dev libxml2-utils xsltproc unzip m4 bc gnutls-bin python3.8 python3-pip ruby default-jdk libssl-dev libtinfo5 genext2fs u-boot-tools mtools mtd-utils scons gcc-arm-none-eabi abootimg</code></pre>
-<p>此处是基于Ubuntu20.04的版本进行的工具链安装。经过实际测试，在22.04上可以按照此方法进行安装，但是由于Ubuntu22.04的系统默认Python版本是3.10，而OpenHarmony目前的编译工具均基于Python3.8进行编写。所以如果要在22.04上编译OpenHarmony系统，需要手动切换系统默认Python版本为3.8。下面是具体的切换方法，请参考。</p>
-<pre class="language-apacheconf"><code># 手动添加安装源
-# 如果添加失败，则手动编辑sources.list文件，把安装源添加到文件最后
-sudo echo 'deb https://launchpad.proxy.ustclug.org/deadsnakes/ppa/ubuntu/ jammy main' &gt;&gt; /etc/apt/sources.list
-
-# 添加证书
-sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys BA6932366A755776
-
-# 更新源后安装Python3.8
-sudo apt update
-sudo apt install -y python3.8 libpython3.8-dev python3.8-dev python3.8-distutils
-#查看当前安装的Python版本
-ls /usr/bin/python*
-# 设置Python顺序
-sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.10 1
-sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.8 2
-# 如果需要调整python3的顺序，则运行下列命令后选择新的顺序即可
-sudo update-alternatives --config python3</code></pre>
-<h5>4) <span style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);">执行预编译脚本prebuilts</span></h5>
-<p><span style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);">在源码根目录下执行脚本，安装编译器及二进制工具。</span></p>
-<div>
-<div>
-<pre class="language-apacheconf"><code>cd $PROJ_ROOT
-bash build/prebuilts_download.sh</code></pre>
-</div>
-<div>等待下载完成即可。</div>
-<h5>5) 下载树莓派4B补丁到主库代码目录中</h5>
-<div>
-<pre class="language-apacheconf"><code>git clone -b OpenHarmony-4.0-Release https://gitee.com/ohos-porting-communities/vendor_opc.git vendor/opc
-git clone -b OpenHarmony-4.0-Release https://gitee.com/ohos-porting-communities/device_board_opc.git device/board/opc
-git clone -b OpenHarmony-4.0-Release https://gitee.com/ohos-porting-communities/device_soc_opc.git device/soc/opc</code></pre>
-</div>
-<h5>6) 补丁合入</h5>
-<p>使用git合入diff补丁</p>
-<div>
-<pre class="language-apacheconf"><code>#device/board/opc/common/patches
-
-#编译白名单补丁：
-#001-build.diff -&gt; build
-
-#树莓派4B启用CPU渲染/GPU渲染黑屏修复与其他设备Mesa3D驱动修改补丁：
-#002-graphic_2d.diff -&gt; foundation/graphic/graphic_2d</code></pre>
-</div>
-<h5>7) 配置默认启动位置</h5>
-<div>
-<pre class="language-apacheconf"><code>#补丁里树莓派4B默认挂载配置为U盘启动方式，需要修改启动方式为从microSD卡启动
-#修改以下文件，切换挂载分区
-
-device/board/opc/rpi4/cfg/fstab.required
-device/board/opc/rpi4/cfg/fstab.rpi4</code></pre>
-</div>
-<div>至此代码和编译环境准备完毕。</div>
-</div>
-<h4>4.3 编译、烧录和调试</h4>
-<p>编译阶段就比较简单了，只要前面按照步骤都配置好了，编译过程应该只是时间问题。</p>
-<h5>1) <span style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);">OpenHarmony编译</span></h5>
-<pre class="language-apacheconf"><code>cd $PROJ_ROOT 
-./build.sh --product-name rpi4 --ccache --no-prebuilt-sdk</code></pre>
-<div>
-<div>编译成功提示:</div>
-</div>
-<pre class="language-apacheconf"><code>post_process
-=====build beryllium successful.</code></pre>
-<div>
-<div>编译生成的文件：</div>
-<div>
-<pre class="language-apacheconf"><code>$PROJ_ROOT/out/rpi4/packages/phone/images/system.img 
-$PROJ_ROOT/out/rpi4/packages/phone/images/vendor.img
-$PROJ_ROOT/out/rpi4/packages/phone/images/userdata.img
-$PROJ_ROOT/out/rpi4/packages/phone/images/ramdisk.img</code></pre>
-</div>
-</div>
-<h5>2) 树莓派4B打包镜像编译</h5>
-<p><span style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);">编译好OpenHarmony的文件之后使用以下命令内核并打包手机boot.img/树莓派4B完整镜像</span></p>
-<pre class="language-apacheconf"><code>#树莓派4B
-./build.sh --product-name rpi4 --ccache --no-prebuilt-sdk --build-target rpi_image</code></pre>
-<h5>3) 镜像烧录</h5>
-<pre class="language-apacheconf"><code>#树莓派4B使用Win32DiskImager烧录整合好的rpi_image.img到microSD卡中</code></pre>
-<p>至此树莓派4B即可运行OpenHarmony 4.0R的系统。</p>
-<h5>4) 调试</h5>
-<h6>A. 串口调试</h6>
-<p>串口引脚图如下：</p>
-<figure class="post__image"><img loading="lazy"  src="https://blog.nasyes.cn/media/posts/3/rpi4ck.png" alt="" width="1977" height="1069" sizes="(min-width: 920px) 703px, (min-width: 700px) calc(82vw - 35px), calc(100vw - 81px)" srcset="https://blog.nasyes.cn/media/posts/3/responsive/rpi4ck-xs.png 300w ,https://blog.nasyes.cn/media/posts/3/responsive/rpi4ck-sm.png 480w ,https://blog.nasyes.cn/media/posts/3/responsive/rpi4ck-md.png 768w ,https://blog.nasyes.cn/media/posts/3/responsive/rpi4ck-lg.png 1024w"></figure>
-<pre class="language-apacheconf"><code>(1) 连接图中6、8、10三个引脚。
-(2) 打开Xshell，新建会话，在连接的协议中选择SERIAL。
-(3) 转到串口标签，选择正确的端口号，波特率115200，完成后即可连接。</code></pre>
-<h6>B. 使用HDC工具</h6>
-<pre class="language-apacheconf"><code>(1)hdc_std shell:进入命令行
-(2)hdc_std file send {本地系统文件路径} {oh系统文件路径}:发送文件
-(3)hdc_std file recv {oh系统文件路径} {本地系统文件路径}:接收文件
-(4)hdc_std install XXX.hap:安装hap包</code></pre>
-<h4>5. OpenHarmony设备挑选和移植指南</h4>
-<h4>5.1 官方设备的挑选</h4>
-<p>目前官方社区支持的开发板可以从以下网址中获取信息：</p>
-<p><a href="https://ci.openharmony.cn/workbench/develop/all">https://ci.openharmony.cn/workbench/develop/all</a></p>
-<p>其中支持标准系统的包含以下三款(从左到右分别是恩智浦、意法半导体和瑞芯微三款芯片的板级支持)：</p>
-<figure class="post__image"><img loading="lazy"  src="https://blog.nasyes.cn/media/posts/3/standard_dev_board.png" alt="" width="2045" height="859" sizes="(min-width: 920px) 703px, (min-width: 700px) calc(82vw - 35px), calc(100vw - 81px)" srcset="https://blog.nasyes.cn/media/posts/3/responsive/standard_dev_board-xs.png 300w ,https://blog.nasyes.cn/media/posts/3/responsive/standard_dev_board-sm.png 480w ,https://blog.nasyes.cn/media/posts/3/responsive/standard_dev_board-md.png 768w ,https://blog.nasyes.cn/media/posts/3/responsive/standard_dev_board-lg.png 1024w"><figcaption>官方支持的几款标准系统开发板</figcaption></figure>
-<p>其中以RK3568芯片为主的各种国产开发板均基本都可以使用主库代码进行编译刷入，门槛较低，适配性较好。</p>
-<h4>5.2 可移植设备的挑选</h4>
-<p>除了官方社区支持的开发板，还有一种方案就是对现有的设备进行移植。特别是一些支持或兼容支持Android的设备是较为合适的选择。以下参考 <a href="https://ost.51cto.com/posts/20849">https://ost.51cto.com/posts/20849</a> ，根据作者的移植经验和总结，大致梳理一下可移植设备的初步挑选方法。</p>
-<h5>1) <span style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);">移植设备可行性评估</span></h5>
-<p> </p>
-<div>① 确认你要移植的设备可以解锁刷机<br>② 确认你的设备有TWRP类似的第三方Recovery，方便刷机<br>③ 确认有可用的内核源码版本，不是内核源码开源就能移植的，OpenHarmony的内核④ 目前为止是以标准Linux5.10内核为基础的，4.19已不再支持，移植时需要你的设备有5.10或者5.10以上的内核源码，理论上其他版本也可以，但是要求你是内核大神，精通各个版本内核的变动，并了解驱动如何升级降级适配。<br>⑤ 确认设备驱动源码、固件是否可以获取到</div>
-<p>快速评估入口：<a href="https://wiki.postmarketos.org/wiki/Devices">https://wiki.postmarketos.org/wiki/Devices</a></p>
-<p>根据表格中的提示：</p>
-<figure class="post__image align-center"><img loading="lazy"  src="https://blog.nasyes.cn/media/posts/3/devices_features_marks.png" alt="" width="381" height="181" sizes="(min-width: 920px) 703px, (min-width: 700px) calc(82vw - 35px), calc(100vw - 81px)" srcset="https://blog.nasyes.cn/media/posts/3/responsive/devices_features_marks-xs.png 300w ,https://blog.nasyes.cn/media/posts/3/responsive/devices_features_marks-sm.png 480w ,https://blog.nasyes.cn/media/posts/3/responsive/devices_features_marks-md.png 768w ,https://blog.nasyes.cn/media/posts/3/responsive/devices_features_marks-lg.png 1024w"></figure>
-<p><span style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);">尽量选择全Y的设备，至少也要是P，如果某一项没有得到Y或者P，则说明此功能大概率是不可用的状态。</span></p>
-<p>同理，如果选择Testing中的设备，那么要查看Features的可用性，举例树莓派4B：</p>
-<figure class="post__image align-center"><img loading="lazy"  src="https://blog.nasyes.cn/media/posts/3/rpi4_features_supported.png" alt="" width="338" height="658" sizes="(min-width: 920px) 703px, (min-width: 700px) calc(82vw - 35px), calc(100vw - 81px)" srcset="https://blog.nasyes.cn/media/posts/3/responsive/rpi4_features_supported-xs.png 300w ,https://blog.nasyes.cn/media/posts/3/responsive/rpi4_features_supported-sm.png 480w ,https://blog.nasyes.cn/media/posts/3/responsive/rpi4_features_supported-md.png 768w ,https://blog.nasyes.cn/media/posts/3/responsive/rpi4_features_supported-lg.png 1024w"></figure>
-<p>总之，查询后设备的特性支持的越多，移植成功的概率就越高。</p>
-<h5>2) <span style="color: var(--text-primary-color); font-family: var(--editor-font-family); font-size: inherit; font-weight: var(--font-weight-normal);">移植概述</span></h5>
-<p> </p>
-<div>① 准备OpenHarmony代码编译环境，下载源码（社区有大量帖子介绍OH环境安装，在此不再重复介绍）<br>② 官方设备（rk3568）编译一次确认环境配置正确<br>③ 准备postmarketOS编译环境，并进行一次编译（方便获取boot配置，内核配置，驱动固件等）<br>④ 利用第三方内核移植加入OH内核特性的方式，移植适配内核<br>⑤ 移植适配OH的init启动脚本，图形渲染框架<br>⑥ 编译OH系统刷机文件<br>⑦ 利用解包打包工具，打包出自己的boot.img<br>⑧ 利用twrp刷入boot.img，system.img，vendor.img实现OH的启动<br>
-<h5>3) 移植适配相关知识储备</h5>
-<p> </p>
-① 操作系统相关知识，设备启动相关知识<br>② Linux内核相关知识，驱动相关知识<br>③ OpenHarmony系统相关知识<br>④ Linux操作系统命令相关知识<br>⑤ 设备（安卓手机，平板，开发板等）相关知识</div>
-<div><br>
-<p>===========The End===========</p>
-</div>
             ]]>
         </content>
     </entry>

@@ -3,19 +3,20 @@
     <title>HEIN&#x27;s Blog</title>
     <link href="https://blog.nasyes.cn/feed.xml" rel="self" />
     <link href="https://blog.nasyes.cn" />
-    <updated>2024-12-04T11:02:14+08:00</updated>
+    <updated>2024-12-04T14:40:04+08:00</updated>
     <author>
         <name>HEIN</name>
     </author>
     <id>https://blog.nasyes.cn</id>
 
     <entry>
-        <title>[GPT]Tauri技术介绍大纲</title>
+        <title>Tauri技术介绍大纲</title>
         <author>
             <name>HEIN</name>
         </author>
         <link href="https://blog.nasyes.cn/gpttauriji-shu-jie-shao-da-gang.html"/>
         <id>https://blog.nasyes.cn/gpttauriji-shu-jie-shao-da-gang.html</id>
+            <category term="ChatGPT"/>
 
         <updated>2024-12-03T15:54:51+08:00</updated>
             <summary>
@@ -231,12 +232,13 @@
         </content>
     </entry>
     <entry>
-        <title>[GPT]Flutter技术介绍大纲</title>
+        <title>Flutter技术介绍大纲</title>
         <author>
             <name>HEIN</name>
         </author>
         <link href="https://blog.nasyes.cn/gptflutterji-shu-jie-shao-da-gang.html"/>
         <id>https://blog.nasyes.cn/gptflutterji-shu-jie-shao-da-gang.html</id>
+            <category term="ChatGPT"/>
 
         <updated>2024-12-03T15:47:29+08:00</updated>
             <summary>
@@ -445,12 +447,13 @@ class MyApp extends StatelessWidget {
         </content>
     </entry>
     <entry>
-        <title>[GPT]编译型语言和解释型语言的优缺点对比</title>
+        <title>编译型语言和解释型语言的优缺点对比</title>
         <author>
             <name>HEIN</name>
         </author>
         <link href="https://blog.nasyes.cn/gptbian-yi-xing-yu-yan-he-jie-shi-xing-yu-yan-de-you-que-dian-dui-bi.html"/>
         <id>https://blog.nasyes.cn/gptbian-yi-xing-yu-yan-he-jie-shi-xing-yu-yan-de-you-que-dian-dui-bi.html</id>
+            <category term="ChatGPT"/>
 
         <updated>2024-12-03T14:17:31+08:00</updated>
             <summary>
@@ -550,12 +553,13 @@ class MyApp extends StatelessWidget {
         </content>
     </entry>
     <entry>
-        <title>[GPT]Qt、flutter、tauri三种跨平台开发框架的横向对比</title>
+        <title>Qt、flutter、tauri三种跨平台开发框架的横向对比</title>
         <author>
             <name>HEIN</name>
         </author>
         <link href="https://blog.nasyes.cn/gptqtfluttertaurisan-zhong-kua-ping-tai-kai-fa-kuang-jia-de-heng-xiang-dui-bi.html"/>
         <id>https://blog.nasyes.cn/gptqtfluttertaurisan-zhong-kua-ping-tai-kai-fa-kuang-jia-de-heng-xiang-dui-bi.html</id>
+            <category term="ChatGPT"/>
 
         <updated>2024-11-28T15:57:35+08:00</updated>
             <summary>
@@ -739,12 +743,13 @@ class MyApp extends StatelessWidget {
         </content>
     </entry>
     <entry>
-        <title>[GPT]Qt技术介绍大纲</title>
+        <title>Qt技术介绍大纲</title>
         <author>
             <name>HEIN</name>
         </author>
         <link href="https://blog.nasyes.cn/gptqtji-shu-jie-shao-da-gang.html"/>
         <id>https://blog.nasyes.cn/gptqtji-shu-jie-shao-da-gang.html</id>
+            <category term="ChatGPT"/>
 
         <updated>2024-11-13T11:22:54+08:00</updated>
             <summary>
@@ -902,12 +907,13 @@ player-&gt;play();
         </content>
     </entry>
     <entry>
-        <title>[GPT]国内Qt应用最多的行业和领域</title>
+        <title>国内Qt应用最多的行业和领域</title>
         <author>
             <name>HEIN</name>
         </author>
         <link href="https://blog.nasyes.cn/guo-nei-qtying-yong-zui-duo-de-xing-ye-he-ling-yu.html"/>
         <id>https://blog.nasyes.cn/guo-nei-qtying-yong-zui-duo-de-xing-ye-he-ling-yu.html</id>
+            <category term="ChatGPT"/>
 
         <updated>2024-09-27T13:54:47+08:00</updated>
             <summary>
@@ -1358,7 +1364,7 @@ adb sideload out/target/product/&lt;device&gt;/ota_update_full.zip
         </content>
     </entry>
     <entry>
-        <title>[GPT]车联网TBox一般运行什么操作系统，有哪些开源实现？</title>
+        <title>车联网TBox一般运行什么操作系统，有哪些开源实现？</title>
         <author>
             <name>HEIN</name>
         </author>

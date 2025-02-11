@@ -3,14 +3,14 @@
     <title>HEIN&#x27;s Blog</title>
     <link href="https://blog.nasyes.cn/feed.xml" rel="self" />
     <link href="https://blog.nasyes.cn" />
-    <updated>2025-02-11T15:45:43+08:00</updated>
+    <updated>2025-02-11T15:49:31+08:00</updated>
     <author>
         <name>HEIN</name>
     </author>
     <id>https://blog.nasyes.cn</id>
 
     <entry>
-        <title>Android App的性能指标及合理范围</title>
+        <title>Android 应用性能指标与合理范围</title>
         <author>
             <name>HEIN</name>
         </author>
@@ -21,14 +21,12 @@
         <updated>2025-02-11T15:45:43+08:00</updated>
             <summary>
                 <![CDATA[
-                    以下是 Android 应用性能指标及其合理范围的总结，整理为 Excel 表格形式： 合理范围的灵活性： 关键指标优先级： 测试环境建议： 您可以将上述内容直接复制到 Excel 中，或使用以下简化版： 如果需要进一步优化建议或具体工具使用方法，请随时告知！
+                    分类 指标名称 合理范围 说明 测量工具 备注 启动性能 冷启动时间 &lt; 2 秒 应用首次启动到首屏完全加载的时间。 Android Profiler、adb am start 命令 超过 3 秒用户可能感到卡顿。 热启动时间 &lt; 1 秒 应用后台驻留后再次启动的时间。&hellip;
                 ]]>
             </summary>
         <content type="html">
             <![CDATA[
-                <p>以下是 Android 应用性能指标及其合理范围的总结，整理为 Excel 表格形式：</p><hr>
-<h3 id="android-应用性能指标与合理范围"><strong>Android 应用性能指标与合理范围</strong></h3>
-<table>
+                <table>
 <thead>
 <tr>
 <th><strong>分类</strong></th>
@@ -188,49 +186,7 @@
 </li>
 </ol>
 <hr>
-<h3 id="excel-表格示例"><strong>Excel 表格示例</strong></h3>
-<p>您可以将上述内容直接复制到 Excel 中，或使用以下简化版：</p><table>
-<thead>
-<tr>
-<th>分类</th>
-<th>指标名称</th>
-<th>合理范围</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>启动性能</td>
-<td>冷启动时间</td>
-<td>&lt; 2 秒</td>
-<td>首次启动到首屏加载完成的时间。</td>
-</tr>
-<tr>
-<td>内存</td>
-<td>内存占用（PSS）</td>
-<td>单 Activity &lt; 100 MB</td>
-<td>物理内存占用，需避免泄漏。</td>
-</tr>
-<tr>
-<td>流畅度</td>
-<td>帧率（FPS）</td>
-<td>≥ 60 FPS</td>
-<td>界面渲染帧率需稳定。</td>
-</tr>
-<tr>
-<td>稳定性</td>
-<td>Crash 率</td>
-<td>&lt; 0.1%</td>
-<td>应用崩溃率需严格控制。</td>
-</tr>
-<tr>
-<td>网络</td>
-<td>网络请求延迟</td>
-<td>&lt; 500 ms</td>
-<td>接口响应时间影响用户体验。</td>
-</tr>
-</tbody></table>
-<hr>
-<p>如果需要进一步优化建议或具体工具使用方法，请随时告知！</p>
+
             ]]>
         </content>
     </entry>

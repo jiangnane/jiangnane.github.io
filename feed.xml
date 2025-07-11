@@ -3,12 +3,643 @@
     <title>HEIN&#x27;s Blog</title>
     <link href="https://blog.nasyes.cn/feed.xml" rel="self" />
     <link href="https://blog.nasyes.cn" />
-    <updated>2025-07-08T17:03:27+08:00</updated>
+    <updated>2025-07-10T17:22:22+08:00</updated>
     <author>
         <name>HEIN</name>
     </author>
     <id>https://blog.nasyes.cn</id>
 
+    <entry>
+        <title>大模型行程规划_qwen3-14b</title>
+        <author>
+            <name>HEIN</name>
+        </author>
+        <link href="https://blog.nasyes.cn/da-mo-xing-xing-cheng-gui-hua_qwen3-14b.html"/>
+        <id>https://blog.nasyes.cn/da-mo-xing-xing-cheng-gui-hua_qwen3-14b.html</id>
+            <category term="大模型行程规划"/>
+
+        <updated>2025-07-10T17:19:51+08:00</updated>
+            <summary>
+                <![CDATA[
+                    qwen3-14b 帮我规划一个南京五日游的行程，包含景点信息、酒店信息、餐饮信息，各种地点要携带坐标 润色后的版本： 南京五日深度游行程规划 核心亮点： 上午 (8:00 - 12:00): 中午 (12:00 - 13:30): 下午 (14:00 - 17:30): 上午 (9:00 - 12:00): 中午 (12:30 - 14:00):&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                <p>qwen3-14b</p><hr>
+<p>帮我规划一个南京五日游的行程，包含景点信息、酒店信息、餐饮信息，各种地点要携带坐标</p><hr>
+<p>润色后的版本：</p><hr>
+<p><strong>南京五日深度游行程规划</strong></p><p><strong>核心亮点：</strong></p><ul>
+<li><strong>历史与文化交融</strong>（中山陵/明孝陵/总统府）</li>
+<li><strong>自然风光体验</strong>（玄武湖/紫金山）</li>
+<li><strong>美食探索之旅</strong>（夫子庙小吃/盐水鸭等）</li>
+<li><strong>博物馆与艺术馆</strong>（南京博物院/江宁古生物地层博物馆）</li>
+</ul>
+<hr>
+<h3 id="📅-day-1-明城墙、总统府--南京博物院">📅 Day 1: 明城墙、总统府 &amp; 南京博物院</h3>
+<ul>
+<li><p><strong>上午 (8:00 - 12:00):</strong></p><ul>
+<li><strong>景点一：南京明城墙</strong><ul>
+<li>活动：步行或骑行一段明代古城墙，感受历史厚重感。</li>
+<li><strong>坐标：</strong> <code>(25.8031, 103.4619)</code>（参考点 - 玄武湖景区东门）</li>
+</ul>
+</li>
+<li><strong>景点二：总统府</strong><ul>
+<li>活动：参观中国近代史遗址博物馆，了解孙中山等历史人物。</li>
+<li><strong>坐标：</strong> <code>(25.7923, 103.4452)</code>（中山路321号）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>中午 (12:00 - 13:30):</strong></p><ul>
+<li><strong>餐饮推荐：李记盐水鸭馆(大市上节店)</strong><ul>
+<li><strong>地址：</strong> <code>(25.7918, 103.4467)</code>（中山路附近）</li>
+<li><strong>推荐菜：</strong> 盐水鸭、秦淮鲜鱼汤</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>下午 (14:00 - 17:30):</strong></p><ul>
+<li><strong>景点三：南京博物院</strong><ul>
+<li>活动：参观中国最大的博物馆之一，了解丰富的历史文物。</li>
+<li><strong>坐标：</strong> <code>(25.8109, 103.4606)</code>（中山路321号）</li>
+</ul>
+</li>
+<li><strong>景点四：夫子庙 &amp; 珠市街</strong><ul>
+<li>活动：逛商业区，体验南京特色小吃。</li>
+<li><strong>坐标：</strong> <code>(25.8197, 103.4563)</code>（秦淮区贡院街2号）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="📅-day-2-中山陵--灵谷寺">📅 Day 2: 中山陵 &amp; 灵谷寺</h3>
+<ul>
+<li><p><strong>上午 (9:00 - 12:00):</strong></p><ul>
+<li><strong>景点一：中山陵景区</strong><ul>
+<li>活动：参观孙中山先生的陵墓，感受庄严肃穆。</li>
+<li><strong>坐标：</strong> <code>(25.7438, 103.6158)</code>（玄武区钟山风景名胜区美龄路）</li>
+</ul>
+</li>
+<li><strong>交通建议：</strong> 地铁2号线至中山门站或打车</li>
+</ul>
+</li>
+<li><p><strong>中午 (12:30 - 14:00):</strong></p><ul>
+<li><strong>餐饮推荐：</strong><ul>
+<li>景区内餐厅，或玄武门附近用餐。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>下午 (14:00 - 17:30):</strong></p><ul>
+<li><strong>景点二：灵谷寺 &amp; 紫金山南麓风光（可选）</strong><ul>
+<li>活动：参观金陵第一丛林，感受寺庙氛围。</li>
+<li><strong>坐标：</strong> <code>(25.7438, 103.6158)</code>（中山陵景区入口附近）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="📅-day-3-秦淮河畔文化游">📅 Day 3: 秦淮河畔文化游</h3>
+<ul>
+<li><p><strong>上午 (9:00 - 12:00):</strong></p><ul>
+<li><strong>景点一：秦淮河风光带 &amp; 白鹭洲公园</strong><ul>
+<li>活动：漫步在“十里秦淮”的历史文化长廊。</li>
+<li><strong>坐标：</strong> <code>(25.8047, 103.4699)</code>（白鹭洲公园段）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>中午 (12:00 - 13:30):</strong></p><ul>
+<li><strong>餐饮推荐：宋家功夫菜馆（夫子庙区域）</strong><ul>
+<li><strong>地址：</strong> <code>(25.8185, 103.4555)</code>（朱雀桥周边）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>下午 (14:00 - 17:30):</strong></p><ul>
+<li><strong>景点二：鸡鸣寺 &amp; 玄武湖公园（可选）</strong><ul>
+<li>活动：逛寺庙，游览玄武湖。</li>
+<li><strong>坐标：</strong> <code>(25.7619, 103.4855)</code>（鸡鸣寺路）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="📅-day-4-明孝陵--地质博物馆">📅 Day 4: 明孝陵 &amp; 地质博物馆</h3>
+<ul>
+<li><p><strong>上午 (9:00 - 12:00):</strong></p><ul>
+<li><strong>景点一：明孝陵景区</strong><ul>
+<li>活动：参观明朝开国皇帝朱元璋的陵墓。</li>
+<li><strong>坐标：</strong> <code>(25.8031, 104.1679)</code>（鼓楼区草场门大街）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>中午 (12:00 - 13:30):</strong></p><ul>
+<li><strong>餐饮推荐：明孝陵景区内或周边餐厅</strong></li>
+</ul>
+</li>
+<li><p><strong>下午 (14:00 - 17:30):</strong></p><ul>
+<li><strong>景点二：南京地质博物馆 / 江宁古生物地层博物馆</strong><ul>
+<li>活动：探索地球科学和古生物化石。</li>
+<li><strong>坐标：</strong> <code>(25.8031, 104.1679)</code>（鼓楼区草场门大街）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="📅-day-5-自由活动--行程结束">📅 Day 5: 自由活动 &amp; 行程结束</h3>
+<ul>
+<li><p><strong>上午 (8:30 - 11:30):</strong></p><ul>
+<li><strong>自由活动：</strong><ul>
+<li>根据交通安排，可选择游览鸡鸣寺或购买纪念品。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>中午:</strong></p><ul>
+<li><strong>餐饮推荐：</strong><ul>
+<li>鼓楼区附近餐厅</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>下午 (行程结束前):</strong></p><ul>
+<li><strong>准备返程：</strong><ul>
+<li>前往南京东站，根据航班/火车时间安排。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p><strong>住宿推荐：</strong></p><table>
+<thead>
+<tr>
+<th>区域</th>
+<th>推荐酒店</th>
+<th>坐标</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>夫子庙附近</td>
+<td>金陵美术馆附近精品民宿</td>
+<td><code>(25.8109, 103.4606)</code>（参考南京博物院附近）</td>
+</tr>
+<tr>
+<td>玄武区（中山陵周边）</td>
+<td>南京美爵丽致酒店</td>
+<td><code>(25.7619, 103.4855)</code>（鸡鸣寺路附近）</td>
+</tr>
+<tr>
+<td>鼓楼区（地质博物馆附近）</td>
+<td>鼓楼区精品酒店</td>
+<td><code>(25.8031, 104.1679)</code>（草场门大街附近）</td>
+</tr>
+</tbody></table>
+<hr>
+<p><strong>餐饮推荐汇总：</strong></p><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>地址</th>
+<th>推荐菜</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>李记盐水鸭馆(大市上节店)</td>
+<td><code>(25.7918, 103.4467)</code></td>
+<td>盐水鸭、秦淮鲜鱼汤</td>
+</tr>
+<tr>
+<td>宋家功夫菜馆（夫子庙）</td>
+<td><code>(25.8185, 103.4555)</code></td>
+<td>牛肉锅贴、小笼包</td>
+</tr>
+<tr>
+<td>老南京大排档</td>
+<td>夫子庙周边</td>
+<td>南京烤鸭、鸭血粉丝汤</td>
+</tr>
+<tr>
+<td>玄武湖附近餐厅</td>
+<td>鼓楼区</td>
+<td>家常便饭</td>
+</tr>
+</tbody></table>
+<hr>
+<p><strong>注意事项：</strong></p><ul>
+<li><strong>预约制景点：</strong> 中山陵、明孝陵等可能需提前预约。</li>
+<li><strong>交通建议：</strong> 使用地铁+步行结合，避免高峰拥堵。</li>
+<li><strong>网络覆盖：</strong> 建议购买本地流量卡或使用移动/联通套餐。</li>
+</ul>
+<p>祝您在南京度过愉快的五天！如有任何问题，请随时联系。😊</p><hr>
+<h3 id="📌-补充说明：">📌 补充说明：</h3>
+<ul>
+<li><strong>景点开放时间与门票：</strong> 请提前查询景区官网以确认最新信息。</li>
+<li><strong>交通方式：</strong><ul>
+<li><strong>地铁线路图建议：</strong> 可下载“南京地铁”App进行实时导航。</li>
+<li><strong>出租车/网约车：</strong> 推荐使用滴滴出行，支持多种车型（如快车、专车）。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>如有需要更详细的某一天行程或餐厅推荐，欢迎继续提问！😊</p><hr>
+<h3 id="📋-附件一：每日行程摘要表（可打印）">📋 附件一：每日行程摘要表（可打印）</h3>
+<table>
+<thead>
+<tr>
+<th>日期</th>
+<th>主要景点</th>
+<th>建议餐饮</th>
+<th>住宿建议</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Day1</td>
+<td>明城墙、总统府、博物院</td>
+<td>李记盐水鸭馆</td>
+<td>夫子庙附近民宿</td>
+</tr>
+<tr>
+<td>Day2</td>
+<td>中山陵、灵谷寺</td>
+<td>景区内餐厅</td>
+<td>玄武区酒店</td>
+</tr>
+<tr>
+<td>Day3</td>
+<td>秦淮河风光带</td>
+<td>宋家功夫菜馆</td>
+<td>金陵美术馆附近</td>
+</tr>
+<tr>
+<td>Day4</td>
+<td>明孝陵、地质博物馆</td>
+<td>地质博物馆周边餐厅</td>
+<td>鼓楼区酒店</td>
+</tr>
+<tr>
+<td>Day5</td>
+<td>自由活动（可选鸡鸣寺）</td>
+<td>鼓楼区餐厅</td>
+<td>根据返程安排</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="🧭-附件二：南京主要景点坐标汇总">🧭 附件二：南京主要景点坐标汇总</h3>
+<table>
+<thead>
+<tr>
+<th>景点名称</th>
+<th>坐标 (纬度, 经度)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>南京明城墙（参考）</td>
+<td><code>25.8031, 103.4619</code></td>
+</tr>
+<tr>
+<td>总统府</td>
+<td><code>25.7923, 103.4452</code></td>
+</tr>
+<tr>
+<td>南京博物院</td>
+<td><code>25.8109, 103.4606</code></td>
+</tr>
+<tr>
+<td>夫子庙</td>
+<td><code>25.8197, 103.4563</code></td>
+</tr>
+<tr>
+<td>中山陵</td>
+<td><code>25.7438, 103.6158</code></td>
+</tr>
+<tr>
+<td>灵谷寺</td>
+<td><code>25.7438, 103.6158</code>（与中山陵共用坐标）</td>
+</tr>
+<tr>
+<td>白鹭洲公园</td>
+<td><code>25.8047, 103.4699</code></td>
+</tr>
+<tr>
+<td>鸡鸣寺</td>
+<td><code>25.7619, 103.4855</code></td>
+</tr>
+<tr>
+<td>玄武湖公园</td>
+<td><code>25.7619, 103.4855</code>（与鸡鸣寺共用坐标）</td>
+</tr>
+<tr>
+<td>明孝陵</td>
+<td><code>25.8031, 104.1679</code></td>
+</tr>
+<tr>
+<td>南京地质博物馆 / 江宁古生物地层博物馆</td>
+<td><code>25.8031, 104.1679</code></td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="📞-联系方式：">📞 联系方式：</h3>
+<p>如需定制旅游计划、景点门票预订等服务，欢迎联系本地旅行社或通过以下平台：</p><ul>
+<li><strong>携程网</strong></li>
+<li><strong>飞猪网</strong></li>
+<li><strong>大众点评网（南京专区）</strong></li>
+</ul>
+<p>希望这份详细规划能为您的南京之行提供全面支持！祝您旅途愉快！😊</p><hr>
+<h3 id="❗-重要提示：">❗ 重要提示：</h3>
+<ol>
+<li><strong>节假日人流高峰：</strong> 请预留足够时间在景区内游览，避免错过主要景点。</li>
+<li><strong>天气预报：</strong> 出发前查看南京的实时天气情况，准备合适衣物（如雨伞、防晒霜等）。</li>
+<li><strong>语言文化差异：</strong> 南京话偏重于吴语，普通话普及率高，沟通无障碍。</li>
+</ol>
+<hr>
+<p>如有后续问题或需要进一步调整行程，请随时联系！😊</p><hr>
+<h3 id="📌-南京五日深度游行程规划（完整版）">📌 <strong>南京五日深度游行程规划（完整版）</strong></h3>
+<hr>
+<h2 id="✨-行程亮点">✨ 行程亮点</h2>
+<ul>
+<li><strong>历史文化之旅</strong>：总统府、中山陵、明孝陵等，感受中华文明的厚重。</li>
+<li><strong>自然风光体验</strong>：玄武湖、紫金山、夫子庙秦淮河夜景。</li>
+<li><strong>美食探索</strong>：盐水鸭、鸭血粉丝汤、牛肉锅贴、金陵小笼包。</li>
+<li><strong>博物馆与艺术馆</strong>：南京博物院、江宁古生物地层博物馆。</li>
+</ul>
+<hr>
+<h2 id="📅-day-1-明城墙、总统府--南京博物院-1">📅 Day 1: 明城墙、总统府 &amp; 南京博物院</h2>
+<h3 id="📍-上午行程">📍 上午行程</h3>
+<ul>
+<li><p><strong>景点一：南京明城墙</strong></p><ul>
+<li>活动：步行或骑行一段明代古城墙，感受历史厚重感。</li>
+<li><strong>坐标</strong>：<code>(25.8031, 103.4619)</code>（参考点 - 玄武湖景区东门）</li>
+</ul>
+</li>
+<li><p><strong>景点二：总统府</strong></p><ul>
+<li>活动：参观中国近代史遗址博物馆，了解孙中山等历史人物。</li>
+<li><strong>坐标</strong>：<code>(25.7923, 103.4452)</code>（中山路321号）</li>
+</ul>
+</li>
+</ul>
+<h3 id="🍱-午餐推荐">🍱 午餐推荐</h3>
+<ul>
+<li><strong>李记盐水鸭馆(大市上节店)</strong><ul>
+<li>地址：<code>(25.7918, 103.4467)</code>（中山路附近）</li>
+<li>推荐菜：<strong>盐水鸭、秦淮鲜鱼汤</strong></li>
+</ul>
+</li>
+</ul>
+<h3 id="📚-下午行程">📚 下午行程</h3>
+<ul>
+<li><p><strong>景点三：南京博物院</strong></p><ul>
+<li>活动：探索中国历史文化宝藏。</li>
+<li><strong>坐标</strong>：<code>(25.8109, 103.4606)</code>（鼓楼区）</li>
+</ul>
+</li>
+<li><p><strong>景点四：夫子庙夜景</strong></p><ul>
+<li>建议：夜晚前往夫子庙，欣赏秦淮河两岸灯光秀。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="📅-day-2-中山陵--灵谷寺-1">📅 Day 2: 中山陵 &amp; 灵谷寺</h2>
+<h3 id="🏞️-上午行程">🏞️ 上午行程</h3>
+<ul>
+<li><p><strong>景点一：中山陵</strong></p><ul>
+<li>活动：参观中国现代建筑与历史的结合。</li>
+<li><strong>坐标</strong>：<code>(25.7438, 103.6158)</code>（玄武区）</li>
+</ul>
+</li>
+<li><p><strong>景点二：灵谷寺</strong></p><ul>
+<li>活动：游览这座有六百多年历史的佛教圣地，参观舍利塔与“金陵第一胜迹”。</li>
+<li><strong>坐标</strong>：<code>(25.7438, 103.6158)</code>（中山陵附近）</li>
+</ul>
+</li>
+</ul>
+<h3 id="🍱-午餐推荐-1">🍱 午餐推荐</h3>
+<ul>
+<li><strong>灵谷寺周边餐厅</strong><ul>
+<li>推荐菜：南京烤鸭、素斋</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="📅-day-3-秦淮河风光--鸡鸣寺">📅 Day 3: 秦淮河风光 &amp; 鸡鸣寺</h2>
+<h3 id="🌆-上午行程">🌆 上午行程</h3>
+<ul>
+<li><strong>景点一：秦淮河（夫子庙）</strong><ul>
+<li>活动：乘船游览，感受“夜泊秦淮”。</li>
+<li><strong>坐标</strong>：<code>(25.8197, 103.4563)</code>（夫子庙周边）</li>
+</ul>
+</li>
+</ul>
+<h3 id="🍱-午餐推荐-2">🍱 午餐推荐</h3>
+<ul>
+<li><strong>宋家功夫菜馆</strong><ul>
+<li>地址：<code>(25.8185, 103.4555)</code>（夫子庙附近）</li>
+<li>推荐菜：<strong>牛肉锅贴、金陵小笼包</strong></li>
+</ul>
+</li>
+</ul>
+<h3 id="🏯-下午行程">🏯 下午行程</h3>
+<ul>
+<li><strong>景点二：鸡鸣寺</strong><ul>
+<li>活动：游览南京最古老的佛教寺庙，感受“南朝四百八十寺”。</li>
+<li><strong>坐标</strong>：<code>(25.7619, 103.4855)</code>（鼓楼区）</li>
+</ul>
+</li>
+</ul>
+<h3 id="🌿-傍晚行程">🌿 傍晚行程</h3>
+<ul>
+<li><strong>景点三：玄武湖</strong><ul>
+<li>活动：漫步在“金陵第一湖”，欣赏湖光山色。</li>
+<li><strong>坐标</strong>：<code>(25.7619, 103.4855)</code>（与鸡鸣寺共用坐标）</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="📅-day-4-明孝陵--地质博物馆-1">📅 Day 4: 明孝陵 &amp; 地质博物馆</h2>
+<h3 id="🏯-上午行程">🏯 上午行程</h3>
+<ul>
+<li><strong>景点一：明孝陵</strong><ul>
+<li>活动：参观明朝开国皇帝朱元璋的陵墓，感受古代建筑艺术。</li>
+<li><strong>坐标</strong>：<code>(25.8031, 104.1679)</code>（鼓楼区）</li>
+</ul>
+</li>
+</ul>
+<h3 id="🍱-午餐推荐-3">🍱 午餐推荐</h3>
+<ul>
+<li><strong>明孝陵周边餐厅</strong><ul>
+<li>推荐菜：南京特色小吃、家常饭菜</li>
+</ul>
+</li>
+</ul>
+<h3 id="🧪-下午行程">🧪 下午行程</h3>
+<ul>
+<li><strong>景点二：南京地质博物馆 / 江宁古生物地层博物馆</strong><ul>
+<li>活动：探索地球科学与古生物化石，适合亲子家庭。</li>
+<li><strong>坐标</strong>：<code>(25.8031, 104.1679)</code>（鼓楼区）</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="📅-day-5-自由活动--行程结束-1">📅 Day 5: 自由活动 &amp; 行程结束</h2>
+<h3 id="🧭-上午行程">🧭 上午行程</h3>
+<ul>
+<li><strong>自由活动建议</strong><ul>
+<li>若时间允许，可前往<strong>鸡鸣寺</strong>或<strong>老门东历史文化街区</strong>。</li>
+<li><strong>老门东坐标</strong>：<code>(31.9874, 118.8025)</code>（注：此为南京地图上“老门东”的大致坐标）</li>
+</ul>
+</li>
+</ul>
+<h3 id="🍱-午餐推荐-4">🍱 午餐推荐</h3>
+<ul>
+<li><strong>鼓楼区餐厅</strong><ul>
+<li>推荐菜：南京烤鸭、鸭血粉丝汤</li>
+</ul>
+</li>
+</ul>
+<h3 id="⏰-下午行程">⏰ 下午行程</h3>
+<ul>
+<li><strong>前往机场/火车站</strong>，根据航班或火车时间安排。</li>
+</ul>
+<hr>
+<h2 id="🏨-住宿推荐汇总表">🏨 住宿推荐汇总表</h2>
+<table>
+<thead>
+<tr>
+<th>区域</th>
+<th>酒店名称</th>
+<th>坐标</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>夫子庙附近</td>
+<td>金陵美术馆精品民宿</td>
+<td><code>(25.8109, 103.4606)</code>（南京博物院附近）</td>
+</tr>
+<tr>
+<td>玄武区（中山陵周边）</td>
+<td>南京美爵丽致酒店</td>
+<td><code>(25.7619, 103.4855)</code>（鸡鸣寺路附近）</td>
+</tr>
+<tr>
+<td>鼓楼区（地质博物馆附近）</td>
+<td>鼓楼区精品酒店</td>
+<td><code>(25.8031, 104.1679)</code>（草场门大街附近）</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="🍱-餐饮推荐汇总表">🍱 餐饮推荐汇总表</h2>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>地址</th>
+<th>推荐菜</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>李记盐水鸭馆(大市上节店)</td>
+<td><code>(25.7918, 103.4467)</code></td>
+<td>盐水鸭、秦淮鲜鱼汤</td>
+</tr>
+<tr>
+<td>宋家功夫菜馆（夫子庙）</td>
+<td><code>(25.8185, 103.4555)</code></td>
+<td>牛肉锅贴、金陵小笼包</td>
+</tr>
+<tr>
+<td>老南京大排档</td>
+<td>夫子庙周边</td>
+<td>南京烤鸭、鸭血粉丝汤</td>
+</tr>
+<tr>
+<td>玄武湖附近餐厅</td>
+<td>鼓楼区</td>
+<td>家常便饭</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="🧭-附件一：南京主要景点坐标汇总">🧭 附件一：南京主要景点坐标汇总</h2>
+<table>
+<thead>
+<tr>
+<th>景点名称</th>
+<th>坐标（纬度, 经度）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>南京明城墙</td>
+<td><code>(25.8031, 103.4619)</code></td>
+</tr>
+<tr>
+<td>总统府</td>
+<td><code>(25.7923, 103.4452)</code></td>
+</tr>
+<tr>
+<td>南京博物院</td>
+<td><code>(25.8109, 103.4606)</code></td>
+</tr>
+<tr>
+<td>夫子庙</td>
+<td><code>(25.8197, 103.4563)</code></td>
+</tr>
+<tr>
+<td>中山陵</td>
+<td><code>(25.7438, 103.6158)</code></td>
+</tr>
+<tr>
+<td>灵谷寺</td>
+<td><code>(25.7438, 103.6158)</code>（与中山陵共用）</td>
+</tr>
+<tr>
+<td>白鹭洲公园</td>
+<td><code>(25.8047, 103.4699)</code></td>
+</tr>
+<tr>
+<td>鸡鸣寺</td>
+<td><code>(25.7619, 103.4855)</code></td>
+</tr>
+<tr>
+<td>玄武湖公园</td>
+<td><code>(25.7619, 103.4855)</code>（与鸡鸣寺共用）</td>
+</tr>
+<tr>
+<td>明孝陵</td>
+<td><code>(25.8031, 104.1679)</code></td>
+</tr>
+<tr>
+<td>南京地质博物馆 / 江宁古生物地层博物馆</td>
+<td><code>(25.8031, 104.1679)</code></td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="📞-重要联系方式与提示">📞 重要联系方式与提示</h2>
+<h3 id="👨💼-预订建议：">👨‍💼 预订建议：</h3>
+<ul>
+<li><strong>门票预订</strong>：中山陵、明孝陵、南京博物院等景点需提前在官网或携程上购买。</li>
+<li><strong>交通方式</strong>：<ul>
+<li>推荐使用“滴滴出行”打车；</li>
+<li>下载“南京地铁”App，方便规划行程。</li>
+</ul>
+</li>
+</ul>
+<h3 id="🌤️-天气与穿着建议：">🌤️ 天气与穿着建议：</h3>
+<ul>
+<li>江苏属亚热带气候，建议携带轻便夏季衣物、雨具。</li>
+<li>秦淮河夜景较凉爽，建议带一件外套。</li>
+</ul>
+<hr>
+<h2 id="💬-最后提示">💬 最后提示</h2>
+<p>如需进一步细化某一天的行程（如亲子路线、摄影点推荐等），欢迎随时联系！祝您在南京度过一段难忘的美好时光！😊</p>
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>大模型行程规划_gemma-3n-e4b-it-text</title>
         <author>
@@ -16,6 +647,7 @@
         </author>
         <link href="https://blog.nasyes.cn/da-mo-xing-xing-cheng-gui-hua_gemma-3n-e4b-it-text.html"/>
         <id>https://blog.nasyes.cn/da-mo-xing-xing-cheng-gui-hua_gemma-3n-e4b-it-text.html</id>
+            <category term="大模型行程规划"/>
 
         <updated>2025-07-08T17:03:14+08:00</updated>
             <summary>
@@ -163,6 +795,7 @@
         </author>
         <link href="https://blog.nasyes.cn/da-mo-xing-xing-cheng-gui-hua_deepseek-r1.html"/>
         <id>https://blog.nasyes.cn/da-mo-xing-xing-cheng-gui-hua_deepseek-r1.html</id>
+            <category term="大模型行程规划"/>
 
         <updated>2025-07-08T16:59:52+08:00</updated>
             <summary>
@@ -278,6 +911,7 @@
         </author>
         <link href="https://blog.nasyes.cn/da-mo-xing-xing-cheng-gui-hua_ernie-45-turbo.html"/>
         <id>https://blog.nasyes.cn/da-mo-xing-xing-cheng-gui-hua_ernie-45-turbo.html</id>
+            <category term="大模型行程规划"/>
 
         <updated>2025-07-08T16:03:46+08:00</updated>
             <summary>
@@ -389,6 +1023,7 @@
         </author>
         <link href="https://blog.nasyes.cn/da-mo-xing-xing-cheng-gui-hua_deepseek-r114b.html"/>
         <id>https://blog.nasyes.cn/da-mo-xing-xing-cheng-gui-hua_deepseek-r114b.html</id>
+            <category term="大模型行程规划"/>
 
         <updated>2025-07-02T11:37:57+08:00</updated>
             <summary>
@@ -646,6 +1281,7 @@ eval rate:            5.38 tokens/s</li>
         </author>
         <link href="https://blog.nasyes.cn/da-mo-xing-xing-cheng-gui-hua_qwen314b.html"/>
         <id>https://blog.nasyes.cn/da-mo-xing-xing-cheng-gui-hua_qwen314b.html</id>
+            <category term="大模型行程规划"/>
 
         <updated>2025-07-02T11:07:54+08:00</updated>
             <summary>
@@ -1457,376 +2093,6 @@ fun ResponsiveContainer(
 </ul>
 <hr>
 <p>通过以上设计，可满足多分辨率下动态重排、尺寸约束与特殊元素的自适应需求，同时兼顾 View 与 Compose 两种实现方式。</p>
-            ]]>
-        </content>
-    </entry>
-    <entry>
-        <title>开源大模型与闭源大模型的对比验证方案2</title>
-        <author>
-            <name>HEIN</name>
-        </author>
-        <link href="https://blog.nasyes.cn/kai-yuan-da-mo-xing-yu-bi-yuan-da-mo-xing-yan-zheng-fang-an-2.html"/>
-        <id>https://blog.nasyes.cn/kai-yuan-da-mo-xing-yu-bi-yuan-da-mo-xing-yan-zheng-fang-an-2.html</id>
-            <category term="DeepSeek"/>
-
-        <updated>2025-04-08T16:35:27+08:00</updated>
-            <summary>
-                <![CDATA[
-                    以下是为验证自研开源大模型与供应商A能力差距设计的验证方案，包含10+个验证目标，覆盖定性与定量评估： 一、验证目标体系 (定量目标) (定性目标) 5. 创意独特性 二、实施方案设计 1. 测试环境构建 2. 核心验证流程 graph TD A[统一输入标准化] --&gt; B[并行生成测试] B --&gt; C{定量指标采集} C --&gt; D[质量评估] C --&gt; E[性能监控]&hellip;
-                ]]>
-            </summary>
-        <content type="html">
-            <![CDATA[
-                <p>以下是为验证自研开源大模型与供应商A能力差距设计的验证方案，包含10+个验证目标，覆盖定性与定量评估：</p><hr>
-<p><strong>一、验证目标体系</strong>
-<em>(定量目标)</em></p><ol>
-<li><strong>生成质量准确率</strong></li>
-</ol>
-<ul>
-<li>明信片：地标/景点/美食匹配准确率≥85%</li>
-<li>行程规划：POI符合用户需求率≥90%</li>
-</ul>
-<ol start="2">
-<li><strong>响应效率</strong></li>
-</ol>
-<ul>
-<li>明信片生成延迟≤3秒（单卡T4基准）</li>
-<li>行程规划响应时间≤8秒（千字级输出）</li>
-</ul>
-<ol start="3">
-<li><strong>资源效率</strong></li>
-</ol>
-<ul>
-<li>显存占用率低于供应商A的70%</li>
-<li>单次推理能耗成本降低50%</li>
-</ul>
-<ol start="4">
-<li><strong>动态调整能力</strong></li>
-</ol>
-<ul>
-<li>行程变更后规划合理性评分≥4.2/5</li>
-<li>模板切换生成一致率≥95%</li>
-</ul>
-<p><em>(定性目标)</em>
-5. <strong>创意独特性</strong></p><ul>
-<li>生成内容新颖度（专家评估≥3.8/5）</li>
-<li>风格标签匹配准确率（用户盲测≥80%）</li>
-</ul>
-<ol start="6">
-<li><strong>逻辑合理性</strong></li>
-</ol>
-<ul>
-<li>行程时间安排合理性（GIS路径验证）</li>
-<li>天气因素响应正确率（模拟测试）</li>
-</ul>
-<ol start="7">
-<li><strong>用户体验</strong></li>
-</ol>
-<ul>
-<li>交互友好度（NPS净推荐值对比）</li>
-<li>错误恢复能力（异常输入处理成功率）</li>
-</ul>
-<ol start="8">
-<li><strong>可解释性</strong></li>
-</ol>
-<ul>
-<li>生成决策可追溯性（支持关键节点解释）</li>
-<li>参数调整响应灵敏度（调优效果可视化）</li>
-</ul>
-<p><strong>二、实施方案设计</strong></p><p><strong>1. 测试环境构建</strong></p><ul>
-<li>硬件：2*T4 GPU集群 vs 供应商A云端实例</li>
-<li>数据集：构建覆盖30+城市、5类主题的测试集</li>
-<li>评估工具：开发自动化测试框架（含GIS路径验证模块）</li>
-</ul>
-<p><strong>2. 核心验证流程</strong></p><pre><code class="language-mermaid">graph TD
-    A[统一输入标准化] --&gt; B[并行生成测试]
-    B --&gt; C{定量指标采集}
-    C --&gt; D[质量评估]
-    C --&gt; E[性能监控]
-    D --&gt; F[专家评审]
-    E --&gt; G[资源分析]
-    F --&gt; H[差异矩阵]
-    G --&gt; H
-    H --&gt; I[改进建议]
-</code></pre>
-<p><strong>3. 关键验证方法</strong></p><ul>
-<li><strong>AB盲测机制</strong>：将双方输出混合后由100+用户评分</li>
-<li><strong>压力测试</strong>：模拟峰值请求（50QPS持续5分钟）</li>
-<li><strong>对抗测试</strong>：输入”北京+海滩”等矛盾指令验证纠错</li>
-<li><strong>长尾测试</strong>：抽取10%冷门城市数据专项评估</li>
-</ul>
-<p><strong>4. 特殊能力验证</strong></p><ul>
-<li><strong>动态规划验证</strong>：构建行程变更场景树（20+分支路径）</li>
-<li><strong>风格迁移测试</strong>：卡通→写实风格转换一致性评估</li>
-<li><strong>多模态验证</strong>：明信片图文相关性（CLIP模型评分）</li>
-</ul>
-<p><strong>5. 非性能维度验证</strong></p><ul>
-<li><strong>模型可控性</strong>：通过LoRA实现模板风格快速迁移</li>
-<li><strong>安全合规</strong>：建立敏感词过滤机制有效性验证</li>
-<li><strong>迭代成本</strong>：单次调优周期缩短至3天以内</li>
-<li><strong>知识更新</strong>：新增景点知识注入成功率≥90%</li>
-</ul>
-<p><strong>三、差异分析框架</strong>
-设计三维评估矩阵：</p><ol>
-<li>核心功能达成度</li>
-<li>用户体验满意度</li>
-<li>运维成本效益比</li>
-</ol>
-<p>每个维度设置：</p><ul>
-<li>权重系数（0.4/0.3/0.3）</li>
-<li>差异容忍阈值（&lt;15%）</li>
-<li>关键差异项追溯机制</li>
-</ul>
-<p><strong>四、交付成果</strong></p><ol>
-<li>能力差距雷达图</li>
-<li>成本效益分析模型</li>
-<li>调优路线图（分阶段）</li>
-<li>风险预警清单（含供应商锁定风险）</li>
-</ol>
-<p>该方案通过建立多维度的验证体系，既关注即时性能表现，也评估长期运营能力，特别强调在算力劣势下通过架构优化实现差异化竞争力。建议优先验证资源效率、知识更新能力等关键非性能指标，为后续决策提供技术依据。</p><hr>
-<hr>
-<p>以下是从技术实现层面细化的验证实施方法与工具方案，包含完整的验证流程设计、具体工具链和评估手段：</p><hr>
-<h3 id="一、验证实施框架设计"><strong>一、验证实施框架设计</strong></h3>
-<p><strong>1. 分层测试架构</strong></p><pre><code class="language-mermaid">graph TB
-    A[输入层] --&gt; B[接口适配器]
-    B --&gt; C{模型集群}
-    C --&gt; D[输出解析器]
-    D --&gt; E[评估矩阵]
-    E --&gt; F[可视化看板]
-    
-    subgraph 控制层
-        G[测试用例生成器]
-        H[异常注入模块]
-        I[负载模拟器]
-    end
-    G--&gt;B
-    H--&gt;B
-    I--&gt;C
-</code></pre>
-<p><strong>2. 核心工具链</strong></p><table>
-<thead>
-<tr>
-<th>功能模块</th>
-<th>工具选型</th>
-<th>关键配置参数</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>压力测试</td>
-<td>Locust+JMeter</td>
-<td>RPS=50, 持续时长=30min</td>
-</tr>
-<tr>
-<td>质量评估</td>
-<td>BERTScore+CLIP</td>
-<td>相似度阈值=0.75</td>
-</tr>
-<tr>
-<td>路径验证</td>
-<td>OSRM+OpenRouteService</td>
-<td>路网数据版本=2023Q3</td>
-</tr>
-<tr>
-<td>资源监控</td>
-<td>Prometheus+Grafana</td>
-<td>采样间隔=100ms</td>
-</tr>
-<tr>
-<td>日志分析</td>
-<td>ELK Stack</td>
-<td>日志保留周期=30天</td>
-</tr>
-<tr>
-<td>自动化测试</td>
-<td>RobotFramework+Python</td>
-<td>重试次数=3</td>
-</tr>
-</tbody></table>
-<hr>
-<h3 id="二、详细实施步骤"><strong>二、详细实施步骤</strong></h3>
-<h4 id="阶段1：基准测试环境搭建"><strong>阶段1：基准测试环境搭建</strong></h4>
-<p><strong>1.1 数据工厂构建</strong></p><ul>
-<li><p><strong>明信片测试集</strong>：</p><ul>
-<li>采集1000条标注数据（覆盖30个城市×5种风格）</li>
-<li>构建对抗样本：<code>北京+东方明珠</code>等错误关联</li>
-<li>数据格式：<pre><code class="language-json">{
-  &quot;city&quot;: &quot;巴黎&quot;,
-  &quot;required_elements&quot;: [&quot;埃菲尔铁塔&quot;, &quot;马卡龙&quot;, &quot;卢浮宫&quot;],
-  &quot;forbidden_words&quot;: [&quot;金字塔&quot;],
-  &quot;style_options&quot;: [&quot;水彩&quot;, &quot;像素风&quot;]
-}
-</code></pre>
-</li>
-</ul>
-</li>
-<li><p><strong>行程规划测试集</strong>：</p><ul>
-<li>设计50个场景模板（含10%边缘案例）：<pre><code class="language-python">scenario = {
-    &quot;theme&quot;: &quot;特种兵游&quot;,
-    &quot;constraints&quot;: [&quot;3天2夜&quot;, &quot;预算2000元&quot;],
-    &quot;dynamic_changes&quot;: [
-        {&quot;step&quot;:2, &quot;action&quot;:&quot;删除景点Eiffel Tower&quot;},
-        {&quot;step&quot;:5, &quot;action&quot;:&quot;增加加油站&quot;}
-    ]
-}
-</code></pre>
-</li>
-</ul>
-</li>
-</ul>
-<p><strong>1.2 评估指标体系</strong></p><ul>
-<li><p><strong>定量指标采集模板</strong>：</p><table>
-<thead>
-<tr>
-<th>指标类型</th>
-<th>采集方式</th>
-<th>计算逻辑</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>生成准确率</td>
-<td>与知识图谱比对</td>
-<td>(正确元素数 - 错误元素数)/总需求元素数</td>
-</tr>
-<tr>
-<td>响应延迟</td>
-<td>99分位数统计</td>
-<td>过滤前1%极端值</td>
-</tr>
-<tr>
-<td>能耗成本</td>
-<td>NVIDIA DCGM监控</td>
-<td>(功耗×时长)/(生成数量×精度)</td>
-</tr>
-</tbody></table>
-</li>
-<li><p><strong>定性评分卡</strong>（专家用）：</p><pre><code class="language-markdown">## 创意独特性评分（1-5分）
-- [ ] 元素组合新颖性
-- [ ] 风格突破常规
-- [ ] 文化契合度
-</code></pre>
-</li>
-</ul>
-<h4 id="阶段2：核心能力验证"><strong>阶段2：核心能力验证</strong></h4>
-<p><strong>2.1 明信片生成验证</strong></p><ul>
-<li><p><strong>模板兼容性测试</strong>：</p><pre><code class="language-python"># 自动化测试脚本示例
-def test_template_consistency():
-    for style in [&quot;卡通&quot;, &quot;写实&quot;]:
-        output1 = generate_postcard(city=&quot;东京&quot;, style=style)
-        output2 = generate_postcard(city=&quot;京都&quot;, style=style)
-        assert style in output1[&#39;tags&#39;], &quot;风格标签丢失&quot;
-        assert cosine_similar(output1[&#39;vector&#39;], output2[&#39;vector&#39;]) &lt; 0.3
-</code></pre>
-</li>
-<li><p><strong>多模态验证</strong>：</p><pre><code class="language-bash"># 使用CLIP模型评估图文相关性
-clip_score = clip_model(image, text_description)
-if clip_score &lt; 0.7: 
-    flag_as_failure()
-</code></pre>
-</li>
-</ul>
-<p><strong>2.2 行程规划验证</strong></p><ul>
-<li><p><strong>路径合理性验证</strong>：</p><pre><code class="language-python">def validate_route(plan):
-    osm_router = OSRM(host=&quot;http://router.project-osrm.org&quot;)
-    for day in plan[&#39;days&#39;]:
-        optimized_path = osm_router.trip(day[&#39;pois&#39;])
-        assert deviation(plan[&#39;path&#39;], optimized_path) &lt; 15%
-</code></pre>
-</li>
-<li><p><strong>动态调整测试</strong>：</p><pre><code class="language-gherkin"># BDD测试用例
-Scenario: 删除景点后的重新规划
-  Given 用户选择&quot;巴黎3日经典游&quot;
-  When 在第二天行程中删除&quot;卢浮宫&quot;
-  Then 系统应在10秒内生成新方案
-  And 新方案应包含替代景点&quot;奥赛博物馆&quot;
-  And 总行程时间误差应小于30分钟
-</code></pre>
-</li>
-</ul>
-<h4 id="阶段3：非性能维度验证"><strong>阶段3：非性能维度验证</strong></h4>
-<p><strong>3.1 安全合规性测试</strong></p><ul>
-<li><p><strong>敏感词过滤机制</strong>：</p><pre><code class="language-python">blacklist = load_blacklist(&quot;sensitive_words.txt&quot;)
-for output in generated_texts:
-    for word in blacklist:
-        assert word not in output, f&quot;敏感词泄漏：{word}&quot;
-</code></pre>
-</li>
-<li><p><strong>地理政治校验</strong>：</p><pre><code class="language-sql">-- 验证生成内容不包含争议地区
-SELECT COUNT(*) 
-FROM generated_contents 
-WHERE location IN (&#39;台湾&#39;, &#39;钓鱼岛&#39;) 
-  AND country!=&#39;中国&#39;
-</code></pre>
-</li>
-</ul>
-<p><strong>3.2 知识更新能力验证</strong></p><pre><code class="language-python"># 新增知识注入测试
-def test_knowledge_update():
-    inject_knowledge(&quot;新开通的上海地铁23号线&quot;)
-    plan = generate_plan(&quot;上海2日地铁游&quot;)
-    assert &quot;23号线&quot; in plan[&#39;transport&#39;]
-</code></pre>
-<hr>
-<h3 id="三、验证过程管理"><strong>三、验证过程管理</strong></h3>
-<p><strong>1. 执行控制台设计</strong></p><pre><code class="language-python"># 自动化调度伪代码
-class Validator:
-    def run_test_suite(self):
-        with parallel_executor(max_workers=4) as ex:
-            ex.submit(run_performance_tests)
-            ex.submit(run_accuracy_tests)
-            ex.submit(monitor_resource_usage)
-        
-        generate_report(
-            metrics=[&quot;accuracy&quot;, &quot;latency&quot;],
-            compare_with=&quot;vendor_A&quot;
-        )
-</code></pre>
-<p><strong>2. 异常处理机制</strong></p><ul>
-<li><strong>容错规则库</strong>：<pre><code class="language-yaml">rules:
-  - pattern: &quot;GPU memory exhausted&quot;
-    action: &quot;降低batch_size至4&quot;
-  - pattern: &quot;生成内容空洞&quot;
-    action: &quot;调整temperature=0.7&quot;
-</code></pre>
-</li>
-</ul>
-<p><strong>3. 数据分析方法</strong></p><ul>
-<li><p><strong>差异归因分析</strong>：</p><pre><code class="language-r"># 统计显著性检验
-t.test(vendor_A$accuracy, self_model$accuracy, 
-       alternative = &quot;greater&quot;)
-</code></pre>
-</li>
-<li><p><strong>根因定位流程</strong>：</p><pre><code class="language-mermaid">graph LR
-  A[指标异常] --&gt; B{是否性能问题?}
-  B --&gt;|是| C[分析GPU利用率曲线]
-  B --&gt;|否| D[检查prompt工程]
-  C --&gt; E[识别显存泄漏点]
-  D --&gt; F[验证few-shot示例质量]
-</code></pre>
-</li>
-</ul>
-<hr>
-<h3 id="四、验证交付物模板"><strong>四、验证交付物模板</strong></h3>
-<p><strong>1. 能力对比报告</strong></p><pre><code class="language-markdown">## 明信片生成能力对比（满分5分）
-| 维度         | 自研模型 | 供应商A | 差距分析       |
-|--------------|----------|---------|----------------|
-| 元素准确性   | 4.2      | 4.5     | 知识库覆盖不足 |
-| 风格多样性   | 3.8      | 4.7     | 缺少3D渲染能力|
-</code></pre>
-<p><strong>2. 调优路线图</strong></p><pre><code class="language-gantt">gantt
-    title 模型优化阶段规划
-    section 短期优化
-    知识库扩充     :a1, 2023-10-01, 30d
-    显存优化      :a2, after a1, 20d
-    section 中期计划
-    多模态增强    :2023-12-01, 60d
-</code></pre>
-<hr>
-<p>该方案通过工程化的测试框架设计和自动化工具链集成，实现了可重复、可量化的验证过程。特别强调：</p><ol>
-<li><strong>动态验证</strong>：支持实时修改测试参数</li>
-<li><strong>归因分析</strong>：内置根因定位工具包</li>
-<li><strong>成本控制</strong>：采用开源工具链降低验证成本</li>
-<li><strong>安全防护</strong>：建立完整的数据隔离机制</li>
-</ol>
-<p>建议在实际执行时建立基线版本快照，并采用蓝绿部署策略进行AB测试，确保验证过程不影响线上服务。</p>
             ]]>
         </content>
     </entry>

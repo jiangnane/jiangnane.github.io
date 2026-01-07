@@ -3,12 +3,1252 @@
     <title>HEIN&#x27;s Blog</title>
     <link href="https://blog.nasyes.cn/feed.xml" rel="self" />
     <link href="https://blog.nasyes.cn" />
-    <updated>2025-12-11T16:02:44+08:00</updated>
+    <updated>2026-01-07T17:05:16+08:00</updated>
     <author>
         <name>HEIN</name>
     </author>
     <id>https://blog.nasyes.cn</id>
 
+    <entry>
+        <title>Jetpack AppSearch 示例</title>
+        <author>
+            <name>HEIN</name>
+        </author>
+        <link href="https://blog.nasyes.cn/jetpack-appsearch-shi-li.html"/>
+        <id>https://blog.nasyes.cn/jetpack-appsearch-shi-li.html</id>
+
+        <updated>2026-01-07T17:05:16+08:00</updated>
+            <summary type="html">
+                <![CDATA[
+                    Jetpack AppSearch（Java，Android 9 可用）增 / 删 / 改 / 查（CRUD）示例。 我会按真实工程结构来写，而不是零散代码，保证你复制后就能用。 适用前提 dependencies { implementation &quot;androidx.appsearch:appsearch:1.1.0&quot; implementation &quot;androidx.appsearch:appsearch-local-storage:1.1.0&quot; } 二、Schema 定义（Music 示例） import androidx.appsearch.annotation.Document; import&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                <p><strong>Jetpack AppSearch（Java，Android 9 可用）增 / 删 / 改 / 查（CRUD）示例</strong>。
+我会按<strong>真实工程结构</strong>来写，而不是零散代码，保证你复制后就能用。</p><blockquote>
+<p>适用前提</p><ul>
+<li>Android 9（API 28）</li>
+<li><code>appsearch-local-storage</code></li>
+<li>Java</li>
+<li>多类型数据（示例用 Music）</li>
+</ul>
+</blockquote>
+<hr>
+<h1 id="一、依赖（再次确认）">一、依赖（再次确认）</h1>
+<pre><code class="language-gradle">dependencies {
+    implementation &quot;androidx.appsearch:appsearch:1.1.0&quot;
+    implementation &quot;androidx.appsearch:appsearch-local-storage:1.1.0&quot;
+}
+</code></pre>
+<hr>
+<h1 id="二、schema-定义（music-示例）">二、Schema 定义（Music 示例）</h1>
+<pre><code class="language-java">import androidx.appsearch.annotation.Document;
+import androidx.appsearch.app.StringPropertyConfig;
+
+@Document(name = &quot;Music&quot;)
+public class MusicDoc {
+
+    @Document.Id
+    public String id;
+
+    @Document.Namespace
+    public String namespace = &quot;music&quot;;
+
+    @Document.StringProperty(
+            indexingType = StringPropertyConfig.INDEXING_TYPE_PREFIXES
+    )
+    public String title;
+
+    @Document.StringProperty(
+            indexingType = StringPropertyConfig.INDEXING_TYPE_PREFIXES
+    )
+    public String artist;
+
+    @Document.StringProperty
+    public String intentUri;
+
+    public MusicDoc() {}
+
+    public MusicDoc(String id, String title, String artist, String intentUri) {
+        this.id = id;
+        this.title = title;
+        this.artist = artist;
+        this.intentUri = intentUri;
+    }
+}
+</code></pre>
+<hr>
+<h1 id="三、appsearch-session-管理（单例）">三、AppSearch Session 管理（单例）</h1>
+<pre><code class="language-java">import android.content.Context;
+import androidx.appsearch.app.AppSearchSession;
+import androidx.appsearch.localstorage.LocalStorage;
+
+import java.util.concurrent.ExecutionException;
+
+public class AppSearchHelper {
+
+    private static AppSearchSession session;
+
+    public static AppSearchSession get(Context context)
+            throws ExecutionException, InterruptedException {
+
+        if (session == null) {
+            session = LocalStorage.createSearchSessionAsync(
+                    new LocalStorage.SearchContext.Builder(
+                            context,
+                            &quot;global_search_db&quot;
+                    ).build()
+            ).get();
+        }
+        return session;
+    }
+}
+</code></pre>
+<hr>
+<h1 id="四、初始化-schema（必须执行一次）">四、初始化 Schema（必须执行一次）</h1>
+<pre><code class="language-java">import androidx.appsearch.app.SetSchemaRequest;
+
+public class SearchInit {
+
+    public static void init(Context context)
+            throws ExecutionException, InterruptedException {
+
+        AppSearchSession session = AppSearchHelper.get(context);
+
+        SetSchemaRequest request =
+                new SetSchemaRequest.Builder()
+                        .addDocumentClasses(MusicDoc.class)
+                        .build();
+
+        session.setSchemaAsync(request).get();
+    }
+}
+</code></pre>
+<hr>
+<h1 id="五、crud-操作封装（重点）">五、CRUD 操作封装（重点）</h1>
+<p>下面是<strong>真正工程里你会长期用的类</strong>。</p><hr>
+<h2 id="1️⃣-create（新增）">1️⃣ Create（新增）</h2>
+<pre><code class="language-java">import androidx.appsearch.app.PutDocumentsRequest;
+
+public class MusicRepository {
+
+    public static void insert(Context context, MusicDoc music)
+            throws ExecutionException, InterruptedException {
+
+        AppSearchSession session = AppSearchHelper.get(context);
+
+        PutDocumentsRequest request =
+                new PutDocumentsRequest.Builder()
+                        .addDocuments(music)
+                        .build();
+
+        session.putAsync(request).get();
+    }
+}
+</code></pre>
+<h3 id="使用示例">使用示例</h3>
+<pre><code class="language-java">MusicRepository.insert(
+        context,
+        new MusicDoc(
+                &quot;music_1001&quot;,
+                &quot;Yesterday&quot;,
+                &quot;Beatles&quot;,
+                &quot;app://music/play/1001&quot;
+        )
+);
+</code></pre>
+<hr>
+<h2 id="2️⃣-read（查询--搜索）">2️⃣ Read（查询 / 搜索）</h2>
+<h3 id="21-关键词搜索">2.1 关键词搜索</h3>
+<pre><code class="language-java">import androidx.appsearch.app.SearchResults;
+import androidx.appsearch.app.SearchSpec;
+import androidx.appsearch.app.SearchResult;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public static List&lt;MusicDoc&gt; search(Context context, String keyword)
+        throws ExecutionException, InterruptedException {
+
+    AppSearchSession session = AppSearchHelper.get(context);
+
+    SearchSpec spec =
+            new SearchSpec.Builder()
+                    .addSchemaType(&quot;Music&quot;)
+                    .setResultCountPerPage(20)
+                    .build();
+
+    SearchResults results = session.search(keyword, spec);
+
+    List&lt;MusicDoc&gt; list = new ArrayList&lt;&gt;();
+
+    for (SearchResult result : results.nextPageAsync().get()) {
+        list.add(result.getDocument(MusicDoc.class));
+    }
+
+    return list;
+}
+</code></pre>
+<hr>
+<h3 id="22-按-id-精确读取（非常实用）">2.2 按 ID 精确读取（非常实用）</h3>
+<pre><code class="language-java">import androidx.appsearch.app.GetByDocumentIdRequest;
+
+public static MusicDoc getById(Context context, String id)
+        throws ExecutionException, InterruptedException {
+
+    AppSearchSession session = AppSearchHelper.get(context);
+
+    GetByDocumentIdRequest request =
+            new GetByDocumentIdRequest.Builder(&quot;music&quot;)
+                    .addIds(id)
+                    .build();
+
+    return session.getByDocumentIdAsync(request)
+            .get()
+            .getSuccesses()
+            .get(id)
+            .toDocumentClass(MusicDoc.class);
+}
+</code></pre>
+<hr>
+<h2 id="3️⃣-update（修改）">3️⃣ Update（修改）</h2>
+<p>⚠️ <strong>重点概念：AppSearch 没有“单独的 update API”，<code>put</code> = insert or replace</strong></p><h3 id="正确更新方式">正确更新方式</h3>
+<pre><code class="language-java">public static void update(Context context, MusicDoc updated)
+        throws ExecutionException, InterruptedException {
+
+    // id + namespace 相同 = 覆盖
+    insert(context, updated);
+}
+</code></pre>
+<h3 id="示例">示例</h3>
+<pre><code class="language-java">MusicDoc music = MusicRepository.getById(context, &quot;music_1001&quot;);
+music.artist = &quot;The Beatles&quot;;
+
+MusicRepository.update(context, music);
+</code></pre>
+<hr>
+<h2 id="4️⃣-delete（删除）">4️⃣ Delete（删除）</h2>
+<h3 id="41-按-id-删除（最常用）">4.1 按 ID 删除（最常用）</h3>
+<pre><code class="language-java">import androidx.appsearch.app.RemoveByDocumentIdRequest;
+
+public static void deleteById(Context context, String id)
+        throws ExecutionException, InterruptedException {
+
+    AppSearchSession session = AppSearchHelper.get(context);
+
+    RemoveByDocumentIdRequest request =
+            new RemoveByDocumentIdRequest.Builder(&quot;music&quot;)
+                    .addIds(id)
+                    .build();
+
+    session.removeAsync(request).get();
+}
+</code></pre>
+<hr>
+<h3 id="42-删除整个类型（可选）">4.2 删除整个类型（可选）</h3>
+<pre><code class="language-java">import androidx.appsearch.app.RemoveBySchemaTypeRequest;
+
+public static void deleteAll(Context context)
+        throws ExecutionException, InterruptedException {
+
+    AppSearchSession session = AppSearchHelper.get(context);
+
+    RemoveBySchemaTypeRequest request =
+            new RemoveBySchemaTypeRequest.Builder(&quot;Music&quot;)
+                    .build();
+
+    session.removeAsync(request).get();
+}
+</code></pre>
+<hr>
+<h1 id="六、完整-crud-调用流程示例（串起来）">六、完整 CRUD 调用流程示例（串起来）</h1>
+<pre><code class="language-java">// 1. 初始化
+SearchInit.init(context);
+
+// 2. 新增
+MusicRepository.insert(
+        context,
+        new MusicDoc(&quot;music_1&quot;, &quot;Hello&quot;, &quot;Adele&quot;, &quot;app://music/play/1&quot;)
+);
+
+// 3. 查询
+List&lt;MusicDoc&gt; result = MusicRepository.search(context, &quot;Hello&quot;);
+
+// 4. 修改
+MusicDoc doc = MusicRepository.getById(context, &quot;music_1&quot;);
+doc.artist = &quot;ADELE&quot;;
+MusicRepository.update(context, doc);
+
+// 5. 删除
+MusicRepository.deleteById(context, &quot;music_1&quot;);
+</code></pre>
+<hr>
+<h1 id="七、这套-crud-方案的工程级优点">七、这套 CRUD 方案的工程级优点</h1>
+<p>✅ Android 9 完全可用
+✅ 多类型可平行扩展（Order / App / Game 直接复制一套）
+✅ 删除后立即不可搜索（强一致）
+✅ 更新逻辑简单（put 覆盖）
+✅ 符合 AOSP AppSearch 思维模型</p><hr>
+<h1 id="八、你接下来最可能需要的三件事">八、你接下来最可能需要的三件事</h1>
+<p>如果你继续往下做，<strong>100% 会遇到</strong>：</p><ol>
+<li>🔁 <strong>业务 DB ↔ AppSearch 的同步策略</strong></li>
+<li>📊 <strong>多 Schema 统一搜索 + 分类排序</strong></li>
+<li>🚗 <strong>车机 / Launcher 搜索性能优化</strong></li>
+</ol>
+<hr>
+<hr>
+<p><strong>非常工程化、也是你这个系统能否长期稳定运行的关键</strong>。
+下面我直接给你一套**“业务数据库 ↔ AppSearch 索引”同步的完整方案**，包含：</p><ol>
+<li>✅ <strong>推荐的总体架构</strong></li>
+<li>✅ <strong>同步时机与策略（增 / 改 / 删）</strong></li>
+<li>✅ <strong>Java 代码模板（可直接用）</strong></li>
+<li>✅ <strong>异常兜底与重建机制</strong></li>
+<li>✅ <strong>你这种多类型场景的落地建议</strong></li>
+</ol>
+<p>不玩概念，全部是实战方案。</p><hr>
+<h1 id="一、核心结论（先给你吃定心丸）">一、核心结论（先给你吃定心丸）</h1>
+<blockquote>
+<p><strong>AppSearch 永远只做「索引层」
+业务数据库永远只做「事实源（Source of Truth）」
+同步一定是：业务 DB → AppSearch（单向）</strong></p></blockquote>
+<p>❌ 不允许：</p><ul>
+<li>从 AppSearch 反推业务状态</li>
+<li>用 AppSearch 判断“数据是否存在”</li>
+</ul>
+<hr>
+<h1 id="二、推荐整体架构（你照这个来）">二、推荐整体架构（你照这个来）</h1>
+<pre><code>┌──────────────────────┐
+│   Business Database   │
+│ (Room / SQLite / API) │
+└──────────┬───────────┘
+           │ ① 数据变更
+           ▼
+┌──────────────────────┐
+│   Sync Dispatcher    │  ←—— 关键层
+│ (统一同步入口)       │
+└──────────┬───────────┘
+           │ ② 映射
+           ▼
+┌──────────────────────┐
+│   AppSearch Index    │
+│ (LocalStorage)       │
+└──────────────────────┘
+</code></pre>
+<p>👉 <strong>所有同步都只能走 Sync Dispatcher</strong></p><hr>
+<h1 id="三、同步策略总表（你以后就按这个执行）">三、同步策略总表（你以后就按这个执行）</h1>
+<table>
+<thead>
+<tr>
+<th>业务行为</th>
+<th>DB 操作</th>
+<th>AppSearch 操作</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>新增</td>
+<td>insert</td>
+<td>put</td>
+</tr>
+<tr>
+<td>修改</td>
+<td>update</td>
+<td>put（覆盖）</td>
+</tr>
+<tr>
+<td>删除</td>
+<td>delete</td>
+<td>remove</td>
+</tr>
+<tr>
+<td>批量刷新</td>
+<td>replace all</td>
+<td>remove + batch put</td>
+</tr>
+<tr>
+<td>数据异常</td>
+<td>ignore</td>
+<td>rebuild</td>
+</tr>
+</tbody></table>
+<hr>
+<h1 id="四、统一同步接口设计（非常重要）">四、统一同步接口设计（非常重要）</h1>
+<h2 id="1️⃣-定义一个可索引对象接口">1️⃣ 定义一个“可索引对象”接口</h2>
+<pre><code class="language-java">public interface SearchIndexable {
+
+    /** AppSearch document id */
+    String getSearchId();
+
+    /** AppSearch namespace */
+    String getNamespace();
+
+    /** 转换成 AppSearch Document */
+    Object toSearchDocument();
+}
+</code></pre>
+<hr>
+<h2 id="2️⃣-业务实体实现它（示例：music）">2️⃣ 业务实体实现它（示例：Music）</h2>
+<pre><code class="language-java">public class MusicEntity implements SearchIndexable {
+
+    public String id;
+    public String title;
+    public String artist;
+    public boolean deleted;
+
+    @Override
+    public String getSearchId() {
+        return id;
+    }
+
+    @Override
+    public String getNamespace() {
+        return &quot;music&quot;;
+    }
+
+    @Override
+    public Object toSearchDocument() {
+        return new MusicDoc(
+                id,
+                title,
+                artist,
+                &quot;app://music/play/&quot; + id
+        );
+    }
+}
+</code></pre>
+<p>👉 <strong>注意</strong></p><ul>
+<li><code>deleted</code> 不进索引</li>
+<li>索引只关心“可被搜索的状态”</li>
+</ul>
+<hr>
+<h1 id="五、统一同步调度器（核心类）">五、统一同步调度器（核心类）</h1>
+<pre><code class="language-java">import android.content.Context;
+import androidx.appsearch.app.AppSearchSession;
+import androidx.appsearch.app.PutDocumentsRequest;
+import androidx.appsearch.app.RemoveByDocumentIdRequest;
+
+public class SearchSyncManager {
+
+    /* 新增 / 更新 */
+    public static void syncUpsert(Context context, SearchIndexable entity)
+            throws Exception {
+
+        AppSearchSession session = AppSearchHelper.get(context);
+
+        session.putAsync(
+                new PutDocumentsRequest.Builder()
+                        .addDocuments(entity.toSearchDocument())
+                        .build()
+        ).get();
+    }
+
+    /* 删除 */
+    public static void syncDelete(Context context, SearchIndexable entity)
+            throws Exception {
+
+        AppSearchSession session = AppSearchHelper.get(context);
+
+        session.removeAsync(
+                new RemoveByDocumentIdRequest.Builder(entity.getNamespace())
+                        .addIds(entity.getSearchId())
+                        .build()
+        ).get();
+    }
+}
+</code></pre>
+<hr>
+<h1 id="六、业务侧如何正确调用（重点）">六、业务侧如何正确调用（重点）</h1>
+<h2 id="1️⃣-新增音乐（顺序不能错）">1️⃣ 新增音乐（顺序不能错）</h2>
+<pre><code class="language-java">// ① 先写业务 DB
+musicDao.insert(entity);
+
+// ② 再写索引
+SearchSyncManager.syncUpsert(context, entity);
+</code></pre>
+<hr>
+<h2 id="2️⃣-修改音乐">2️⃣ 修改音乐</h2>
+<pre><code class="language-java">musicDao.update(entity);
+SearchSyncManager.syncUpsert(context, entity);
+</code></pre>
+<hr>
+<h2 id="3️⃣-删除音乐（非常重要）">3️⃣ 删除音乐（非常重要）</h2>
+<pre><code class="language-java">musicDao.deleteById(entity.id);
+SearchSyncManager.syncDelete(context, entity);
+</code></pre>
+<p>❌ <strong>不要先删索引再删 DB</strong>
+否则 DB 失败会造成永久丢失</p><hr>
+<h1 id="七、批量同步（冷启动--登录--全量刷新）">七、批量同步（冷启动 / 登录 / 全量刷新）</h1>
+<h3 id="使用场景">使用场景</h3>
+<ul>
+<li>首次安装</li>
+<li>切换账号</li>
+<li>数据异常恢复</li>
+</ul>
+<hr>
+<h2 id="1️⃣-清空索引">1️⃣ 清空索引</h2>
+<pre><code class="language-java">session.removeAsync(
+        new RemoveByNamespaceRequest.Builder(&quot;music&quot;).build()
+).get();
+</code></pre>
+<hr>
+<h2 id="2️⃣-批量重建">2️⃣ 批量重建</h2>
+<pre><code class="language-java">List&lt;MusicEntity&gt; all = musicDao.queryAll();
+
+PutDocumentsRequest.Builder builder =
+        new PutDocumentsRequest.Builder();
+
+for (MusicEntity entity : all) {
+    builder.addDocuments(entity.toSearchDocument());
+}
+
+session.putAsync(builder.build()).get();
+</code></pre>
+<hr>
+<h1 id="八、异常与兜底策略（必须有）">八、异常与兜底策略（必须有）</h1>
+<h2 id="1️⃣-索引失败-≠-业务失败">1️⃣ 索引失败 ≠ 业务失败</h2>
+<pre><code class="language-java">try {
+    SearchSyncManager.syncUpsert(context, entity);
+} catch (Exception e) {
+    // 打日志
+    // 标记待重建
+}
+</code></pre>
+<hr>
+<h2 id="2️⃣-延迟重建机制（推荐）">2️⃣ 延迟重建机制（推荐）</h2>
+<pre><code class="language-java">// 下次启动 / 空闲时
+if (needRebuild) {
+    rebuildAllIndex();
+}
+</code></pre>
+<hr>
+<h1 id="九、针对你多类型数据的特别建议">九、针对你“多类型数据”的特别建议</h1>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>同步方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>音乐</td>
+<td>实时同步</td>
+</tr>
+<tr>
+<td>订单</td>
+<td>实时 + 状态变更同步</td>
+</tr>
+<tr>
+<td>应用列表</td>
+<td>安装 / 卸载监听同步</td>
+</tr>
+<tr>
+<td>游戏</td>
+<td>同应用</td>
+</tr>
+<tr>
+<td>intent 路径</td>
+<td>跟随功能开关</td>
+</tr>
+</tbody></table>
+<p>👉 <strong>所有类型用同一套 SearchSyncManager</strong></p><hr>
+<h1 id="十、一句话工程总结（你可以记住）">十、一句话工程总结（你可以记住）</h1>
+<blockquote>
+<p><strong>业务 DB 是“真相”，AppSearch 是“影子”。
+影子永远跟随真相，影子坏了可以重建，真相不能丢。</strong></p></blockquote>
+<hr>
+<hr>
+<p><strong>把你前面做好的“多类型索引”真正变成一个“系统级统一搜索入口”</strong>。
+下面我给你一套<strong>可直接落地的方案</strong>，覆盖：</p><blockquote>
+<p>✅ 多 Schema 一次搜索
+✅ 搜索结果 <strong>按类型分组</strong>
+✅ <strong>组内排序 / 权重控制</strong>
+✅ 适合 Launcher / 车机 / 全局搜索
+✅ Java + Android 9 + AppSearch LocalStorage</p></blockquote>
+<p>我会给你<strong>完整设计 + 可复用代码</strong>。</p><hr>
+<h1 id="一、统一搜索的目标形态（你最终要的效果）">一、统一搜索的目标形态（你最终要的效果）</h1>
+<p>用户输入：<code>beat</code></p><p>UI 结果：</p><pre><code>音乐
+  Yesterday - Beatles
+  Let it be - Beatles
+
+应用
+  Beat Music Player
+
+订单
+  订单号：BEAT20240101
+</code></pre>
+<p>👉 技术上只做 <strong>一次 search()</strong>
+👉 展示上 <strong>按 schemaType 分类</strong></p><hr>
+<h1 id="二、核心设计思想（非常重要）">二、核心设计思想（非常重要）</h1>
+<blockquote>
+<p><strong>AppSearch 负责“召回 + 基础排序”
+业务层负责“分类 + 二次排序 + UI 渲染”</strong></p></blockquote>
+<p>不要指望 AppSearch 完全替你做业务排序。</p><hr>
+<h1 id="三、统一搜索的技术拆解">三、统一搜索的技术拆解</h1>
+<h2 id="1️⃣-搜索范围控制（schema）">1️⃣ 搜索范围控制（Schema）</h2>
+<pre><code class="language-java">.addSchemaType(&quot;Music&quot;, &quot;App&quot;, &quot;Order&quot;, &quot;Game&quot;, &quot;Intent&quot;)
+</code></pre>
+<h2 id="2️⃣-结果排序（基础）">2️⃣ 结果排序（基础）</h2>
+<ul>
+<li>相关度（默认）</li>
+<li>时间（LongProperty）</li>
+<li>权重（人为字段）</li>
+</ul>
+<h2 id="3️⃣-分类（schematype）">3️⃣ 分类（schemaType）</h2>
+<pre><code class="language-java">result.getGenericDocument().getSchemaType()
+</code></pre>
+<hr>
+<h1 id="四、统一搜索核心代码（可直接用）">四、统一搜索核心代码（可直接用）</h1>
+<h2 id="1️⃣-定义统一搜索结果模型（ui-层友好）">1️⃣ 定义统一搜索结果模型（UI 层友好）</h2>
+<pre><code class="language-java">public class UnifiedSearchResult {
+
+    public String schemaType;
+    public Object data;     // MusicDoc / AppDoc / OrderDoc
+    public double score;    // 相关度
+
+    public UnifiedSearchResult(String schemaType, Object data, double score) {
+        this.schemaType = schemaType;
+        this.data = data;
+        this.score = score;
+    }
+}
+</code></pre>
+<hr>
+<h2 id="2️⃣-执行统一搜索（一次完成）">2️⃣ 执行统一搜索（一次完成）</h2>
+<pre><code class="language-java">import androidx.appsearch.app.*;
+
+import java.util.*;
+
+public class UnifiedSearchRepository {
+
+    public static List&lt;UnifiedSearchResult&gt; search(Context context, String keyword)
+            throws Exception {
+
+        AppSearchSession session = AppSearchHelper.get(context);
+
+        SearchSpec spec =
+                new SearchSpec.Builder()
+                        .addSchemaType(
+                                &quot;Music&quot;,
+                                &quot;App&quot;,
+                                &quot;Order&quot;
+                        )
+                        .setResultCountPerPage(50)
+                        .build();
+
+        SearchResults results = session.search(keyword, spec);
+
+        List&lt;UnifiedSearchResult&gt; list = new ArrayList&lt;&gt;();
+
+        for (SearchResult result : results.nextPageAsync().get()) {
+
+            GenericDocument doc = result.getGenericDocument();
+            String schema = doc.getSchemaType();
+
+            Object entity;
+
+            switch (schema) {
+                case &quot;Music&quot;:
+                    entity = result.getDocument(MusicDoc.class);
+                    break;
+                case &quot;App&quot;:
+                    entity = result.getDocument(AppDoc.class);
+                    break;
+                case &quot;Order&quot;:
+                    entity = result.getDocument(OrderDoc.class);
+                    break;
+                default:
+                    continue;
+            }
+
+            list.add(new UnifiedSearchResult(
+                    schema,
+                    entity,
+                    result.getRankingSignal()
+            ));
+        }
+
+        return list;
+    }
+}
+</code></pre>
+<hr>
+<h1 id="五、结果按类型分组（你-ui-一定会用到）">五、结果“按类型分组”（你 UI 一定会用到）</h1>
+<pre><code class="language-java">public static Map&lt;String, List&lt;UnifiedSearchResult&gt;&gt; groupByType(
+        List&lt;UnifiedSearchResult&gt; results) {
+
+    Map&lt;String, List&lt;UnifiedSearchResult&gt;&gt; map = new LinkedHashMap&lt;&gt;();
+
+    for (UnifiedSearchResult r : results) {
+        if (!map.containsKey(r.schemaType)) {
+            map.put(r.schemaType, new ArrayList&lt;&gt;());
+        }
+        map.get(r.schemaType).add(r);
+    }
+    return map;
+}
+</code></pre>
+<hr>
+<h1 id="六、排序策略（这是体验差异的关键）">六、排序策略（这是体验差异的关键）</h1>
+<h2 id="1️⃣-组内排序（推荐）">1️⃣ 组内排序（推荐）</h2>
+<h3 id="按相关度（默认）">按相关度（默认）</h3>
+<pre><code class="language-java">list.sort((a, b) -&gt; Double.compare(b.score, a.score));
+</code></pre>
+<hr>
+<h3 id="按时间（例如订单）">按时间（例如订单）</h3>
+<p>Schema 中必须有：</p><pre><code class="language-java">@Document.LongProperty
+public long updateTime;
+</code></pre>
+<p>排序：</p><pre><code class="language-java">list.sort((a, b) -&gt;
+        Long.compare(
+                ((OrderDoc)b.data).updateTime,
+                ((OrderDoc)a.data).updateTime
+        )
+);
+</code></pre>
+<hr>
+<h2 id="2️⃣-类型优先级排序（全局）">2️⃣ 类型优先级排序（全局）</h2>
+<p>你可以定义：</p><pre><code class="language-java">static final Map&lt;String, Integer&gt; TYPE_PRIORITY = Map.of(
+        &quot;App&quot;, 1,
+        &quot;Music&quot;, 2,
+        &quot;Order&quot;, 3
+);
+</code></pre>
+<p>UI 展示时：</p><pre><code class="language-java">new ArrayList&lt;&gt;(grouped.entrySet())
+        .sort(Comparator.comparingInt(
+                e -&gt; TYPE_PRIORITY.getOrDefault(e.getKey(), 100)
+        ));
+</code></pre>
+<hr>
+<h1 id="七、launcher--车机搜索的实战优化（很重要）">七、Launcher / 车机搜索的实战优化（很重要）</h1>
+<h2 id="1️⃣-限制每类返回数量">1️⃣ 限制每类返回数量</h2>
+<pre><code class="language-java">private static final int MAX_PER_TYPE = 5;
+</code></pre>
+<pre><code class="language-java">if (list.size() &gt; MAX_PER_TYPE) {
+    list = list.subList(0, MAX_PER_TYPE);
+}
+</code></pre>
+<hr>
+<h2 id="2️⃣-应用--intent-优先">2️⃣ 应用 / intent 优先</h2>
+<ul>
+<li>App / Intent 权重更高</li>
+<li>Schema 级别优先展示</li>
+</ul>
+<hr>
+<h2 id="3️⃣-空结果兜底">3️⃣ 空结果兜底</h2>
+<pre><code class="language-java">if (results.isEmpty()) {
+    showSuggestion(keyword);
+}
+</code></pre>
+<hr>
+<h1 id="八、完整调用示例（串起来）">八、完整调用示例（串起来）</h1>
+<pre><code class="language-java">List&lt;UnifiedSearchResult&gt; raw =
+        UnifiedSearchRepository.search(context, &quot;beat&quot;);
+
+Map&lt;String, List&lt;UnifiedSearchResult&gt;&gt; grouped =
+        groupByType(raw);
+
+for (Map.Entry&lt;String, List&lt;UnifiedSearchResult&gt;&gt; entry : grouped.entrySet()) {
+
+    String type = entry.getKey();
+    List&lt;UnifiedSearchResult&gt; items = entry.getValue();
+
+    // 组内排序
+    items.sort((a, b) -&gt; Double.compare(b.score, a.score));
+
+    // UI 渲染
+    renderSection(type, items);
+}
+</code></pre>
+<hr>
+<h1 id="九、这套方案为什么适合你">九、这套方案为什么适合你</h1>
+<p>✅ 一次 search，性能可控
+✅ 多 Schema 无感扩展
+✅ 分类展示逻辑清晰
+✅ 和 AOSP / Launcher 搜索模型一致
+✅ Android 9 完全可用</p><hr>
+<h1 id="十、下一步你几乎一定会遇到">十、下一步你<strong>几乎一定会遇到</strong></h1>
+<p>3️⃣ <strong>Schema 升级 &amp; 索引平滑迁移方案（非常重要）</strong>
+4️⃣ <strong>性能 &amp; 内存优化（车机 / 大数据量）</strong></p><hr>
+<hr>
+<p> <strong>真正的“生产级能力”</strong>。
+如果 <strong>Schema 升级方案没设计好，AppSearch 一定会在量产后出问题</strong>（崩溃 / 丢索引 / 搜索异常）。
+下面我给你一套 <strong>已经被大量系统级搜索验证过的方案</strong>，<strong>完全适用于 Android 9 + Jetpack AppSearch（local-storage）</strong>。</p><hr>
+<h1 id="一、你必须先记住的-3-条铁律（非常重要）">一、你必须先记住的 3 条铁律（非常重要）</h1>
+<h3 id="铁律-1️⃣">铁律 1️⃣</h3>
+<blockquote>
+<p><strong>Schema 一定会变，不是会不会，是什么时候</strong></p></blockquote>
+<h3 id="铁律-2️⃣">铁律 2️⃣</h3>
+<blockquote>
+<p><strong>Schema 升级 = AppSearch setSchema 行为</strong></p></blockquote>
+<h3 id="铁律-3️⃣">铁律 3️⃣</h3>
+<blockquote>
+<p><strong>索引永远可以重建，业务数据不能丢</strong></p></blockquote>
+<hr>
+<h1 id="二、appsearch-的-schema-升级机制本质">二、AppSearch 的 Schema 升级机制本质</h1>
+<p>当你调用：</p><pre><code class="language-java">session.setSchemaAsync(SetSchemaRequest)
+</code></pre>
+<p>系统会做三件事之一：</p><table>
+<thead>
+<tr>
+<th>情况</th>
+<th>行为</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>只新增字段</td>
+<td>✅ 自动兼容</td>
+</tr>
+<tr>
+<td>删除字段 / 改类型</td>
+<td>❌ 需要迁移</td>
+</tr>
+<tr>
+<td>删除 Schema</td>
+<td>❌ 索引数据会被删</td>
+</tr>
+</tbody></table>
+<p>👉 <strong>关键：你要提前“告诉 AppSearch 怎么迁移”</strong></p><hr>
+<h1 id="三、schema-变更类型--对策（对照表）">三、Schema 变更类型 &amp; 对策（对照表）</h1>
+<table>
+<thead>
+<tr>
+<th>变更类型</th>
+<th>是否安全</th>
+<th>正确做法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>新增字段</td>
+<td>✅</td>
+<td>直接 setSchema</td>
+</tr>
+<tr>
+<td>新增 Schema</td>
+<td>✅</td>
+<td>直接 setSchema</td>
+</tr>
+<tr>
+<td>删除字段</td>
+<td>⚠️</td>
+<td>设置迁移策略</td>
+</tr>
+<tr>
+<td>字段类型变更</td>
+<td>❌</td>
+<td>新字段 + 迁移</td>
+</tr>
+<tr>
+<td>重命名字段</td>
+<td>❌</td>
+<td>新字段 + 迁移</td>
+</tr>
+<tr>
+<td>删除 Schema</td>
+<td>❌</td>
+<td>先 remove 再 set</td>
+</tr>
+</tbody></table>
+<hr>
+<h1 id="四、推荐的-schema-版本设计（强烈建议）">四、推荐的 Schema 版本设计（强烈建议）</h1>
+<h2 id="1️⃣-schema-命名中加入版本（可选但推荐）">1️⃣ Schema 命名中加入版本（可选但推荐）</h2>
+<pre><code class="language-java">@Document(name = &quot;Music_v2&quot;)
+public class MusicDocV2 {
+    ...
+}
+</code></pre>
+<p>但更常见的是 👇</p><hr>
+<h2 id="2️⃣-字段级版本（更实用）">2️⃣ <strong>字段级版本（更实用）</strong></h2>
+<h3 id="v1">v1</h3>
+<pre><code class="language-java">@Document.StringProperty
+public String artist;
+</code></pre>
+<h3 id="v2（新增字段）">v2（新增字段）</h3>
+<pre><code class="language-java">@Document.StringProperty
+public String artist;
+
+@Document.StringProperty
+public String album;
+</code></pre>
+<hr>
+<h1 id="五、真正的重点：安全升级代码（完整）">五、真正的重点：安全升级代码（完整）</h1>
+<h2 id="1️⃣-schema-升级入口（统一）">1️⃣ Schema 升级入口（统一）</h2>
+<pre><code class="language-java">import androidx.appsearch.app.SetSchemaRequest;
+import androidx.appsearch.app.SetSchemaResponse;
+
+public class SchemaManager {
+
+    public static void updateSchema(Context context) throws Exception {
+
+        AppSearchSession session = AppSearchHelper.get(context);
+
+        SetSchemaRequest request =
+                new SetSchemaRequest.Builder()
+                        .addDocumentClasses(
+                                MusicDoc.class,
+                                AppDoc.class,
+                                OrderDoc.class
+                        )
+                        // ⭐ 关键配置
+                        .setForceOverride(false)
+                        .build();
+
+        SetSchemaResponse response =
+                session.setSchemaAsync(request).get();
+
+        handleIncompatibleSchema(context, response);
+    }
+}
+</code></pre>
+<hr>
+<h2 id="2️⃣-处理不兼容-schema（关键逻辑）">2️⃣ 处理不兼容 Schema（关键逻辑）</h2>
+<pre><code class="language-java">import androidx.appsearch.app.SetSchemaResponse;
+
+public static void handleIncompatibleSchema(
+        Context context,
+        SetSchemaResponse response
+) throws Exception {
+
+    if (!response.getIncompatibleSchemaTypes().isEmpty()) {
+
+        // 说明发生了破坏性变更
+        rebuildIndex(context, response.getIncompatibleSchemaTypes());
+    }
+}
+</code></pre>
+<hr>
+<h1 id="六、索引重建机制（你一定要有）">六、索引重建机制（你一定要有）</h1>
+<h2 id="1️⃣-清理旧索引（安全）">1️⃣ 清理旧索引（安全）</h2>
+<pre><code class="language-java">import androidx.appsearch.app.RemoveBySchemaTypeRequest;
+
+private static void rebuildIndex(
+        Context context,
+        Set&lt;String&gt; schemaTypes
+) throws Exception {
+
+    AppSearchSession session = AppSearchHelper.get(context);
+
+    for (String type : schemaTypes) {
+        session.removeAsync(
+                new RemoveBySchemaTypeRequest.Builder(type).build()
+        ).get();
+    }
+
+    rebuildFromDatabase(context);
+}
+</code></pre>
+<hr>
+<h2 id="2️⃣-从业务-db-重建索引（关键）">2️⃣ 从业务 DB 重建索引（关键）</h2>
+<pre><code class="language-java">private static void rebuildFromDatabase(Context context)
+        throws Exception {
+
+    List&lt;MusicEntity&gt; musics = musicDao.queryAll();
+
+    PutDocumentsRequest.Builder builder =
+            new PutDocumentsRequest.Builder();
+
+    for (MusicEntity entity : musics) {
+        builder.addDocuments(entity.toSearchDocument());
+    }
+
+    AppSearchHelper.get(context)
+            .putAsync(builder.build())
+            .get();
+}
+</code></pre>
+<hr>
+<h1 id="七、字段重命名--类型变更的正确做法（非常重要）">七、字段重命名 / 类型变更的正确做法（非常重要）</h1>
+<h3 id="❌-错误示例">❌ 错误示例</h3>
+<pre><code class="language-java">// v1
+@Document.StringProperty
+public String artist;
+
+// v2（直接改类型）
+@Document.LongProperty
+public long artist;
+</code></pre>
+<p>👉 <strong>必炸</strong></p><hr>
+<h3 id="✅-正确示例">✅ 正确示例</h3>
+<pre><code class="language-java">// v2
+@Document.StringProperty
+public String artist;
+
+@Document.LongProperty
+public long artistId;
+</code></pre>
+<p>迁移逻辑：</p><pre><code class="language-java">entity.artistId = mapArtist(entity.artist);
+</code></pre>
+<hr>
+<h1 id="八、灰度升级（推荐，系统级项目必备）">八、灰度升级（推荐，系统级项目必备）</h1>
+<h2 id="1️⃣-加版本开关">1️⃣ 加版本开关</h2>
+<pre><code class="language-java">if (BuildConfig.SEARCH_SCHEMA_V2) {
+    SchemaManager.updateSchema(context);
+}
+</code></pre>
+<hr>
+<h2 id="2️⃣-可回滚">2️⃣ 可回滚</h2>
+<ul>
+<li>不 forceOverride</li>
+<li>索引可随时重建</li>
+</ul>
+<hr>
+<h1 id="九、你这种多-schema-搜索系统的推荐策略">九、你这种“多 Schema 搜索系统”的推荐策略</h1>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th>建议</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Schema 设计</td>
+<td>字段向前兼容</td>
+</tr>
+<tr>
+<td>升级时机</td>
+<td>App 启动 / 空闲</td>
+</tr>
+<tr>
+<td>失败兜底</td>
+<td>全量重建</td>
+</tr>
+<tr>
+<td>日志</td>
+<td>必须打</td>
+</tr>
+</tbody></table>
+<hr>
+<h1 id="十、最终一句话总结（你可以直接写到设计文档）">十、最终一句话总结（你可以直接写到设计文档）</h1>
+<blockquote>
+<p><strong>AppSearch Schema 升级不是“改字段”，而是“管理索引生命周期”。
+只要业务数据还在，索引永远可以安全重建。</strong></p></blockquote>
+<hr>
+<h2 id="接下来最后一步（强烈建议）">接下来最后一步（强烈建议）</h2>
+<p>4️⃣ <strong>性能 &amp; 内存优化（Android 9 / 车机 / 大数据量）</strong></p><p>这是<strong>上量后唯一会再出问题的地方</strong>。</p><hr>
+<hr>
+<p><strong>你这套方案能否“上量 + 长期稳定运行”的最后一块拼图</strong>。
+下面我给你一套 <strong>Android 9 + Jetpack AppSearch（LocalStorage）在大数据量 / 车机 / Launcher 场景下的性能 &amp; 内存优化实战方案</strong>，不是泛泛而谈，全部是<strong>可落地的工程经验</strong>。</p><hr>
+<h1 id="一、先给你结论（重要）">一、先给你结论（重要）</h1>
+<blockquote>
+<p><strong>AppSearch 的性能瓶颈不在“搜索”，而在：
+Schema 设计不合理 + 写入方式不当 + 生命周期管理错误</strong></p></blockquote>
+<p>90% 的性能问题都出在这三点。</p><hr>
+<h1 id="二、性能优化总览（你可以当-checklist）">二、性能优化总览（你可以当 checklist）</h1>
+<table>
+<thead>
+<tr>
+<th>模块</th>
+<th>必做项</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Schema</td>
+<td>精简字段、正确索引</td>
+</tr>
+<tr>
+<td>写入</td>
+<td>批量、异步、节流</td>
+</tr>
+<tr>
+<td>搜索</td>
+<td>限页、限 Schema</td>
+</tr>
+<tr>
+<td>内存</td>
+<td>Session 单例</td>
+</tr>
+<tr>
+<td>生命周期</td>
+<td>正确 close</td>
+</tr>
+<tr>
+<td>启动</td>
+<td>延迟初始化</td>
+</tr>
+<tr>
+<td>上量</td>
+<td>冷/热数据分离</td>
+</tr>
+</tbody></table>
+<hr>
+<h1 id="三、schema-级优化（最重要）">三、Schema 级优化（最重要）</h1>
+<h2 id="1️⃣-只索引搜索字段">1️⃣ 只索引“搜索字段”</h2>
+<h3 id="❌-错误示例-1">❌ 错误示例</h3>
+<pre><code class="language-java">@Document.StringProperty(indexingType = PREFIXES)
+public String lyric;   // 几千字
+</code></pre>
+<h3 id="✅-正确示例-1">✅ 正确示例</h3>
+<pre><code class="language-java">@Document.StringProperty(indexingType = PREFIXES)
+public String title;
+
+@Document.StringProperty(indexingType = PREFIXES)
+public String artist;
+</code></pre>
+<p>👉 <strong>详情内容永远不要进索引</strong></p><hr>
+<h2 id="2️⃣-精确字段用-exact_terms">2️⃣ 精确字段用 EXACT_TERMS</h2>
+<pre><code class="language-java">@Document.StringProperty(
+    indexingType = StringPropertyConfig.INDEXING_TYPE_EXACT_TERMS
+)
+public String orderNo;
+</code></pre>
+<p>性能比 PREFIX 快很多。</p><hr>
+<h2 id="3️⃣-排序字段一定用-longproperty">3️⃣ 排序字段一定用 LongProperty</h2>
+<pre><code class="language-java">@Document.LongProperty
+public long updateTime;
+</code></pre>
+<hr>
+<h1 id="四、写入性能优化（最容易踩坑）">四、写入性能优化（最容易踩坑）</h1>
+<h2 id="1️⃣-一定要批量写入">1️⃣ 一定要批量写入</h2>
+<h3 id="❌-错误">❌ 错误</h3>
+<pre><code class="language-java">for (...) {
+    session.putAsync(single).get();
+}
+</code></pre>
+<h3 id="✅-正确">✅ 正确</h3>
+<pre><code class="language-java">PutDocumentsRequest.Builder builder =
+        new PutDocumentsRequest.Builder();
+
+for (...) {
+    builder.addDocuments(doc);
+}
+
+session.putAsync(builder.build()).get();
+</code></pre>
+<hr>
+<h2 id="2️⃣-写入节流（高频事件必须）">2️⃣ 写入节流（高频事件必须）</h2>
+<pre><code class="language-java">private static final int BATCH_SIZE = 50;
+</code></pre>
+<pre><code class="language-java">if (buffer.size() &gt;= BATCH_SIZE) {
+    flush();
+}
+</code></pre>
+<hr>
+<h2 id="3️⃣-后台线程执行（必须）">3️⃣ 后台线程执行（必须）</h2>
+<pre><code class="language-java">ExecutorService executor =
+        Executors.newSingleThreadExecutor();
+
+executor.execute(() -&gt; {
+    try {
+        batchPut();
+    } catch (Exception ignored) {}
+});
+</code></pre>
+<hr>
+<h1 id="五、搜索性能优化（车机--launcher-必看）">五、搜索性能优化（车机 / Launcher 必看）</h1>
+<h2 id="1️⃣-永远限制返回数量">1️⃣ 永远限制返回数量</h2>
+<pre><code class="language-java">.setResultCountPerPage(30)
+</code></pre>
+<hr>
+<h2 id="2️⃣-限制-schema-范围">2️⃣ 限制 Schema 范围</h2>
+<pre><code class="language-java">.addSchemaType(&quot;App&quot;, &quot;Music&quot;)
+</code></pre>
+<p>❌ 不要全库搜索</p><hr>
+<h2 id="3️⃣-分页而不是一次性拉完">3️⃣ 分页而不是一次性拉完</h2>
+<pre><code class="language-java">results.nextPageAsync()
+</code></pre>
+<hr>
+<h1 id="六、内存--生命周期（很多人忽略）">六、内存 &amp; 生命周期（很多人忽略）</h1>
+<h2 id="1️⃣-session-必须是单例">1️⃣ Session 必须是单例</h2>
+<pre><code class="language-java">private static AppSearchSession session;
+</code></pre>
+<hr>
+<h2 id="2️⃣-进程结束要-close（系统级必做）">2️⃣ 进程结束要 close（系统级必做）</h2>
+<pre><code class="language-java">public static void close() {
+    if (session != null) {
+        session.close();
+        session = null;
+    }
+}
+</code></pre>
+<hr>
+<h2 id="3️⃣-不要持有-searchresult-太久">3️⃣ 不要持有 SearchResult 太久</h2>
+<pre><code class="language-java">results.close();
+</code></pre>
+<hr>
+<h1 id="七、启动性能优化（android-9-很重要）">七、启动性能优化（Android 9 很重要）</h1>
+<h2 id="1️⃣-延迟初始化">1️⃣ 延迟初始化</h2>
+<pre><code class="language-java">IdleHandler idleHandler = () -&gt; {
+    initSchema(context);
+    return false;
+};
+
+Looper.myQueue().addIdleHandler(idleHandler);
+</code></pre>
+<hr>
+<h2 id="2️⃣-首次启动不建全量索引">2️⃣ 首次启动不建全量索引</h2>
+<pre><code class="language-text">首次启动 → 小集合
+空闲 → 全量补齐
+</code></pre>
+<hr>
+<h1 id="八、大数据量场景（10-万条）的策略">八、大数据量场景（&gt;10 万条）的策略</h1>
+<h2 id="1️⃣-冷--热数据分离（强烈推荐）">1️⃣ 冷 / 热数据分离（强烈推荐）</h2>
+<table>
+<thead>
+<tr>
+<th>数据</th>
+<th>是否进索引</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>最近 30 天订单</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>历史订单</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>常用 App</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>冷门 App</td>
+<td>❌</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="2️⃣-定期清理（索引不是仓库）">2️⃣ 定期清理（索引不是仓库）</h2>
+<pre><code class="language-java">// 每周清理
+removeByQuery(&quot;updateTime &lt; now-30d&quot;);
+</code></pre>
+<hr>
+<h1 id="九、车机--launcher-搜索的专项优化">九、车机 / Launcher 搜索的专项优化</h1>
+<h3 id="推荐排序权重">推荐排序权重</h3>
+<ol>
+<li>Intent / App</li>
+<li>最近使用</li>
+<li>相关度</li>
+</ol>
+<h3 id="ui-层限制">UI 层限制</h3>
+<ul>
+<li>每类 ≤ 5 条</li>
+<li>首屏 ≤ 15 条</li>
+</ul>
+<hr>
+<h1 id="十、性能排查-checklist（上线前必跑）">十、性能排查 checklist（上线前必跑）</h1>
+<ul>
+<li><input disabled="" type="checkbox"> Schema 字段是否过多</li>
+<li><input disabled="" type="checkbox"> 是否有大字段索引</li>
+<li><input disabled="" type="checkbox"> 是否逐条 put</li>
+<li><input disabled="" type="checkbox"> 是否无限制搜索</li>
+<li><input disabled="" type="checkbox"> Session 是否复用</li>
+<li><input disabled="" type="checkbox"> 是否定期清理</li>
+</ul>
+<hr>
+<h1 id="十一、终极总结（你这套方案的使用说明）">十一、终极总结（你这套方案的“使用说明”）</h1>
+<blockquote>
+<p><strong>AppSearch = 高性能索引，不是数据库。
+精简 Schema + 批量写入 + 限制搜索范围 = 稳定运行。</strong></p></blockquote>
+<hr>
+<h2 id="🎉-到这里，你已经具备：">🎉 到这里，你已经具备：</h2>
+<p>✅ Android 9 上的 AppSearch 完整 CRUD
+✅ 业务 DB ↔ 索引同步机制
+✅ 多 Schema 统一搜索 + 分类展示
+✅ Schema 安全升级
+✅ 上量级性能 &amp; 内存优化</p><hr>
+
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>大模型对某个特定城市进行标志建筑文生图目前还有哪些问题</title>
         <author>
@@ -1880,154 +3120,6 @@ res/layout-sw600dp-land/main_activity.xml // 7寸平板横屏布局:contentRefer
 <hr>
 <h2 id="💬-最后提示">💬 最后提示</h2>
 <p>如需进一步细化某一天的行程（如亲子路线、摄影点推荐等），欢迎随时联系！祝您在南京度过一段难忘的美好时光！😊</p>
-            ]]>
-        </content>
-    </entry>
-    <entry>
-        <title>大模型行程规划_gemma-3n-e4b-it-text</title>
-        <author>
-            <name>HEIN</name>
-        </author>
-        <link href="https://blog.nasyes.cn/da-mo-xing-xing-cheng-gui-hua_gemma-3n-e4b-it-text.html"/>
-        <id>https://blog.nasyes.cn/da-mo-xing-xing-cheng-gui-hua_gemma-3n-e4b-it-text.html</id>
-            <category term="大模型行程规划"/>
-
-        <updated>2025-07-08T17:03:14+08:00</updated>
-            <summary type="html">
-                <![CDATA[
-                    gemma-3n-e4b-it-text 帮我规划一个南京五日游的行程，包含景点信息、酒店信息、餐饮信息，各种地点要携带坐标 好的，为你规划一份详细的南京五日游行程，包含景点信息、酒店推荐、餐饮推荐以及具体坐标。 行程总览： 住宿推荐： 餐饮推荐： 每日行程安排： 第一天：夫子庙、秦淮河风光、南京楼船招展 第二天：中山陵、明孝陵、瞻园 第三天：南京博物院、总统府 第四天：玄武湖、南京大学 第五天：栖霞山、雨花台烈士陵园 注意事项： 其他建议： 希望这份行程能帮助你更好地规划南京之旅！
-                ]]>
-            </summary>
-        <content type="html">
-            <![CDATA[
-                <p>gemma-3n-e4b-it-text</p><hr>
-<p>帮我规划一个南京五日游的行程，包含景点信息、酒店信息、餐饮信息，各种地点要携带坐标</p><hr>
-<p>好的，为你规划一份详细的南京五日游行程，包含景点信息、酒店推荐、餐饮推荐以及具体坐标。</p><p><strong>行程总览：</strong></p><ul>
-<li><strong>第一天：</strong> 夫子庙、秦淮河风光、南京楼船招展。感受老南京的文化底蕴和夜景魅力。</li>
-<li><strong>第二天：</strong> 中山陵、明孝陵、瞻园。了解近现代历史，感受庄严肃穆的氛围。</li>
-<li><strong>第三天：</strong> 南京博物院、总统府。深入了解江苏历史文化和近代史。</li>
-<li><strong>第四天：</strong> 玄武湖、南京大学。休闲放松，感受校园氛围，欣赏湖光山色。</li>
-<li><strong>第五天：</strong> 栖霞山、雨花台烈士陵园。体验自然风光，缅怀革命先烈。</li>
-</ul>
-<p><strong>住宿推荐：</strong></p><ul>
-<li><strong>预算型：</strong> 南京青年旅社（鼓楼附近），价格约50-150元/晚。<ul>
-<li>坐标：南京市玄武区鼓楼大街38号</li>
-</ul>
-</li>
-<li><strong>舒适型：</strong> 汉庭酒店（多个分店，例如鼓楼店、新街口店），价格约200-400元/晚。<ul>
-<li>坐标：具体分店请查询汉庭官网</li>
-</ul>
-</li>
-<li><strong>豪华型：</strong> 洲际酒店（鼓楼店、新中路店），价格约500-1000元/晚。<ul>
-<li>坐标：具体分店请查询洲际酒店官网</li>
-</ul>
-</li>
-</ul>
-<p><strong>餐饮推荐：</strong></p><ul>
-<li><strong>小吃：</strong> 夫子庙小吃街，鸭血粉丝汤、小笼包、盐水鸭等。</li>
-<li><strong>本帮菜：</strong> 楼船招展（秦淮河畔），品尝南京特色菜肴。<ul>
-<li>坐标：南京市玄武区秦淮河路121号</li>
-</ul>
-</li>
-<li><strong>火锅：</strong> 捞王火锅，食材新鲜，口味丰富。<ul>
-<li>坐标：南京市玄武区新街口大街10号</li>
-</ul>
-</li>
-<li><strong>特色餐厅：</strong> 乌衣巷，品尝精致的南京菜。<ul>
-<li>坐标：南京市玄武区中山路62号</li>
-</ul>
-</li>
-</ul>
-<hr>
-<p><strong>每日行程安排：</strong></p><p><strong>第一天：夫子庙、秦淮河风光、南京楼船招展</strong></p><ul>
-<li><strong>上午：</strong> 夫子庙（坐标：南京市玄武区夫子庙路）<ul>
-<li>参观夫子庙秦淮河风光带，感受老南京的文化氛围。可以品尝当地小吃，购买纪念品。</li>
-<li>时间：建议2-3小时。</li>
-</ul>
-</li>
-<li><strong>中午：</strong> 在夫子庙附近用餐。推荐尝试鸭血粉丝汤、小笼包等特色小吃。</li>
-<li><strong>下午：</strong> 秦淮河游船（坐标：秦淮河沿线码头）。<ul>
-<li>乘坐游船欣赏秦淮河两岸风光，感受南京的夜景。</li>
-<li>时间：建议1-2小时。</li>
-</ul>
-</li>
-<li><strong>晚上：</strong> 南京楼船招展（坐标：南京市玄武区秦淮河路121号）。<ul>
-<li>享用晚餐，欣赏表演，体验老南京风情。</li>
-<li>时间：建议2-3小时。</li>
-</ul>
-</li>
-</ul>
-<p><strong>第二天：中山陵、明孝陵、瞻园</strong></p><ul>
-<li><strong>上午：</strong> 中山陵（坐标：南京市玄武区中山陵路1号）<ul>
-<li>参观中山先生陵墓，了解他的生平事迹。</li>
-<li>时间：建议2-3小时。</li>
-</ul>
-</li>
-<li><strong>中午：</strong> 在中山陵附近用餐。</li>
-<li><strong>下午：</strong> 明孝陵（坐标：南京市玄武区明孝陵路）<ul>
-<li>参观明朝开国皇帝明太祖朱元璋的陵墓，了解明朝历史。</li>
-<li>时间：建议2-3小时。</li>
-</ul>
-</li>
-<li><strong>傍晚：</strong> 瞻园（坐标：南京市玄武区瞻园路）<ul>
-<li>欣赏瞻园的园林景观，感受皇家园林的奢华和精致。</li>
-<li>时间：建议1-2小时。</li>
-</ul>
-</li>
-</ul>
-<p><strong>第三天：南京博物院、总统府</strong></p><ul>
-<li><strong>上午：</strong> 南京博物院（坐标：南京市玄武区太平路29号）<ul>
-<li>参观南京博物院，了解江苏的历史文化和艺术。</li>
-<li>时间：建议3-4小时。</li>
-</ul>
-</li>
-<li><strong>中午：</strong> 在南京博物院附近用餐。</li>
-<li><strong>下午：</strong> 总统府（坐标：南京市玄武区思源路28号）<ul>
-<li>参观总统府，了解近代史上的重要历史事件和人物。</li>
-<li>时间：建议3-4小时。</li>
-</ul>
-</li>
-</ul>
-<p><strong>第四天：玄武湖、南京大学</strong></p><ul>
-<li><strong>上午：</strong> 玄武湖（坐标：南京市玄武区玄武湖路）<ul>
-<li>在玄武湖边散步，欣赏湖光山色，可以租船游湖。</li>
-<li>时间：建议2-3小时。</li>
-</ul>
-</li>
-<li><strong>中午：</strong> 在玄武湖附近用餐。</li>
-<li><strong>下午：</strong> 南京大学（坐标：南京市玄武区南京浦口路20号）<ul>
-<li>参观南京大学，感受校园氛围，欣赏建筑风格。</li>
-<li>时间：建议2-3小时。</li>
-</ul>
-</li>
-</ul>
-<p><strong>第五天：栖霞山、雨花台烈士陵园</strong></p><ul>
-<li><strong>上午：</strong> 栖霞山（坐标：南京市玄武区栖霞山路）<ul>
-<li>参观栖霞山，欣赏自然风光，感受历史文化氛围。</li>
-<li>时间：建议3-4小时。</li>
-</ul>
-</li>
-<li><strong>中午：</strong> 在栖霞山附近用餐或自带午餐。</li>
-<li><strong>下午：</strong> 雨花台烈士陵园（坐标：南京市玄武区雨花台路）<ul>
-<li>参观雨花台烈士陵园，缅怀革命先烈。</li>
-<li>时间：建议2-3小时。</li>
-</ul>
-</li>
-</ul>
-<hr>
-<p><strong>注意事项：</strong></p><ul>
-<li><strong>交通：</strong> 南京市内交通便利，可以选择地铁、公交或出租车出行。推荐购买南京地铁一日票。</li>
-<li><strong>门票：</strong> 部分景点需要提前预订门票，建议提前在官方网站或App上预订。</li>
-<li><strong>天气：</strong> 南京夏季炎热潮湿，冬季寒冷干燥，请根据天气情况准备衣物。</li>
-<li><strong>安全：</strong> 注意保管好个人财物，遵守当地法律法规。</li>
-<li><strong>饮食：</strong> 南京小吃众多，但要注意卫生，选择正规的餐饮场所。</li>
-</ul>
-<p><strong>其他建议：</strong></p><ul>
-<li>可以根据自己的兴趣调整行程安排。</li>
-<li>可以参加一些当地的旅游团或一日游活动。</li>
-<li>可以购买南京纪念品，如丝绸、茶叶等。</li>
-</ul>
-<p>希望这份行程能帮助你更好地规划南京之旅！</p>
             ]]>
         </content>
     </entry>

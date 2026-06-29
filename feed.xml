@@ -3,7 +3,7 @@
     <title>HEIN&#x27;s Blog</title>
     <link href="https://blog.nasyes.cn/feed.xml" rel="self" />
     <link href="https://blog.nasyes.cn" />
-    <updated>2026-06-29T16:27:06+08:00</updated>
+    <updated>2026-06-29T17:13:55+08:00</updated>
     <author>
         <name>HEIN</name>
     </author>
@@ -31,143 +31,147 @@
 <hr>
 <h2 id="目录索引">目录索引</h2>
 <ul>
-<li><a href="#%E4%B8%80%E9%A2%98%E5%BA%93%E5%AE%9A%E4%BD%8D%E4%B8%8E%E9%9D%A2%E8%AF%95%E5%88%86%E5%B1%82">一、题库定位与面试分层</a></li>
-<li><a href="#%E4%BA%8Cdart-%E5%9F%BA%E7%A1%80%E4%B8%8E%E8%AF%AD%E8%A8%80%E7%89%B9%E6%80%A7">二、Dart 基础与语言特性</a><ul>
-<li><a href="#1-dart-%E7%9A%84-null-safety-%E6%98%AF%E4%BB%80%E4%B9%88%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%81%E4%B8%9A%E9%A1%B9%E7%9B%AE%E5%BF%85%E9%A1%BB%E9%87%8D%E8%A7%86">1. Dart 的 null safety 是什么？为什么企业项目必须重视？</a></li>
-<li><a href="#2-dart-%E4%B8%AD-finalconstvar-%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB">2. Dart 中 final、const、var 有什么区别？</a></li>
-<li><a href="#3-future-%E5%92%8C-stream-%E7%9A%84%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88">3. Future 和 Stream 的区别是什么？</a></li>
-<li><a href="#4-async--await-%E7%9A%84%E6%9C%AC%E8%B4%A8%E6%98%AF%E4%BB%80%E4%B9%88">4. async / await 的本质是什么？</a></li>
-<li><a href="#5-dart-isolate-%E6%98%AF%E4%BB%80%E4%B9%88%E5%92%8C%E7%BA%BF%E7%A8%8B%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB">5. Dart isolate 是什么？和线程有什么区别？</a></li>
-<li><a href="#6-dart-312-%E6%9C%89%E5%93%AA%E4%BA%9B%E5%80%BC%E5%BE%97%E5%85%B3%E6%B3%A8%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7">6. Dart 3.12 有哪些值得关注的新特性？</a></li>
-<li><a href="#7-dart-%E4%B8%AD-mixinabstract-classinterface-class-%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB">7. Dart 中 mixin、abstract class、interface class 有什么区别？</a></li>
-<li><a href="#8-dart-%E6%89%A9%E5%B1%95%E6%96%B9%E6%B3%95-extension-%E7%9A%84%E7%94%A8%E9%80%94%E6%98%AF%E4%BB%80%E4%B9%88">8. Dart 扩展方法 extension 的用途是什么？</a></li>
+<li><a href="#sec-01">一、题库定位与面试分层</a></li>
+<li><a href="#sec-02">二、Dart 基础与语言特性</a><ul>
+<li><a href="#q-001">1. Dart 的 null safety 是什么？为什么企业项目必须重视？</a></li>
+<li><a href="#q-002">2. Dart 中 final、const、var 有什么区别？</a></li>
+<li><a href="#q-003">3. Future 和 Stream 的区别是什么？</a></li>
+<li><a href="#q-004">4. async / await 的本质是什么？</a></li>
+<li><a href="#q-005">5. Dart isolate 是什么？和线程有什么区别？</a></li>
+<li><a href="#q-006">6. Dart 3.12 有哪些值得关注的新特性？</a></li>
+<li><a href="#q-007">7. Dart 中 mixin、abstract class、interface class 有什么区别？</a></li>
+<li><a href="#q-008">8. Dart 扩展方法 extension 的用途是什么？</a></li>
 </ul>
 </li>
-<li><a href="#%E4%B8%89flutter-widget-%E4%B8%8E%E6%B8%B2%E6%9F%93%E6%9C%BA%E5%88%B6">三、Flutter Widget 与渲染机制</a><ul>
-<li><a href="#9-flutter-%E7%9A%84%E4%B8%89%E6%A3%B5%E6%A0%91%E6%98%AF%E4%BB%80%E4%B9%88">9. Flutter 的三棵树是什么？</a></li>
-<li><a href="#10-statelesswidget-%E5%92%8C-statefulwidget-%E7%9A%84%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88">10. StatelessWidget 和 StatefulWidget 的区别是什么？</a></li>
-<li><a href="#11-buildcontext-%E6%98%AF%E4%BB%80%E4%B9%88">11. BuildContext 是什么？</a></li>
-<li><a href="#12-flutter-%E7%9A%84%E5%B8%83%E5%B1%80%E7%BA%A6%E6%9D%9F%E6%A8%A1%E5%9E%8B%E6%98%AF%E4%BB%80%E4%B9%88">12. Flutter 的布局约束模型是什么？</a></li>
-<li><a href="#13-expanded-%E5%92%8C-flexible-%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88">13. Expanded 和 Flexible 区别是什么？</a></li>
-<li><a href="#14-key-%E7%9A%84%E4%BD%9C%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88">14. Key 的作用是什么？</a></li>
-<li><a href="#15-%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E5%BB%BA%E8%AE%AE%E6%BB%A5%E7%94%A8-globalkey">15. 为什么不建议滥用 GlobalKey？</a></li>
-<li><a href="#16-flutter-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E6%9C%89%E5%93%AA%E4%BA%9B">16. Flutter 生命周期有哪些？</a></li>
-<li><a href="#17-%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E8%A6%81%E5%9C%A8-build-%E6%96%B9%E6%B3%95%E4%B8%AD%E8%AF%B7%E6%B1%82%E6%8E%A5%E5%8F%A3">17. 为什么不要在 build 方法中请求接口？</a></li>
-<li><a href="#18-const-widget-%E6%9C%89%E4%BB%80%E4%B9%88%E6%84%8F%E4%B9%89">18. const Widget 有什么意义？</a></li>
+<li><a href="#sec-03">三、Flutter Widget 与渲染机制</a><ul>
+<li><a href="#q-009">9. Flutter 的三棵树是什么？</a></li>
+<li><a href="#q-010">10. StatelessWidget 和 StatefulWidget 的区别是什么？</a></li>
+<li><a href="#q-011">11. BuildContext 是什么？</a></li>
+<li><a href="#q-012">12. Flutter 的布局约束模型是什么？</a></li>
+<li><a href="#q-013">13. Expanded 和 Flexible 区别是什么？</a></li>
+<li><a href="#q-014">14. Key 的作用是什么？</a></li>
+<li><a href="#q-015">15. 为什么不建议滥用 GlobalKey？</a></li>
+<li><a href="#q-016">16. Flutter 生命周期有哪些？</a></li>
+<li><a href="#q-017">17. 为什么不要在 build 方法中请求接口？</a></li>
+<li><a href="#q-018">18. const Widget 有什么意义？</a></li>
 </ul>
 </li>
-<li><a href="#%E5%9B%9Bbloc-%E4%B8%8E%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86">四、BLoC 与状态管理</a><ul>
-<li><a href="#19-%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%81%E4%B8%9A%E9%A1%B9%E7%9B%AE%E6%8E%A8%E8%8D%90-bloc">19. 为什么企业项目推荐 BLoC？</a></li>
-<li><a href="#20-bloc-%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%B7%A5%E4%BD%9C%E6%B5%81%E6%98%AF%E4%BB%80%E4%B9%88">20. BLoC 的基本工作流是什么？</a></li>
-<li><a href="#21-bloccubit-%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB">21. Bloc、Cubit 有什么区别？</a></li>
-<li><a href="#22-blocbuilderbloclistenerblocconsumer-%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88">22. BlocBuilder、BlocListener、BlocConsumer 区别是什么？</a></li>
-<li><a href="#23-blocselector-%E7%9A%84%E4%BD%9C%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88">23. BlocSelector 的作用是什么？</a></li>
-<li><a href="#24-bloc-%E7%9A%84-state-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%B8%8D%E5%8F%AF%E5%8F%98">24. BLoC 的 State 为什么要不可变？</a></li>
-<li><a href="#25-%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E7%99%BB%E5%BD%95%E6%A8%A1%E5%9D%97%E7%9A%84-bloc">25. 如何设计一个登录模块的 BLoC？</a></li>
-<li><a href="#26-bloc-%E4%B8%AD%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E5%B9%B6%E5%8F%91%E8%AF%B7%E6%B1%82">26. BLoC 中如何处理并发请求？</a></li>
-<li><a href="#27-bloc-%E5%A6%82%E4%BD%95%E6%B5%8B%E8%AF%95">27. BLoC 如何测试？</a></li>
+<li><a href="#sec-04">四、BLoC 与状态管理</a><ul>
+<li><a href="#q-019">19. 为什么企业项目推荐 BLoC？</a></li>
+<li><a href="#q-020">20. BLoC 的基本工作流是什么？</a></li>
+<li><a href="#q-021">21. Bloc、Cubit 有什么区别？</a></li>
+<li><a href="#q-022">22. BlocBuilder、BlocListener、BlocConsumer 区别是什么？</a></li>
+<li><a href="#q-023">23. BlocSelector 的作用是什么？</a></li>
+<li><a href="#q-024">24. BLoC 的 State 为什么要不可变？</a></li>
+<li><a href="#q-025">25. 如何设计一个登录模块的 BLoC？</a></li>
+<li><a href="#q-026">26. BLoC 中如何处理并发请求？</a></li>
+<li><a href="#q-027">27. BLoC 如何测试？</a></li>
 </ul>
 </li>
-<li><a href="#%E4%BA%94repository-%E4%B8%8E%E6%95%B0%E6%8D%AE%E5%B1%82">五、Repository 与数据层</a><ul>
-<li><a href="#28-repository-%E5%B1%82%E7%9A%84%E6%A0%B8%E5%BF%83%E8%81%8C%E8%B4%A3%E6%98%AF%E4%BB%80%E4%B9%88">28. Repository 层的核心职责是什么？</a></li>
-<li><a href="#29-repository-%E5%92%8C-api-service-%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB">29. Repository 和 API Service 有什么区别？</a></li>
-<li><a href="#30-%E7%BD%91%E7%BB%9C%E5%B1%82%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1">30. 网络层如何设计？</a></li>
-<li><a href="#31-dio-%E6%8B%A6%E6%88%AA%E5%99%A8%E4%B8%80%E8%88%AC%E5%81%9A%E4%BB%80%E4%B9%88">31. Dio 拦截器一般做什么？</a></li>
-<li><a href="#32-%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E7%BB%9F%E4%B8%80%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86">32. 如何设计统一错误处理？</a></li>
-<li><a href="#33-%E5%A6%82%E4%BD%95%E5%81%9A%E6%8E%A5%E5%8F%A3%E8%BF%94%E5%9B%9E%E7%BB%93%E6%9E%84%E5%B0%81%E8%A3%85">33. 如何做接口返回结构封装？</a></li>
-<li><a href="#34-%E7%BC%93%E5%AD%98%E5%B1%82%E5%BA%94%E8%AF%A5%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1">34. 缓存层应该如何设计？</a></li>
-<li><a href="#35-shared_preferences-%E9%80%82%E5%90%88%E5%AD%98%E4%BB%80%E4%B9%88">35. shared_preferences 适合存什么？</a></li>
+<li><a href="#sec-05">五、Repository 与数据层</a><ul>
+<li><a href="#q-028">28. Repository 层的核心职责是什么？</a></li>
+<li><a href="#q-029">29. Repository 和 API Service 有什么区别？</a></li>
+<li><a href="#q-030">30. 网络层如何设计？</a></li>
+<li><a href="#q-031">31. Dio 拦截器一般做什么？</a></li>
+<li><a href="#q-032">32. 如何设计统一错误处理？</a></li>
+<li><a href="#q-033">33. 如何做接口返回结构封装？</a></li>
+<li><a href="#q-034">34. 缓存层应该如何设计？</a></li>
+<li><a href="#q-035">35. shared_preferences 适合存什么？</a></li>
 </ul>
 </li>
-<li><a href="#%E5%85%AD%E9%A1%B9%E7%9B%AE%E7%9B%AE%E5%BD%95%E4%B8%8E%E6%9E%B6%E6%9E%84%E8%A7%84%E8%8C%83">六、项目目录与架构规范</a><ul>
-<li><a href="#36-%E4%BC%81%E4%B8%9A%E7%BA%A7-flutter-%E6%8E%A8%E8%8D%90%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E6%98%AF%E4%BB%80%E4%B9%88">36. 企业级 Flutter 推荐目录结构是什么？</a></li>
-<li><a href="#37-core-%E7%9B%AE%E5%BD%95%E5%BA%94%E8%AF%A5%E6%94%BE%E4%BB%80%E4%B9%88">37. core 目录应该放什么？</a></li>
-<li><a href="#38-feature-%E7%9B%AE%E5%BD%95%E5%A6%82%E4%BD%95%E6%8B%86%E5%88%86">38. feature 目录如何拆分？</a></li>
-<li><a href="#39-%E5%85%AC%E5%85%B1-widgets-%E5%92%8C-featurewidgets-%E5%A6%82%E4%BD%95%E5%8C%BA%E5%88%86">39. 公共 widgets 和 feature/widgets 如何区分？</a></li>
-<li><a href="#40-%E4%B8%BA%E4%BB%80%E4%B9%88-ui-%E5%B1%82%E4%B8%8D%E8%83%BD%E7%9B%B4%E6%8E%A5%E8%B0%83%E7%94%A8%E6%8E%A5%E5%8F%A3">40. 为什么 UI 层不能直接调用接口？</a></li>
+<li><a href="#sec-06">六、项目目录与架构规范</a><ul>
+<li><a href="#q-036">36. 企业级 Flutter 推荐目录结构是什么？</a></li>
+<li><a href="#q-037">37. core 目录应该放什么？</a></li>
+<li><a href="#q-038">38. feature 目录如何拆分？</a></li>
+<li><a href="#q-039">39. 公共 widgets 和 feature/widgets 如何区分？</a></li>
+<li><a href="#q-040">40. 为什么 UI 层不能直接调用接口？</a></li>
 </ul>
 </li>
-<li><a href="#%E4%B8%83%E5%B7%A5%E7%A8%8B%E8%B4%A8%E9%87%8F%E4%B8%8E%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83">七、工程质量与代码规范</a><ul>
-<li><a href="#41-flutter-analyze-%E7%9A%84%E4%BD%9C%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88">41. flutter analyze 的作用是什么？</a></li>
-<li><a href="#42-%E5%A6%82%E4%BD%95%E5%88%B6%E5%AE%9A-flutter-%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83">42. 如何制定 Flutter 代码规范？</a></li>
-<li><a href="#43-%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E5%BB%BA%E8%AE%AE%E7%9B%B4%E6%8E%A5%E5%9B%BA%E5%AE%9A%E4%BE%9D%E8%B5%96%E7%89%88%E6%9C%AC">43. 为什么不建议直接固定依赖版本？</a></li>
-<li><a href="#44-pubspeclock-%E8%A6%81%E4%B8%8D%E8%A6%81%E6%8F%90%E4%BA%A4">44. pubspec.lock 要不要提交？</a></li>
-<li><a href="#45-%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AA%E6%8F%92%E4%BB%B6%E6%98%AF%E5%90%A6%E5%8F%AF%E7%94%A8">45. 如何判断一个插件是否可用？</a></li>
+<li><a href="#sec-07">七、工程质量与代码规范</a><ul>
+<li><a href="#q-041">41. flutter analyze 的作用是什么？</a></li>
+<li><a href="#q-042">42. 如何制定 Flutter 代码规范？</a></li>
+<li><a href="#q-043">43. 为什么不建议直接固定依赖版本？</a></li>
+<li><a href="#q-044">44. pubspec.lock 要不要提交？</a></li>
+<li><a href="#q-045">45. 如何判断一个插件是否可用？</a></li>
 </ul>
 </li>
-<li><a href="#%E5%85%AB%E6%8F%92%E4%BB%B6%E4%B8%8E%E5%B9%B3%E5%8F%B0%E9%80%82%E9%85%8D">八、插件与平台适配</a><ul>
-<li><a href="#46-platform-channel-%E6%98%AF%E4%BB%80%E4%B9%88">46. Platform Channel 是什么？</a></li>
-<li><a href="#47-methodchannel-%E5%92%8C-eventchannel-%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88">47. MethodChannel 和 EventChannel 区别是什么？</a></li>
-<li><a href="#48-%E6%B6%89%E5%8F%8A-platform-%E6%8F%92%E4%BB%B6%E6%97%B6%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E8%80%83%E8%99%91%E9%B8%BF%E8%92%99%E9%80%82%E9%85%8D">48. 涉及 Platform 插件时，为什么要考虑鸿蒙适配？</a></li>
-<li><a href="#49-%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E5%8F%AF%E6%89%A9%E5%B1%95%E7%9A%84%E5%B9%B3%E5%8F%B0%E8%83%BD%E5%8A%9B%E5%B1%82">49. 如何设计一个可扩展的平台能力层？</a></li>
-<li><a href="#50-image_picker-%E8%BF%99%E7%B1%BB%E6%8F%92%E4%BB%B6%E6%9C%89%E4%BB%80%E4%B9%88%E9%A3%8E%E9%99%A9">50. image_picker 这类插件有什么风险？</a></li>
-<li><a href="#51-webview_flutter-%E5%B8%B8%E8%A7%81%E5%9D%91%E6%9C%89%E5%93%AA%E4%BA%9B">51. webview_flutter 常见坑有哪些？</a></li>
-<li><a href="#52-flutter-%E4%B8%AD%E5%B5%8C%E5%85%A5%E5%8E%9F%E7%94%9F-view-%E6%9C%89%E4%BB%80%E4%B9%88%E6%80%A7%E8%83%BD%E9%97%AE%E9%A2%98">52. Flutter 中嵌入原生 View 有什么性能问题？</a></li>
+<li><a href="#sec-08">八、插件与平台适配</a><ul>
+<li><a href="#q-046">46. Platform Channel 是什么？</a></li>
+<li><a href="#q-047">47. MethodChannel 和 EventChannel 区别是什么？</a></li>
+<li><a href="#q-048">48. 涉及 Platform 插件时，为什么要考虑鸿蒙适配？</a></li>
+<li><a href="#q-049">49. 如何设计一个可扩展的平台能力层？</a></li>
+<li><a href="#q-050">50. image_picker 这类插件有什么风险？</a></li>
+<li><a href="#q-051">51. webview_flutter 常见坑有哪些？</a></li>
+<li><a href="#q-052">52. Flutter 中嵌入原生 View 有什么性能问题？</a></li>
 </ul>
 </li>
-<li><a href="#%E4%B9%9D%E5%A4%9A%E7%8E%AF%E5%A2%83%E4%B8%8E%E5%A4%9A%E6%B8%A0%E9%81%93%E6%89%93%E5%8C%85">九、多环境与多渠道打包</a><ul>
-<li><a href="#53-flutter-%E5%A6%82%E4%BD%95%E6%94%AF%E6%8C%81-dev--test--prod-%E5%A4%9A%E7%8E%AF%E5%A2%83">53. Flutter 如何支持 dev / test / prod 多环境？</a></li>
-<li><a href="#54-%E4%B8%BA%E4%BB%80%E4%B9%88%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E4%B8%8D%E8%83%BD%E5%86%99%E6%AD%BB">54. 为什么环境变量不能写死？</a></li>
-<li><a href="#55-flutter-%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0-android-%E5%A4%9A%E6%B8%A0%E9%81%93">55. Flutter 如何实现 Android 多渠道？</a></li>
-<li><a href="#56-flutter-344-%E5%AF%B9-android-%E6%9E%84%E5%BB%BA%E6%9C%89%E4%BB%80%E4%B9%88%E5%80%BC%E5%BE%97%E5%85%B3%E6%B3%A8">56. Flutter 3.44 对 Android 构建有什么值得关注？</a></li>
-<li><a href="#57-flutter-344-%E5%AF%B9-ios--macos-%E6%9E%84%E5%BB%BA%E6%9C%89%E4%BB%80%E4%B9%88%E5%8F%98%E5%8C%96">57. Flutter 3.44 对 iOS / macOS 构建有什么变化？</a></li>
+<li><a href="#sec-09">九、多环境与多渠道打包</a><ul>
+<li><a href="#q-053">53. Flutter 如何支持 dev / test / prod 多环境？</a></li>
+<li><a href="#q-054">54. 为什么环境变量不能写死？</a></li>
+<li><a href="#q-055">55. Flutter 如何实现 Android 多渠道？</a></li>
+<li><a href="#q-056">56. Flutter 3.44 对 Android 构建有什么值得关注？</a></li>
+<li><a href="#q-057">57. Flutter 3.44 对 iOS / macOS 构建有什么变化？</a></li>
 </ul>
 </li>
-<li><a href="#%E5%8D%81%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96">十、性能优化</a><ul>
-<li><a href="#58-flutter-%E5%8D%A1%E9%A1%BF%E4%B8%80%E8%88%AC%E5%A6%82%E4%BD%95%E6%8E%92%E6%9F%A5">58. Flutter 卡顿一般如何排查？</a></li>
-<li><a href="#59-%E5%A6%82%E4%BD%95%E5%87%8F%E5%B0%91-widget-rebuild">59. 如何减少 Widget rebuild？</a></li>
-<li><a href="#60-listviewbuilder-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%80%A7%E8%83%BD%E6%9B%B4%E5%A5%BD">60. ListView.builder 为什么性能更好？</a></li>
-<li><a href="#61-flutter-%E5%9B%BE%E7%89%87%E5%8A%A0%E8%BD%BD%E5%A6%82%E4%BD%95%E4%BC%98%E5%8C%96">61. Flutter 图片加载如何优化？</a></li>
-<li><a href="#62-impeller-%E6%98%AF%E4%BB%80%E4%B9%88%E9%9D%A2%E8%AF%95%E6%80%8E%E4%B9%88%E5%9B%9E%E7%AD%94">62. Impeller 是什么？面试怎么回答？</a></li>
-<li><a href="#63-shader-%E7%BC%96%E8%AF%91%E5%8D%A1%E9%A1%BF%E6%98%AF%E4%BB%80%E4%B9%88">63. Shader 编译卡顿是什么？</a></li>
+<li><a href="#sec-10">十、性能优化</a><ul>
+<li><a href="#q-058">58. Flutter 卡顿一般如何排查？</a></li>
+<li><a href="#q-059">59. 如何减少 Widget rebuild？</a></li>
+<li><a href="#q-060">60. ListView.builder 为什么性能更好？</a></li>
+<li><a href="#q-061">61. Flutter 图片加载如何优化？</a></li>
+<li><a href="#q-062">62. Impeller 是什么？面试怎么回答？</a></li>
+<li><a href="#q-063">63. Shader 编译卡顿是什么？</a></li>
 </ul>
 </li>
-<li><a href="#%E5%8D%81%E4%B8%80%E8%B7%AF%E7%94%B1%E4%B8%8E%E6%A8%A1%E5%9D%97%E5%8C%96">十一、路由与模块化</a><ul>
-<li><a href="#64-flutter-%E5%B8%B8%E8%A7%81%E8%B7%AF%E7%94%B1%E6%96%B9%E6%A1%88%E6%9C%89%E5%93%AA%E4%BA%9B">64. Flutter 常见路由方案有哪些？</a></li>
-<li><a href="#65-flutter_modular-%E7%9A%84%E4%BD%9C%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88">65. flutter_modular 的作用是什么？</a></li>
-<li><a href="#66-%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%AC%E5%BA%94%E8%AF%A5%E6%94%BE%E5%9C%A8-bloc-%E9%87%8C%E5%90%97">66. 页面跳转应该放在 Bloc 里吗？</a></li>
+<li><a href="#sec-11">十一、路由与模块化</a><ul>
+<li><a href="#q-064">64. Flutter 常见路由方案有哪些？</a></li>
+<li><a href="#q-065">65. flutter_modular 的作用是什么？</a></li>
+<li><a href="#q-066">66. 页面跳转应该放在 Bloc 里吗？</a></li>
 </ul>
 </li>
-<li><a href="#%E5%8D%81%E4%BA%8C%E6%B5%8B%E8%AF%95%E4%BD%93%E7%B3%BB">十二、测试体系</a><ul>
-<li><a href="#67-flutter-%E6%9C%89%E5%93%AA%E4%BA%9B%E6%B5%8B%E8%AF%95%E7%B1%BB%E5%9E%8B">67. Flutter 有哪些测试类型？</a></li>
-<li><a href="#68-%E4%B8%BA%E4%BB%80%E4%B9%88-repository-%E8%A6%81%E5%8F%AF%E6%B5%8B%E8%AF%95">68. 为什么 Repository 要可测试？</a></li>
-<li><a href="#69-widget-test-%E9%80%82%E5%90%88%E6%B5%8B%E4%BB%80%E4%B9%88">69. Widget Test 适合测什么？</a></li>
+<li><a href="#sec-12">十二、测试体系</a><ul>
+<li><a href="#q-067">67. Flutter 有哪些测试类型？</a></li>
+<li><a href="#q-068">68. 为什么 Repository 要可测试？</a></li>
+<li><a href="#q-069">69. Widget Test 适合测什么？</a></li>
 </ul>
 </li>
-<li><a href="#%E5%8D%81%E4%B8%89%E5%AE%89%E5%85%A8%E4%B8%8E%E6%9D%83%E9%99%90">十三、安全与权限</a><ul>
-<li><a href="#70-permission_handler-%E5%BA%94%E8%AF%A5%E5%A6%82%E4%BD%95%E5%B0%81%E8%A3%85">70. permission_handler 应该如何封装？</a></li>
-<li><a href="#71-%E5%AE%9A%E4%BD%8D%E6%8F%92%E4%BB%B6-geolocator-%E6%9C%89%E5%93%AA%E4%BA%9B%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9">71. 定位插件 geolocator 有哪些注意事项？</a></li>
-<li><a href="#72-url_launcher-%E6%9C%89%E4%BB%80%E4%B9%88%E5%AE%89%E5%85%A8%E9%A3%8E%E9%99%A9">72. url_launcher 有什么安全风险？</a></li>
+<li><a href="#sec-13">十三、安全与权限</a><ul>
+<li><a href="#q-070">70. permission_handler 应该如何封装？</a></li>
+<li><a href="#q-071">71. 定位插件 geolocator 有哪些注意事项？</a></li>
+<li><a href="#q-072">72. url_launcher 有什么安全风险？</a></li>
 </ul>
 </li>
-<li><a href="#%E5%8D%81%E5%9B%9Bweb%E6%A1%8C%E9%9D%A2%E4%B8%8E%E5%A4%9A%E7%AB%AF">十四、Web、桌面与多端</a><ul>
-<li><a href="#73-flutter-web-%E6%9C%89%E5%93%AA%E4%BA%9B%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98">73. Flutter Web 有哪些常见问题？</a></li>
-<li><a href="#74-flutter-desktop-%E5%88%B0-2026-%E5%B9%B4%E6%9C%89%E4%BB%80%E4%B9%88%E5%8F%98%E5%8C%96%E5%80%BC%E5%BE%97%E5%85%B3%E6%B3%A8">74. Flutter Desktop 到 2026 年有什么变化值得关注？</a></li>
-<li><a href="#75-flutter-%E8%BD%A6%E6%9C%BA--%E5%A4%A7%E5%B1%8F%E9%A1%B9%E7%9B%AE%E8%A6%81%E5%85%B3%E6%B3%A8%E4%BB%80%E4%B9%88">75. Flutter 车机 / 大屏项目要关注什么？</a></li>
+<li><a href="#sec-14">十四、Web、桌面与多端</a><ul>
+<li><a href="#q-073">73. Flutter Web 有哪些常见问题？</a></li>
+<li><a href="#q-074">74. Flutter Desktop 到 2026 年有什么变化值得关注？</a></li>
+<li><a href="#q-075">75. Flutter 车机 / 大屏项目要关注什么？</a></li>
 </ul>
 </li>
-<li><a href="#%E5%8D%81%E4%BA%942026-%E6%96%B0%E7%89%B9%E6%80%A7%E4%B8%93%E9%A1%B9%E9%A2%98">十五、2026 新特性专项题</a><ul>
-<li><a href="#76-flutter-344-%E4%B8%AD-material-%E5%92%8C-cupertino-%E6%9C%89%E4%BB%80%E4%B9%88%E9%87%8D%E8%A6%81%E5%8F%98%E5%8C%96">76. Flutter 3.44 中 Material 和 Cupertino 有什么重要变化？</a></li>
-<li><a href="#77-flutter-344-%E4%B8%AD-swiftpm-%E9%BB%98%E8%AE%A4%E5%8C%96%E4%BC%9A%E5%BD%B1%E5%93%8D%E5%93%AA%E4%BA%9B%E9%A1%B9%E7%9B%AE">77. Flutter 3.44 中 SwiftPM 默认化会影响哪些项目？</a></li>
-<li><a href="#78-flutter-344-%E4%B8%AD-hybrid-composition-%E9%80%82%E5%90%88%E8%A7%A3%E5%86%B3%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98">78. Flutter 3.44 中 Hybrid Composition++ 适合解决什么问题？</a></li>
-<li><a href="#79-dart--flutter-agentic-hot-reload-%E6%98%AF%E4%BB%80%E4%B9%88%E4%BC%81%E4%B8%9A%E9%A1%B9%E7%9B%AE%E6%80%8E%E4%B9%88%E7%9C%8B">79. Dart / Flutter Agentic Hot Reload 是什么？企业项目怎么看？</a></li>
-<li><a href="#80-genkit-dart--ai-%E8%83%BD%E5%8A%9B%E5%92%8C-flutter-%E6%9C%89%E4%BB%80%E4%B9%88%E5%85%B3%E7%B3%BB">80. Genkit Dart / AI 能力和 Flutter 有什么关系？</a></li>
+<li><a href="#sec-15">十五、2026 新特性专项题</a><ul>
+<li><a href="#q-076">76. Flutter 3.44 中 Material 和 Cupertino 有什么重要变化？</a></li>
+<li><a href="#q-077">77. Flutter 3.44 中 SwiftPM 默认化会影响哪些项目？</a></li>
+<li><a href="#q-078">78. Flutter 3.44 中 Hybrid Composition++ 适合解决什么问题？</a></li>
+<li><a href="#q-079">79. Dart / Flutter Agentic Hot Reload 是什么？企业项目怎么看？</a></li>
+<li><a href="#q-080">80. Genkit Dart / AI 能力和 Flutter 有什么关系？</a></li>
 </ul>
 </li>
-<li><a href="#%E5%8D%81%E5%85%AD%E7%BB%BC%E5%90%88%E5%AE%9E%E6%88%98%E9%A2%98">十六、综合实战题</a><ul>
-<li><a href="#81-%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E6%89%AB%E7%A0%81%E7%99%BB%E5%BD%95%E5%8A%9F%E8%83%BD%E8%A6%81%E6%B1%82%E7%AC%A6%E5%90%88%E4%BC%81%E4%B8%9A%E6%9E%B6%E6%9E%84%E8%A7%84%E8%8C%83">81. 设计一个扫码登录功能，要求符合企业架构规范。</a></li>
-<li><a href="#82-%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E8%93%9D%E7%89%99%E8%AE%BE%E5%A4%87%E6%89%AB%E6%8F%8F%E6%A8%A1%E5%9D%97">82. 设计一个蓝牙设备扫描模块。</a></li>
-<li><a href="#83-%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA-webview-%E5%AE%B9%E5%99%A8%E9%A1%B5">83. 设计一个 WebView 容器页。</a></li>
-<li><a href="#84-%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1-app-%E7%9A%84%E7%BB%9F%E4%B8%80%E7%99%BB%E5%BD%95%E6%80%81">84. 如何设计 App 的统一登录态？</a></li>
-<li><a href="#85-%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1-flutter-%E9%A1%B9%E7%9B%AE%E7%9A%84-cicd">85. 如何设计 Flutter 项目的 CI/CD？</a></li>
+<li><a href="#sec-16">十六、综合实战题</a><ul>
+<li><a href="#q-081">81. 设计一个扫码登录功能，要求符合企业架构规范。</a></li>
+<li><a href="#q-082">82. 设计一个蓝牙设备扫描模块。</a></li>
+<li><a href="#q-083">83. 设计一个 WebView 容器页。</a></li>
+<li><a href="#q-084">84. 如何设计 App 的统一登录态？</a></li>
+<li><a href="#q-085">85. 如何设计 Flutter 项目的 CI/CD？</a></li>
 </ul>
 </li>
-<li><a href="#%E5%8D%81%E4%B8%83%E6%B7%98%E6%B1%B0%E9%A2%98--%E5%8A%A0%E5%88%86%E9%A2%98">十七、淘汰题 / 加分题</a></li>
-<li><a href="#%E5%8D%81%E5%85%AB%E5%BB%BA%E8%AE%AE%E9%9D%A2%E8%AF%95%E8%AF%84%E5%88%86%E8%A1%A8">十八、建议面试评分表</a></li>
-<li><a href="#%E5%8D%81%E4%B9%9D%E5%8F%82%E8%80%83%E4%BE%9D%E6%8D%AE">十九、参考依据</a></li>
+<li><a href="#sec-17">十七、淘汰题 / 加分题</a><ul>
+<li><a href="#sub-01">明显淘汰回答</a></li>
+<li><a href="#sub-02">高级候选人加分点</a></li>
+</ul>
+</li>
+<li><a href="#sec-18">十八、建议面试评分表</a></li>
+<li><a href="#sec-19">十九、参考依据</a></li>
 </ul>
 <hr>
-<h2 id="一、题库定位与面试分层">一、题库定位与面试分层</h2>
+<p><a id="sec-01"></a></p><h2 id="一、题库定位与面试分层">一、题库定位与面试分层</h2>
 <p>本题库按 <strong>2026年6月 Flutter 当前生态</strong>设计，基准为 <strong>Flutter 3.44 / Dart 3.12</strong>。</p><p>同时结合企业项目标准，重点覆盖：</p><ul>
 <li>明确分层架构；</li>
 <li>BLoC + Repository；</li>
@@ -202,8 +206,8 @@
 </tr>
 </tbody></table>
 <hr>
-<h2 id="二、dart-基础与语言特性">二、Dart 基础与语言特性</h2>
-<h3 id="1-dart-的-null-safety-是什么？为什么企业项目必须重视？">1. Dart 的 null safety 是什么？为什么企业项目必须重视？</h3>
+<p><a id="sec-02"></a></p><h2 id="二、dart-基础与语言特性">二、Dart 基础与语言特性</h2>
+<p><a id="q-001"></a></p><h3 id="1-dart-的-null-safety-是什么？为什么企业项目必须重视？">1. Dart 的 null safety 是什么？为什么企业项目必须重视？</h3>
 <p><strong>解析：</strong></p><p>Null safety 是 Dart 的空安全机制，用类型系统区分可空和不可空。</p><pre><code class="language-dart">String name = &#39;Tom&#39;;     // 不可空
 String? nickname;        // 可空
 </code></pre>
@@ -214,7 +218,7 @@ String? nickname;        // 可空
 <li>减少运行时崩溃。</li>
 </ul>
 <p><strong>追问：</strong></p><p><code>late</code> 可以随便用吗？</p><p><strong>参考答案：</strong></p><p>不能。<code>late</code> 只是告诉编译器“稍后初始化”，如果运行时访问前未赋值，仍然会抛异常。一般只在依赖注入、生命周期初始化、测试 mock 等明确场景使用。</p><hr>
-<h3 id="2-dart-中-final、const、var-有什么区别？">2. Dart 中 final、const、var 有什么区别？</h3>
+<p><a id="q-002"></a></p><h3 id="2-dart-中-final、const、var-有什么区别？">2. Dart 中 final、const、var 有什么区别？</h3>
 <p><strong>解析：</strong></p><table>
 <thead>
 <tr>
@@ -239,7 +243,7 @@ String? nickname;        // 可空
 const now = DateTime.now(); // 不可以
 </code></pre>
 <p><code>const</code> 的值必须在编译期确定。</p><hr>
-<h3 id="3-future-和-stream-的区别是什么？">3. Future 和 Stream 的区别是什么？</h3>
+<p><a id="q-003"></a></p><h3 id="3-future-和-stream-的区别是什么？">3. Future 和 Stream 的区别是什么？</h3>
 <p><strong>解析：</strong></p><table>
 <thead>
 <tr>
@@ -265,11 +269,11 @@ Stream&lt;Location&gt; watchLocation();
 <li>BLoC 内部经常把 Event 转成 State，本质上也是异步状态流。</li>
 </ul>
 <hr>
-<h3 id="4-async--await-的本质是什么？">4. async / await 的本质是什么？</h3>
+<p><a id="q-004"></a></p><h3 id="4-async--await-的本质是什么？">4. async / await 的本质是什么？</h3>
 <p><strong>解析：</strong></p><p><code>async / await</code> 是对 Future 的语法糖，让异步代码看起来像同步代码。</p><pre><code class="language-dart">final user = await repository.getUser();
 </code></pre>
 <p>它不会阻塞 UI 线程，而是把后续逻辑挂起，等 Future 完成后继续执行。</p><hr>
-<h3 id="5-dart-isolate-是什么？和线程有什么区别？">5. Dart isolate 是什么？和线程有什么区别？</h3>
+<p><a id="q-005"></a></p><h3 id="5-dart-isolate-是什么？和线程有什么区别？">5. Dart isolate 是什么？和线程有什么区别？</h3>
 <p><strong>解析：</strong></p><p>Isolate 是 Dart 的并发执行单元。不同 isolate 之间不共享内存，只能通过消息通信。</p><p>适合场景：</p><ul>
 <li>大 JSON 解析；</li>
 <li>图片处理；</li>
@@ -282,14 +286,14 @@ Stream&lt;Location&gt; watchLocation();
 <li>小量数据转换。</li>
 </ul>
 <hr>
-<h3 id="6-dart-312-有哪些值得关注的新特性？">6. Dart 3.12 有哪些值得关注的新特性？</h3>
+<p><a id="q-006"></a></p><h3 id="6-dart-312-有哪些值得关注的新特性？">6. Dart 3.12 有哪些值得关注的新特性？</h3>
 <p><strong>解析：</strong></p><p>Dart 3.12 引入了 private named parameters，并提供 primary constructors 的实验支持；同时还强化了 AI / Agentic Hot Reload / Genkit Dart 等生态方向。</p><p>面试重点不是让候选人背版本号，而是看他是否能判断：</p><ul>
 <li>哪些特性已经稳定；</li>
 <li>哪些还只是实验特性；</li>
 <li>企业项目是否应该立即使用。</li>
 </ul>
 <p><strong>标准回答：</strong></p><p>企业项目里可以关注 private named parameters，但实验性的 primary constructors 不建议在生产项目大面积使用，除非团队明确锁定 SDK、评估迁移风险。</p><hr>
-<h3 id="7-dart-中-mixin、abstract-class、interface-class-有什么区别？">7. Dart 中 mixin、abstract class、interface class 有什么区别？</h3>
+<p><a id="q-007"></a></p><h3 id="7-dart-中-mixin、abstract-class、interface-class-有什么区别？">7. Dart 中 mixin、abstract class、interface class 有什么区别？</h3>
 <p><strong>解析：</strong></p><table>
 <thead>
 <tr>
@@ -313,7 +317,7 @@ Stream&lt;Location&gt; watchLocation();
 <p>在 Flutter 中，mixin 常见于：</p><pre><code class="language-dart">with SingleTickerProviderStateMixin
 </code></pre>
 <p>用于动画控制器。</p><hr>
-<h3 id="8-dart-扩展方法-extension-的用途是什么？">8. Dart 扩展方法 extension 的用途是什么？</h3>
+<p><a id="q-008"></a></p><h3 id="8-dart-扩展方法-extension-的用途是什么？">8. Dart 扩展方法 extension 的用途是什么？</h3>
 <p><strong>解析：</strong></p><p>extension 可以在不修改原类的情况下扩展能力。</p><pre><code class="language-dart">extension StringExt on String {
   bool get isPhone =&gt; RegExp(r&#39;^1\d{10}$&#39;).hasMatch(this);
 }
@@ -325,8 +329,8 @@ Stream&lt;Location&gt; watchLocation();
 <li>枚举展示文案。</li>
 </ul>
 <p>但不建议滥用，否则会造成代码入口不清晰。</p><hr>
-<h2 id="三、flutter-widget-与渲染机制">三、Flutter Widget 与渲染机制</h2>
-<h3 id="9-flutter-的三棵树是什么？">9. Flutter 的三棵树是什么？</h3>
+<p><a id="sec-03"></a></p><h2 id="三、flutter-widget-与渲染机制">三、Flutter Widget 与渲染机制</h2>
+<p><a id="q-009"></a></p><h3 id="9-flutter-的三棵树是什么？">9. Flutter 的三棵树是什么？</h3>
 <p><strong>解析：</strong></p><p>Flutter 中常说三棵树：</p><table>
 <thead>
 <tr>
@@ -348,7 +352,7 @@ Stream&lt;Location&gt; watchLocation();
 </tr>
 </tbody></table>
 <p>Widget 是不可变的，真正持有状态的是 Element 和 State。</p><hr>
-<h3 id="10-statelesswidget-和-statefulwidget-的区别是什么？">10. StatelessWidget 和 StatefulWidget 的区别是什么？</h3>
+<p><a id="q-010"></a></p><h3 id="10-statelesswidget-和-statefulwidget-的区别是什么？">10. StatelessWidget 和 StatefulWidget 的区别是什么？</h3>
 <p><strong>解析：</strong></p><table>
 <thead>
 <tr>
@@ -366,7 +370,7 @@ Stream&lt;Location&gt; watchLocation();
 </tr>
 </tbody></table>
 <p>但在企业项目中，不代表用了 StatefulWidget 就可以随便 <code>setState</code>。项目标准要求严格使用 BLoC，不允许滥用 <code>setState</code>。</p><hr>
-<h3 id="11-buildcontext-是什么？">11. BuildContext 是什么？</h3>
+<p><a id="q-011"></a></p><h3 id="11-buildcontext-是什么？">11. BuildContext 是什么？</h3>
 <p><strong>解析：</strong></p><p>BuildContext 本质上是 Element 的抽象引用，表示 Widget 在树中的位置。</p><p>常见用途：</p><ul>
 <li>获取 Theme；</li>
 <li>获取 MediaQuery；</li>
@@ -379,7 +383,7 @@ Stream&lt;Location&gt; watchLocation();
 <p>如果 context 已经失效，可能报错。所以异步后使用 context 要判断：</p><pre><code class="language-dart">if (!context.mounted) return;
 </code></pre>
 <hr>
-<h3 id="12-flutter-的布局约束模型是什么？">12. Flutter 的布局约束模型是什么？</h3>
+<p><a id="q-012"></a></p><h3 id="12-flutter-的布局约束模型是什么？">12. Flutter 的布局约束模型是什么？</h3>
 <p><strong>解析：</strong></p><p>Flutter 布局核心是：</p><pre><code class="language-text">父组件传约束 → 子组件选择尺寸 → 父组件决定位置
 </code></pre>
 <p>口诀：</p><blockquote>
@@ -390,7 +394,7 @@ Stream&lt;Location&gt; watchLocation();
 <li>Expanded 和 Flexible 有什么区别？</li>
 </ul>
 <hr>
-<h3 id="13-expanded-和-flexible-区别是什么？">13. Expanded 和 Flexible 区别是什么？</h3>
+<p><a id="q-013"></a></p><h3 id="13-expanded-和-flexible-区别是什么？">13. Expanded 和 Flexible 区别是什么？</h3>
 <p><strong>解析：</strong></p><table>
 <thead>
 <tr>
@@ -414,7 +418,7 @@ Stream&lt;Location&gt; watchLocation();
 )
 </code></pre>
 <p>用于解决 Row 中 Text 溢出问题。</p><hr>
-<h3 id="14-key-的作用是什么？">14. Key 的作用是什么？</h3>
+<p><a id="q-014"></a></p><h3 id="14-key-的作用是什么？">14. Key 的作用是什么？</h3>
 <p><strong>解析：</strong></p><p>Key 用于帮助 Flutter 在 Widget 更新时识别组件身份。</p><p>常见场景：</p><ul>
 <li>列表重排；</li>
 <li>表单状态保持；</li>
@@ -446,7 +450,7 @@ Stream&lt;Location&gt; watchLocation();
 </tr>
 </tbody></table>
 <hr>
-<h3 id="15-为什么不建议滥用-globalkey？">15. 为什么不建议滥用 GlobalKey？</h3>
+<p><a id="q-015"></a></p><h3 id="15-为什么不建议滥用-globalkey？">15. 为什么不建议滥用 GlobalKey？</h3>
 <p><strong>解析：</strong></p><p>GlobalKey 会增加 Element 树匹配成本，还会让组件之间产生强耦合。</p><p>不推荐用它做普通组件通信。</p><p>更好的方式：</p><ul>
 <li>BLoC；</li>
 <li>Callback；</li>
@@ -456,7 +460,7 @@ Stream&lt;Location&gt; watchLocation();
 <li>Controller。</li>
 </ul>
 <hr>
-<h3 id="16-flutter-生命周期有哪些？">16. Flutter 生命周期有哪些？</h3>
+<p><a id="q-016"></a></p><h3 id="16-flutter-生命周期有哪些？">16. Flutter 生命周期有哪些？</h3>
 <p><strong>解析：</strong></p><p>State 生命周期：</p><pre><code class="language-text">createState
 initState
 didChangeDependencies
@@ -472,7 +476,7 @@ dispose
 <li>不要在 <code>build</code> 中发网络请求。</li>
 </ul>
 <hr>
-<h3 id="17-为什么不要在-build-方法中请求接口？">17. 为什么不要在 build 方法中请求接口？</h3>
+<p><a id="q-017"></a></p><h3 id="17-为什么不要在-build-方法中请求接口？">17. 为什么不要在 build 方法中请求接口？</h3>
 <p><strong>解析：</strong></p><p><code>build</code> 可能被频繁调用：</p><ul>
 <li>父组件刷新；</li>
 <li>MediaQuery 变化；</li>
@@ -485,7 +489,7 @@ dispose
 }
 </code></pre>
 <p>或者路由进入时由上层触发。</p><hr>
-<h3 id="18-const-widget-有什么意义？">18. const Widget 有什么意义？</h3>
+<p><a id="q-018"></a></p><h3 id="18-const-widget-有什么意义？">18. const Widget 有什么意义？</h3>
 <p><strong>解析：</strong></p><p><code>const</code> Widget 可以减少对象创建，帮助 Flutter 在 rebuild 时跳过不必要的更新。</p><pre><code class="language-dart">const Text(&#39;Hello&#39;)
 </code></pre>
 <p>适合：</p><ul>
@@ -494,8 +498,8 @@ dispose
 <li>固定样式组件。</li>
 </ul>
 <hr>
-<h2 id="四、bloc-与状态管理">四、BLoC 与状态管理</h2>
-<h3 id="19-为什么企业项目推荐-bloc？">19. 为什么企业项目推荐 BLoC？</h3>
+<p><a id="sec-04"></a></p><h2 id="四、bloc-与状态管理">四、BLoC 与状态管理</h2>
+<p><a id="q-019"></a></p><h3 id="19-为什么企业项目推荐-bloc？">19. 为什么企业项目推荐 BLoC？</h3>
 <p><strong>解析：</strong></p><p>BLoC 的优势：</p><ul>
 <li>UI 与业务逻辑分离；</li>
 <li>Event / State 清晰；</li>
@@ -505,7 +509,7 @@ dispose
 <li>状态变化可追踪。</li>
 </ul>
 <p>项目标准明确要求严格使用 Bloc。</p><hr>
-<h3 id="20-bloc-的基本工作流是什么？">20. BLoC 的基本工作流是什么？</h3>
+<p><a id="q-020"></a></p><h3 id="20-bloc-的基本工作流是什么？">20. BLoC 的基本工作流是什么？</h3>
 <p><strong>解析：</strong></p><pre><code class="language-text">UI → Event → Bloc → Repository → State → UI
 </code></pre>
 <p>示例：</p><pre><code class="language-dart">on&lt;LoginSubmitted&gt;((event, emit) async {
@@ -519,7 +523,7 @@ dispose
 });
 </code></pre>
 <hr>
-<h3 id="21-bloc、cubit-有什么区别？">21. Bloc、Cubit 有什么区别？</h3>
+<p><a id="q-021"></a></p><h3 id="21-bloc、cubit-有什么区别？">21. Bloc、Cubit 有什么区别？</h3>
 <p><strong>解析：</strong></p><table>
 <thead>
 <tr>
@@ -537,7 +541,7 @@ dispose
 </tr>
 </tbody></table>
 <p>企业复杂业务推荐 Bloc，因为 Event 可以清晰表达用户行为和业务动作。</p><p>简单开关、Tab、局部状态可以用 Cubit。</p><hr>
-<h3 id="22-blocbuilder、bloclistener、blocconsumer-区别是什么？">22. BlocBuilder、BlocListener、BlocConsumer 区别是什么？</h3>
+<p><a id="q-022"></a></p><h3 id="22-blocbuilder、bloclistener、blocconsumer-区别是什么？">22. BlocBuilder、BlocListener、BlocConsumer 区别是什么？</h3>
 <p><strong>解析：</strong></p><table>
 <thead>
 <tr>
@@ -566,7 +570,7 @@ dispose
 <li>埋点。</li>
 </ul>
 <p>不要在 <code>BlocBuilder</code> 里做跳转。</p><hr>
-<h3 id="23-blocselector-的作用是什么？">23. BlocSelector 的作用是什么？</h3>
+<p><a id="q-023"></a></p><h3 id="23-blocselector-的作用是什么？">23. BlocSelector 的作用是什么？</h3>
 <p><strong>解析：</strong></p><p>BlocSelector 用来选择 State 的一部分，减少不必要 rebuild。</p><pre><code class="language-dart">BlocSelector&lt;UserBloc, UserState, String&gt;(
   selector: (state) =&gt; state.username,
   builder: (context, username) {
@@ -575,7 +579,7 @@ dispose
 )
 </code></pre>
 <p>适合大页面性能优化。</p><hr>
-<h3 id="24-bloc-的-state-为什么要不可变？">24. BLoC 的 State 为什么要不可变？</h3>
+<p><a id="q-024"></a></p><h3 id="24-bloc-的-state-为什么要不可变？">24. BLoC 的 State 为什么要不可变？</h3>
 <p><strong>解析：</strong></p><p>不可变 State 的好处：</p><ul>
 <li>状态可预测；</li>
 <li>便于比较；</li>
@@ -598,7 +602,7 @@ dispose
 }
 </code></pre>
 <hr>
-<h3 id="25-如何设计一个登录模块的-bloc？">25. 如何设计一个登录模块的 BLoC？</h3>
+<p><a id="q-025"></a></p><h3 id="25-如何设计一个登录模块的-bloc？">25. 如何设计一个登录模块的 BLoC？</h3>
 <p><strong>解析：</strong></p><p>目录建议：</p><pre><code class="language-text">feature/login/
 ├─ bloc/
 │  ├─ login_bloc.dart
@@ -619,7 +623,7 @@ dispose
 → UI 根据 State 展示
 </code></pre>
 <p>这符合“UI 层不可直接调用接口，所有接口必须通过 Repository 层封装”的要求。</p><hr>
-<h3 id="26-bloc-中如何处理并发请求？">26. BLoC 中如何处理并发请求？</h3>
+<p><a id="q-026"></a></p><h3 id="26-bloc-中如何处理并发请求？">26. BLoC 中如何处理并发请求？</h3>
 <p><strong>解析：</strong></p><p>常见问题：</p><ul>
 <li>用户连续点击按钮；</li>
 <li>下拉刷新和自动加载同时触发；</li>
@@ -632,7 +636,7 @@ dispose
 <li>Repository 层做请求取消或去重。</li>
 </ul>
 <hr>
-<h3 id="27-bloc-如何测试？">27. BLoC 如何测试？</h3>
+<p><a id="q-027"></a></p><h3 id="27-bloc-如何测试？">27. BLoC 如何测试？</h3>
 <p><strong>解析：</strong></p><p>使用 <code>bloc_test</code> 可以测试输入 Event 后输出 State 是否符合预期。</p><pre><code class="language-dart">blocTest&lt;LoginBloc, LoginState&gt;(
   &#39;login success&#39;,
   build: () =&gt; LoginBloc(mockRepository),
@@ -644,8 +648,8 @@ dispose
 );
 </code></pre>
 <p>重点是 Repository 要可 mock。</p><hr>
-<h2 id="五、repository-与数据层">五、Repository 与数据层</h2>
-<h3 id="28-repository-层的核心职责是什么？">28. Repository 层的核心职责是什么？</h3>
+<p><a id="sec-05"></a></p><h2 id="五、repository-与数据层">五、Repository 与数据层</h2>
+<p><a id="q-028"></a></p><h3 id="28-repository-层的核心职责是什么？">28. Repository 层的核心职责是什么？</h3>
 <p><strong>解析：</strong></p><p>Repository 是数据访问统一入口，负责：</p><ul>
 <li>调用接口；</li>
 <li>读取缓存；</li>
@@ -654,7 +658,7 @@ dispose
 <li>屏蔽数据来源差异。</li>
 </ul>
 <p>UI 不关心数据来自网络还是缓存。</p><hr>
-<h3 id="29-repository-和-api-service-有什么区别？">29. Repository 和 API Service 有什么区别？</h3>
+<p><a id="q-029"></a></p><h3 id="29-repository-和-api-service-有什么区别？">29. Repository 和 API Service 有什么区别？</h3>
 <p><strong>解析：</strong></p><table>
 <thead>
 <tr>
@@ -677,7 +681,7 @@ dispose
   → return UserModel
 </code></pre>
 <p>Repository 不应该只是 API 的机械转发，否则价值很低。</p><hr>
-<h3 id="30-网络层如何设计？">30. 网络层如何设计？</h3>
+<p><a id="q-030"></a></p><h3 id="30-网络层如何设计？">30. 网络层如何设计？</h3>
 <p><strong>解析：</strong></p><p>建议结构：</p><pre><code class="language-text">network/
 ├─ dio_client.dart
 ├─ interceptors/
@@ -697,7 +701,7 @@ dispose
 <li>文件上传下载。</li>
 </ul>
 <hr>
-<h3 id="31-dio-拦截器一般做什么？">31. Dio 拦截器一般做什么？</h3>
+<p><a id="q-031"></a></p><h3 id="31-dio-拦截器一般做什么？">31. Dio 拦截器一般做什么？</h3>
 <p><strong>解析：</strong></p><p>常见拦截器：</p><table>
 <thead>
 <tr>
@@ -727,7 +731,7 @@ dispose
 </tr>
 </tbody></table>
 <p>注意：token 刷新要处理并发，否则多个接口同时 401 会重复刷新。</p><hr>
-<h3 id="32-如何设计统一错误处理？">32. 如何设计统一错误处理？</h3>
+<p><a id="q-032"></a></p><h3 id="32-如何设计统一错误处理？">32. 如何设计统一错误处理？</h3>
 <p><strong>解析：</strong></p><p>建议将错误转换成业务可识别类型：</p><pre><code class="language-dart">sealed class AppException {}
 
 class NetworkException extends AppException {}
@@ -736,7 +740,7 @@ class ServerException extends AppException {}
 class BizException extends AppException {}
 </code></pre>
 <p>Bloc 不应该直接处理 DioError，而应该处理业务异常。</p><hr>
-<h3 id="33-如何做接口返回结构封装？">33. 如何做接口返回结构封装？</h3>
+<p><a id="q-033"></a></p><h3 id="33-如何做接口返回结构封装？">33. 如何做接口返回结构封装？</h3>
 <p><strong>解析：</strong></p><p>常见后端返回：</p><pre><code class="language-json">{
   &quot;code&quot;: 0,
   &quot;message&quot;: &quot;success&quot;,
@@ -750,7 +754,7 @@ class BizException extends AppException {}
 }
 </code></pre>
 <p>Repository 层负责把 <code>ApiResponse&lt;UserDto&gt;</code> 转成业务 <code>User</code>。</p><hr>
-<h3 id="34-缓存层应该如何设计？">34. 缓存层应该如何设计？</h3>
+<p><a id="q-034"></a></p><h3 id="34-缓存层应该如何设计？">34. 缓存层应该如何设计？</h3>
 <p><strong>解析：</strong></p><p>缓存分三类：</p><table>
 <thead>
 <tr>
@@ -772,7 +776,7 @@ class BizException extends AppException {}
 </tr>
 </tbody></table>
 <p>企业标准要求网络、缓存、权限模块独立，所以缓存不应散落在页面里。</p><hr>
-<h3 id="35-shared_preferences-适合存什么？">35. shared_preferences 适合存什么？</h3>
+<p><a id="q-035"></a></p><h3 id="35-shared_preferences-适合存什么？">35. shared_preferences 适合存什么？</h3>
 <p><strong>解析：</strong></p><p>适合：</p><ul>
 <li>token；</li>
 <li>用户设置；</li>
@@ -786,8 +790,8 @@ class BizException extends AppException {}
 <li>敏感明文信息。</li>
 </ul>
 <p>敏感信息应考虑安全存储方案。</p><hr>
-<h2 id="六、项目目录与架构规范">六、项目目录与架构规范</h2>
-<h3 id="36-企业级-flutter-推荐目录结构是什么？">36. 企业级 Flutter 推荐目录结构是什么？</h3>
+<p><a id="sec-06"></a></p><h2 id="六、项目目录与架构规范">六、项目目录与架构规范</h2>
+<p><a id="q-036"></a></p><h3 id="36-企业级-flutter-推荐目录结构是什么？">36. 企业级 Flutter 推荐目录结构是什么？</h3>
 <p><strong>解析：</strong></p><p>推荐：</p><pre><code class="language-text">lib/
 ├─ core/          # 公共基础能力
 ├─ network/       # 网络层
@@ -797,7 +801,7 @@ class BizException extends AppException {}
 └─ main.dart
 </code></pre>
 <hr>
-<h3 id="37-core-目录应该放什么？">37. core 目录应该放什么？</h3>
+<p><a id="q-037"></a></p><h3 id="37-core-目录应该放什么？">37. core 目录应该放什么？</h3>
 <p><strong>解析：</strong></p><p><code>core</code> 放全局通用基础能力：</p><pre><code class="language-text">core/
 ├─ constants/
 ├─ theme/
@@ -809,7 +813,7 @@ class BizException extends AppException {}
 └─ di/
 </code></pre>
 <p>不要把具体业务逻辑塞进 core，否则 core 会变成垃圾桶。</p><hr>
-<h3 id="38-feature-目录如何拆分？">38. feature 目录如何拆分？</h3>
+<p><a id="q-038"></a></p><h3 id="38-feature-目录如何拆分？">38. feature 目录如何拆分？</h3>
 <p><strong>解析：</strong></p><p>推荐按业务域拆：</p><pre><code class="language-text">feature/
 ├─ login/
 ├─ home/
@@ -825,7 +829,7 @@ model/
 repository/
 </code></pre>
 <p>大型项目中，feature 甚至可以拆成独立 package。</p><hr>
-<h3 id="39-公共-widgets-和-featurewidgets-如何区分？">39. 公共 widgets 和 feature/widgets 如何区分？</h3>
+<p><a id="q-039"></a></p><h3 id="39-公共-widgets-和-featurewidgets-如何区分？">39. 公共 widgets 和 feature/widgets 如何区分？</h3>
 <p><strong>解析：</strong></p><table>
 <thead>
 <tr>
@@ -846,7 +850,7 @@ repository/
 feature/login/widgets/login_form.dart
 </code></pre>
 <p>不要把业务强相关组件放到全局 widgets。</p><hr>
-<h3 id="40-为什么-ui-层不能直接调用接口？">40. 为什么 UI 层不能直接调用接口？</h3>
+<p><a id="q-040"></a></p><h3 id="40-为什么-ui-层不能直接调用接口？">40. 为什么 UI 层不能直接调用接口？</h3>
 <p><strong>解析：</strong></p><p>因为会造成：</p><ul>
 <li>UI 与接口强耦合；</li>
 <li>页面难测试；</li>
@@ -857,8 +861,8 @@ feature/login/widgets/login_form.dart
 <p>正确链路：</p><pre><code class="language-text">UI → Bloc → Repository → Network
 </code></pre>
 <hr>
-<h2 id="七、工程质量与代码规范">七、工程质量与代码规范</h2>
-<h3 id="41-flutter-analyze-的作用是什么？">41. flutter analyze 的作用是什么？</h3>
+<p><a id="sec-07"></a></p><h2 id="七、工程质量与代码规范">七、工程质量与代码规范</h2>
+<p><a id="q-041"></a></p><h3 id="41-flutter-analyze-的作用是什么？">41. flutter analyze 的作用是什么？</h3>
 <p><strong>解析：</strong></p><p><code>flutter analyze</code> 用于静态代码检查，可以发现：</p><ul>
 <li>未使用代码；</li>
 <li>类型问题；</li>
@@ -870,7 +874,7 @@ feature/login/widgets/login_form.dart
 flutter test
 </code></pre>
 <hr>
-<h3 id="42-如何制定-flutter-代码规范？">42. 如何制定 Flutter 代码规范？</h3>
+<p><a id="q-042"></a></p><h3 id="42-如何制定-flutter-代码规范？">42. 如何制定 Flutter 代码规范？</h3>
 <p><strong>解析：</strong></p><p>建议包含：</p><ul>
 <li><code>analysis_options.yaml</code>;</li>
 <li>禁止 UI 直接调接口；</li>
@@ -883,16 +887,16 @@ flutter test
 <li>插件准入规则。</li>
 </ul>
 <hr>
-<h3 id="43-为什么不建议直接固定依赖版本？">43. 为什么不建议直接固定依赖版本？</h3>
+<p><a id="q-043"></a></p><h3 id="43-为什么不建议直接固定依赖版本？">43. 为什么不建议直接固定依赖版本？</h3>
 <p><strong>解析：</strong></p><p>推荐：</p><pre><code class="language-yaml">dio: ^5.9.0
 flutter_bloc: ^9.1.1
 </code></pre>
 <p>而不是：</p><pre><code class="language-yaml">dio: 5.9.0
 </code></pre>
 <p>但要注意：<strong>SDK 版本可以在团队内锁定</strong>，例如用 FVM 锁定 Flutter 3.44.x；依赖包则用合理版本范围，并通过 <code>pubspec.lock</code> 保证构建可重复。</p><hr>
-<h3 id="44-pubspeclock-要不要提交？">44. pubspec.lock 要不要提交？</h3>
+<p><a id="q-044"></a></p><h3 id="44-pubspeclock-要不要提交？">44. pubspec.lock 要不要提交？</h3>
 <p><strong>解析：</strong></p><p>App 项目建议提交 <code>pubspec.lock</code>，保证团队和 CI 构建一致。</p><p>Package / Plugin 项目通常不提交 lock，方便使用方解析依赖。</p><hr>
-<h3 id="45-如何判断一个插件是否可用？">45. 如何判断一个插件是否可用？</h3>
+<p><a id="q-045"></a></p><h3 id="45-如何判断一个插件是否可用？">45. 如何判断一个插件是否可用？</h3>
 <p><strong>解析：</strong></p><p>看这些维度：</p><ul>
 <li>是否支持当前 Flutter / Dart；</li>
 <li>最近更新时间；</li>
@@ -904,8 +908,8 @@ flutter_bloc: ^9.1.1
 <li>是否有替代方案。</li>
 </ul>
 <hr>
-<h2 id="八、插件与平台适配">八、插件与平台适配</h2>
-<h3 id="46-platform-channel-是什么？">46. Platform Channel 是什么？</h3>
+<p><a id="sec-08"></a></p><h2 id="八、插件与平台适配">八、插件与平台适配</h2>
+<p><a id="q-046"></a></p><h3 id="46-platform-channel-是什么？">46. Platform Channel 是什么？</h3>
 <p><strong>解析：</strong></p><p>Platform Channel 用于 Flutter 和原生平台通信。</p><p>常见类型：</p><table>
 <thead>
 <tr>
@@ -936,7 +940,7 @@ flutter_bloc: ^9.1.1
 <li>车机硬件能力。</li>
 </ul>
 <hr>
-<h3 id="47-methodchannel-和-eventchannel-区别是什么？">47. MethodChannel 和 EventChannel 区别是什么？</h3>
+<p><a id="q-047"></a></p><h3 id="47-methodchannel-和-eventchannel-区别是什么？">47. MethodChannel 和 EventChannel 区别是什么？</h3>
 <p><strong>解析：</strong></p><table>
 <thead>
 <tr>
@@ -954,7 +958,7 @@ flutter_bloc: ^9.1.1
 </tr>
 </tbody></table>
 <p>蓝牙扫描更适合 EventChannel。</p><hr>
-<h3 id="48-涉及-platform-插件时，为什么要考虑鸿蒙适配？">48. 涉及 Platform 插件时，为什么要考虑鸿蒙适配？</h3>
+<p><a id="q-048"></a></p><h3 id="48-涉及-platform-插件时，为什么要考虑鸿蒙适配？">48. 涉及 Platform 插件时，为什么要考虑鸿蒙适配？</h3>
 <p><strong>解析：</strong></p><p>因为插件如果包含 Android / iOS 原生代码，到了鸿蒙或其他平台可能无法直接运行。</p><p>面试时要看候选人是否能回答：</p><ul>
 <li>插件是否有原生依赖；</li>
 <li>原生能力是否可替代；</li>
@@ -963,7 +967,7 @@ flutter_bloc: ^9.1.1
 <li>是否能降级处理。</li>
 </ul>
 <hr>
-<h3 id="49-如何设计一个可扩展的平台能力层？">49. 如何设计一个可扩展的平台能力层？</h3>
+<p><a id="q-049"></a></p><h3 id="49-如何设计一个可扩展的平台能力层？">49. 如何设计一个可扩展的平台能力层？</h3>
 <p><strong>解析：</strong></p><p>不要在业务里直接调用插件。</p><p>建议抽象：</p><pre><code class="language-dart">abstract class LocationService {
   Future&lt;Location&gt; getCurrentLocation();
 }
@@ -972,7 +976,7 @@ class GeolocatorLocationService implements LocationService {}
 class HarmonyLocationService implements LocationService {}
 </code></pre>
 <p>业务只依赖接口，不依赖具体插件。</p><hr>
-<h3 id="50-image_picker-这类插件有什么风险？">50. image_picker 这类插件有什么风险？</h3>
+<p><a id="q-050"></a></p><h3 id="50-image_picker-这类插件有什么风险？">50. image_picker 这类插件有什么风险？</h3>
 <p><strong>解析：</strong></p><p>风险包括：</p><ul>
 <li>权限差异；</li>
 <li>Android 版本适配；</li>
@@ -983,7 +987,7 @@ class HarmonyLocationService implements LocationService {}
 <li>大图内存问题。</li>
 </ul>
 <hr>
-<h3 id="51-webview_flutter-常见坑有哪些？">51. webview_flutter 常见坑有哪些？</h3>
+<p><a id="q-051"></a></p><h3 id="51-webview_flutter-常见坑有哪些？">51. webview_flutter 常见坑有哪些？</h3>
 <p><strong>解析：</strong></p><p>常见问题：</p><ul>
 <li>Android / iOS 行为不一致；</li>
 <li>Cookie 同步；</li>
@@ -995,7 +999,7 @@ class HarmonyLocationService implements LocationService {}
 <li>与 Flutter 页面手势冲突。</li>
 </ul>
 <p>Flutter 3.44 对 Android Platform Views 继续增强，提供 Hybrid Composition++ 作为 opt-in，用于改善原生视图嵌入时的性能、触摸和 SurfaceView 支持。</p><hr>
-<h3 id="52-flutter-中嵌入原生-view-有什么性能问题？">52. Flutter 中嵌入原生 View 有什么性能问题？</h3>
+<p><a id="q-052"></a></p><h3 id="52-flutter-中嵌入原生-view-有什么性能问题？">52. Flutter 中嵌入原生 View 有什么性能问题？</h3>
 <p><strong>解析：</strong></p><p>原生 View 例如：</p><ul>
 <li>WebView；</li>
 <li>MapView；</li>
@@ -1012,8 +1016,8 @@ class HarmonyLocationService implements LocationService {}
 <li>平台差异。</li>
 </ul>
 <p>Flutter 3.44 的 Hybrid Composition++ 就是为了解决 Android 原生 View 嵌入时的一些历史问题。</p><hr>
-<h2 id="九、多环境与多渠道打包">九、多环境与多渠道打包</h2>
-<h3 id="53-flutter-如何支持-dev--test--prod-多环境？">53. Flutter 如何支持 dev / test / prod 多环境？</h3>
+<p><a id="sec-09"></a></p><h2 id="九、多环境与多渠道打包">九、多环境与多渠道打包</h2>
+<p><a id="q-053"></a></p><h3 id="53-flutter-如何支持-dev--test--prod-多环境？">53. Flutter 如何支持 dev / test / prod 多环境？</h3>
 <p><strong>解析：</strong></p><p>常见方案：</p><pre><code class="language-bash">flutter run --dart-define=ENV=dev
 flutter run --dart-define=ENV=test
 flutter run --dart-define=ENV=prod
@@ -1027,7 +1031,7 @@ flutter run --dart-define=ENV=prod
 └─ prod_config.dart
 </code></pre>
 <hr>
-<h3 id="54-为什么环境变量不能写死？">54. 为什么环境变量不能写死？</h3>
+<p><a id="q-054"></a></p><h3 id="54-为什么环境变量不能写死？">54. 为什么环境变量不能写死？</h3>
 <p><strong>解析：</strong></p><p>写死会导致：</p><ul>
 <li>测试包误连生产；</li>
 <li>生产密钥泄露；</li>
@@ -1040,7 +1044,7 @@ flutter run --dart-define=ENV=prod
 <p>正确做法：</p><pre><code class="language-dart">const baseUrl = String.fromEnvironment(&#39;BASE_URL&#39;);
 </code></pre>
 <hr>
-<h3 id="55-flutter-如何实现-android-多渠道？">55. Flutter 如何实现 Android 多渠道？</h3>
+<p><a id="q-055"></a></p><h3 id="55-flutter-如何实现-android-多渠道？">55. Flutter 如何实现 Android 多渠道？</h3>
 <p><strong>解析：</strong></p><p>Android 侧使用 productFlavors：</p><pre><code class="language-gradle">flavorDimensions &quot;env&quot;
 
 productFlavors {
@@ -1056,22 +1060,22 @@ productFlavors {
 flutter build apk --flavor prod
 </code></pre>
 <hr>
-<h3 id="56-flutter-344-对-android-构建有什么值得关注？">56. Flutter 3.44 对 Android 构建有什么值得关注？</h3>
+<p><a id="q-056"></a></p><h3 id="56-flutter-344-对-android-构建有什么值得关注？">56. Flutter 3.44 对 Android 构建有什么值得关注？</h3>
 <p><strong>解析：</strong></p><p>Flutter 3.44 提到 Android Gradle Plugin 9.0 后 Android 构建系统内置 Kotlin 支持，手动添加 Kotlin Gradle Plugin 未来会移除兼容；如果插件仍手动应用 KGP，可能影响构建。</p><p>面试重点：</p><ul>
 <li>候选人是否了解 Gradle / AGP / KGP 的关系；</li>
 <li>是否知道插件也可能导致构建失败；</li>
 <li>是否能定位 native build 问题。</li>
 </ul>
 <hr>
-<h3 id="57-flutter-344-对-ios--macos-构建有什么变化？">57. Flutter 3.44 对 iOS / macOS 构建有什么变化？</h3>
+<p><a id="q-057"></a></p><h3 id="57-flutter-344-对-ios--macos-构建有什么变化？">57. Flutter 3.44 对 iOS / macOS 构建有什么变化？</h3>
 <p><strong>解析：</strong></p><p>Flutter 3.44 开始 Swift Package Manager 成为 iOS 和 macOS 默认依赖管理方式，替代 CocoaPods；如果插件仍依赖 CocoaPods，CLI 会临时回退，但官方建议插件维护者支持 SwiftPM。</p><p>面试追问：</p><ul>
 <li>老项目迁移 SwiftPM 有什么风险？</li>
 <li>插件不支持 SwiftPM 怎么办？</li>
 <li>Add-to-App 如何处理？</li>
 </ul>
 <hr>
-<h2 id="十、性能优化">十、性能优化</h2>
-<h3 id="58-flutter-卡顿一般如何排查？">58. Flutter 卡顿一般如何排查？</h3>
+<p><a id="sec-10"></a></p><h2 id="十、性能优化">十、性能优化</h2>
+<p><a id="q-058"></a></p><h3 id="58-flutter-卡顿一般如何排查？">58. Flutter 卡顿一般如何排查？</h3>
 <p><strong>解析：</strong></p><p>排查顺序：</p><ol>
 <li>是否频繁 rebuild；</li>
 <li>是否 build 方法太重；</li>
@@ -1091,7 +1095,7 @@ flutter build apk --flavor prod
 <li>日志埋点。</li>
 </ul>
 <p>Flutter 3.44 还提到 DevTools 使用 WASM 默认提升响应性，并改进大型项目分析性能。</p><hr>
-<h3 id="59-如何减少-widget-rebuild？">59. 如何减少 Widget rebuild？</h3>
+<p><a id="q-059"></a></p><h3 id="59-如何减少-widget-rebuild？">59. 如何减少 Widget rebuild？</h3>
 <p><strong>解析：</strong></p><p>方法：</p><ul>
 <li>使用 <code>const</code>;</li>
 <li>拆小 Widget；</li>
@@ -1102,7 +1106,7 @@ flutter build apk --flavor prod
 <li>不在 build 中创建复杂对象。</li>
 </ul>
 <hr>
-<h3 id="60-listviewbuilder-为什么性能更好？">60. ListView.builder 为什么性能更好？</h3>
+<p><a id="q-060"></a></p><h3 id="60-listviewbuilder-为什么性能更好？">60. ListView.builder 为什么性能更好？</h3>
 <p><strong>解析：</strong></p><p><code>ListView.builder</code> 是懒加载，只构建可见区域附近的 item。</p><p>适合：</p><ul>
 <li>长列表；</li>
 <li>分页列表；</li>
@@ -1112,7 +1116,7 @@ flutter build apk --flavor prod
 <p>不要用：</p><pre><code class="language-dart">Column(children: bigList.map(...).toList())
 </code></pre>
 <p>渲染大量数据。</p><hr>
-<h3 id="61-flutter-图片加载如何优化？">61. Flutter 图片加载如何优化？</h3>
+<p><a id="q-061"></a></p><h3 id="61-flutter-图片加载如何优化？">61. Flutter 图片加载如何优化？</h3>
 <p><strong>解析：</strong></p><p>建议：</p><ul>
 <li>使用缓存；</li>
 <li>控制图片尺寸；</li>
@@ -1125,14 +1129,14 @@ flutter build apk --flavor prod
 <p>可使用：</p><pre><code class="language-yaml">cached_network_image: ^3.3.1
 </code></pre>
 <hr>
-<h3 id="62-impeller-是什么？面试怎么回答？">62. Impeller 是什么？面试怎么回答？</h3>
+<p><a id="q-062"></a></p><h3 id="62-impeller-是什么？面试怎么回答？">62. Impeller 是什么？面试怎么回答？</h3>
 <p><strong>解析：</strong></p><p>Impeller 是 Flutter 的渲染后端方向之一，用于改善渲染性能和一致性。Flutter 3.44 继续增强 Impeller，尤其包括 Vulkan 相关改进、GPU/CPU 同步优化、SDF 圆形渲染、透视和阴影修复等。</p><p>面试不要求候选人能改引擎，但至少要知道：</p><ul>
 <li>它属于渲染层；</li>
 <li>和 Skia / GPU / shader 有关；</li>
 <li>可能影响动画、图形、首帧和复杂 UI 表现。</li>
 </ul>
 <hr>
-<h3 id="63-shader-编译卡顿是什么？">63. Shader 编译卡顿是什么？</h3>
+<p><a id="q-063"></a></p><h3 id="63-shader-编译卡顿是什么？">63. Shader 编译卡顿是什么？</h3>
 <p><strong>解析：</strong></p><p>复杂图形首次渲染时，shader 可能需要编译，导致首帧或动画卡顿。</p><p>解决方向：</p><ul>
 <li>预热；</li>
 <li>减少复杂 shader；</li>
@@ -1141,8 +1145,8 @@ flutter build apk --flavor prod
 <li>真机 profile 测试。</li>
 </ul>
 <p>Flutter 3.44 对 FragmentShader 也做了改进，例如可以通过名称绑定 uniform，降低 shader 使用复杂度。</p><hr>
-<h2 id="十一、路由与模块化">十一、路由与模块化</h2>
-<h3 id="64-flutter-常见路由方案有哪些？">64. Flutter 常见路由方案有哪些？</h3>
+<p><a id="sec-11"></a></p><h2 id="十一、路由与模块化">十一、路由与模块化</h2>
+<p><a id="q-064"></a></p><h3 id="64-flutter-常见路由方案有哪些？">64. Flutter 常见路由方案有哪些？</h3>
 <p><strong>解析：</strong></p><p>常见：</p><ul>
 <li>Navigator 1.0；</li>
 <li>Navigator 2.0；</li>
@@ -1150,7 +1154,7 @@ flutter build apk --flavor prod
 <li>flutter_modular。</li>
 </ul>
 <p>项目插件清单包含 <code>flutter_modular</code>，说明项目倾向模块化路由。</p><hr>
-<h3 id="65-flutter_modular-的作用是什么？">65. flutter_modular 的作用是什么？</h3>
+<p><a id="q-065"></a></p><h3 id="65-flutter_modular-的作用是什么？">65. flutter_modular 的作用是什么？</h3>
 <p><strong>解析：</strong></p><p>主要用于：</p><ul>
 <li>模块化路由；</li>
 <li>依赖注入；</li>
@@ -1163,14 +1167,14 @@ ProfileModule
 BluetoothModule
 </code></pre>
 <hr>
-<h3 id="66-页面跳转应该放在-bloc-里吗？">66. 页面跳转应该放在 Bloc 里吗？</h3>
+<p><a id="q-066"></a></p><h3 id="66-页面跳转应该放在-bloc-里吗？">66. 页面跳转应该放在 Bloc 里吗？</h3>
 <p><strong>解析：</strong></p><p>不建议 Bloc 直接持有 <code>BuildContext</code> 或调用 Navigator。</p><p>推荐：</p><pre><code class="language-text">Bloc emit LoginSuccess
 → UI 层 BlocListener 监听
 → Navigator 跳转
 </code></pre>
 <p>Bloc 负责业务状态，不负责 UI 导航细节。</p><hr>
-<h2 id="十二、测试体系">十二、测试体系</h2>
-<h3 id="67-flutter-有哪些测试类型？">67. Flutter 有哪些测试类型？</h3>
+<p><a id="sec-12"></a></p><h2 id="十二、测试体系">十二、测试体系</h2>
+<p><a id="q-067"></a></p><h3 id="67-flutter-有哪些测试类型？">67. Flutter 有哪些测试类型？</h3>
 <p><strong>解析：</strong></p><table>
 <thead>
 <tr>
@@ -1198,7 +1202,7 @@ BluetoothModule
 <li>登录、支付、权限等核心流程。</li>
 </ul>
 <hr>
-<h3 id="68-为什么-repository-要可测试？">68. 为什么 Repository 要可测试？</h3>
+<p><a id="q-068"></a></p><h3 id="68-为什么-repository-要可测试？">68. 为什么 Repository 要可测试？</h3>
 <p><strong>解析：</strong></p><p>因为 Repository 是业务数据入口，如果不可测试，很多业务逻辑只能靠手工点页面验证。</p><p>正确做法：</p><pre><code class="language-dart">abstract class UserRepository {
   Future&lt;User&gt; getUser();
 }
@@ -1206,7 +1210,7 @@ BluetoothModule
 <p>测试时注入 Mock：</p><pre><code class="language-dart">class MockUserRepository extends Mock implements UserRepository {}
 </code></pre>
 <hr>
-<h3 id="69-widget-test-适合测什么？">69. Widget Test 适合测什么？</h3>
+<p><a id="q-069"></a></p><h3 id="69-widget-test-适合测什么？">69. Widget Test 适合测什么？</h3>
 <p><strong>解析：</strong></p><p>适合：</p><ul>
 <li>页面初始状态；</li>
 <li>loading 展示；</li>
@@ -1217,8 +1221,8 @@ BluetoothModule
 <li>列表 item 展示。</li>
 </ul>
 <p>不适合测真实网络请求。</p><hr>
-<h2 id="十三、安全与权限">十三、安全与权限</h2>
-<h3 id="70-permission_handler-应该如何封装？">70. permission_handler 应该如何封装？</h3>
+<p><a id="sec-13"></a></p><h2 id="十三、安全与权限">十三、安全与权限</h2>
+<p><a id="q-070"></a></p><h3 id="70-permission_handler-应该如何封装？">70. permission_handler 应该如何封装？</h3>
 <p><strong>解析：</strong></p><p>不要在页面中直接写权限请求。</p><p>建议：</p><pre><code class="language-text">core/permission/
 ├─ permission_service.dart
 └─ permission_result.dart
@@ -1232,7 +1236,7 @@ BluetoothModule
 <li>测试方便。</li>
 </ul>
 <hr>
-<h3 id="71-定位插件-geolocator-有哪些注意事项？">71. 定位插件 geolocator 有哪些注意事项？</h3>
+<p><a id="q-071"></a></p><h3 id="71-定位插件-geolocator-有哪些注意事项？">71. 定位插件 geolocator 有哪些注意事项？</h3>
 <p><strong>解析：</strong></p><p>注意：</p><ul>
 <li>Android / iOS 权限；</li>
 <li>前台定位 / 后台定位；</li>
@@ -1243,7 +1247,7 @@ BluetoothModule
 <li>隐私合规。</li>
 </ul>
 <hr>
-<h3 id="72-url_launcher-有什么安全风险？">72. url_launcher 有什么安全风险？</h3>
+<p><a id="q-072"></a></p><h3 id="72-url_launcher-有什么安全风险？">72. url_launcher 有什么安全风险？</h3>
 <p><strong>解析：</strong></p><p>风险：</p><ul>
 <li>打开未知链接；</li>
 <li>scheme 注入；</li>
@@ -1257,8 +1261,8 @@ BluetoothModule
 <li>不拼接未校验参数。</li>
 </ul>
 <hr>
-<h2 id="十四、web、桌面与多端">十四、Web、桌面与多端</h2>
-<h3 id="73-flutter-web-有哪些常见问题？">73. Flutter Web 有哪些常见问题？</h3>
+<p><a id="sec-14"></a></p><h2 id="十四、web、桌面与多端">十四、Web、桌面与多端</h2>
+<p><a id="q-073"></a></p><h3 id="73-flutter-web-有哪些常见问题？">73. Flutter Web 有哪些常见问题？</h3>
 <p><strong>解析：</strong></p><p>常见：</p><ul>
 <li>首屏加载慢；</li>
 <li>SEO 不友好；</li>
@@ -1269,14 +1273,14 @@ BluetoothModule
 <li>跨域问题。</li>
 </ul>
 <p>Flutter 3.44 对 Web 可访问性、浏览器集成和 <code>flutter run --base-href</code> 等开发体验有改进。</p><hr>
-<h3 id="74-flutter-desktop-到-2026-年有什么变化值得关注？">74. Flutter Desktop 到 2026 年有什么变化值得关注？</h3>
+<p><a id="q-074"></a></p><h3 id="74-flutter-desktop-到-2026-年有什么变化值得关注？">74. Flutter Desktop 到 2026 年有什么变化值得关注？</h3>
 <p><strong>解析：</strong></p><p>Flutter 3.44 提到 Canonical 成为 Flutter Desktop 的 lead maintainer / Strategic Steward，并推进 Windows、Linux、macOS embedders 维护；同时多窗口、tooltip、popup、dialog 等窗口能力仍有实验性质内容。</p><p>面试重点：</p><ul>
 <li>桌面不是简单拉伸移动端 UI；</li>
 <li>要考虑窗口、快捷键、鼠标、右键菜单、文件系统；</li>
 <li>多窗口能力要看稳定性，不要盲目上生产。</li>
 </ul>
 <hr>
-<h3 id="75-flutter-车机--大屏项目要关注什么？">75. Flutter 车机 / 大屏项目要关注什么？</h3>
+<p><a id="q-075"></a></p><h3 id="75-flutter-车机--大屏项目要关注什么？">75. Flutter 车机 / 大屏项目要关注什么？</h3>
 <p><strong>解析：</strong></p><p>重点：</p><ul>
 <li>多分辨率适配；</li>
 <li>横竖屏；</li>
@@ -1289,15 +1293,15 @@ BluetoothModule
 <li>长生命周期稳定性。</li>
 </ul>
 <p>Flutter 3.44 官方也提到 2026 Toyota RAV4 多媒体系统使用 Flutter，这说明 Flutter 在嵌入式和车载屏幕方向已经有更强存在感。</p><hr>
-<h2 id="十五、2026-新特性专项题">十五、2026 新特性专项题</h2>
-<h3 id="76-flutter-344-中-material-和-cupertino-有什么重要变化？">76. Flutter 3.44 中 Material 和 Cupertino 有什么重要变化？</h3>
+<p><a id="sec-15"></a></p><h2 id="十五、2026-新特性专项题">十五、2026 新特性专项题</h2>
+<p><a id="q-076"></a></p><h3 id="76-flutter-344-中-material-和-cupertino-有什么重要变化？">76. Flutter 3.44 中 Material 和 Cupertino 有什么重要变化？</h3>
 <p><strong>解析：</strong></p><p>Flutter 3.44 宣布 Material 和 Cupertino 库在核心 framework 内冻结，未来会向独立 package 迁移，例如 <code>material_ui</code> 和 <code>cupertino_ui</code>。</p><p>面试重点：</p><ul>
 <li>候选人是否关注 Flutter 架构演进；</li>
 <li>是否知道未来迁移风险；</li>
 <li>是否会评估企业项目升级成本。</li>
 </ul>
 <hr>
-<h3 id="77-flutter-344-中-swiftpm-默认化会影响哪些项目？">77. Flutter 3.44 中 SwiftPM 默认化会影响哪些项目？</h3>
+<p><a id="q-077"></a></p><h3 id="77-flutter-344-中-swiftpm-默认化会影响哪些项目？">77. Flutter 3.44 中 SwiftPM 默认化会影响哪些项目？</h3>
 <p><strong>解析：</strong></p><p>影响：</p><ul>
 <li>iOS / macOS App；</li>
 <li>Flutter Plugin；</li>
@@ -1307,7 +1311,7 @@ BluetoothModule
 <li>Xcode 工程配置。</li>
 </ul>
 <p>如果插件还不支持 SwiftPM，可能出现回退或构建警告。</p><hr>
-<h3 id="78-flutter-344-中-hybrid-composition-适合解决什么问题？">78. Flutter 3.44 中 Hybrid Composition++ 适合解决什么问题？</h3>
+<p><a id="q-078"></a></p><h3 id="78-flutter-344-中-hybrid-composition-适合解决什么问题？">78. Flutter 3.44 中 Hybrid Composition++ 适合解决什么问题？</h3>
 <p><strong>解析：</strong></p><p>主要解决 Android Platform Views 嵌入的历史问题，例如：</p><ul>
 <li>WebView 滚动性能；</li>
 <li>MapView 合成；</li>
@@ -1316,7 +1320,7 @@ BluetoothModule
 <li>层级合成问题。</li>
 </ul>
 <p>但它有 API 和硬件条件，不是所有设备都能用。</p><hr>
-<h3 id="79-dart--flutter-agentic-hot-reload-是什么？企业项目怎么看？">79. Dart / Flutter Agentic Hot Reload 是什么？企业项目怎么看？</h3>
+<p><a id="q-079"></a></p><h3 id="79-dart--flutter-agentic-hot-reload-是什么？企业项目怎么看？">79. Dart / Flutter Agentic Hot Reload 是什么？企业项目怎么看？</h3>
 <p><strong>解析：</strong></p><p>Agentic Hot Reload 是面向 AI 编程代理的开发体验能力，可以让代理自动发现运行中的 Dart / Flutter 应用并触发热重载。Dart 3.12 和 Flutter 3.44 都提到了这一方向。</p><p>企业项目看法：</p><ul>
 <li>可提高 UI 调试效率；</li>
 <li>但不能替代代码审查；</li>
@@ -1325,7 +1329,7 @@ BluetoothModule
 <li>CI 仍必须执行 analyze / test / build。</li>
 </ul>
 <hr>
-<h3 id="80-genkit-dart--ai-能力和-flutter-有什么关系？">80. Genkit Dart / AI 能力和 Flutter 有什么关系？</h3>
+<p><a id="q-080"></a></p><h3 id="80-genkit-dart--ai-能力和-flutter-有什么关系？">80. Genkit Dart / AI 能力和 Flutter 有什么关系？</h3>
 <p><strong>解析：</strong></p><p>Dart 3.12 同期介绍了 Genkit Dart preview，可用于构建 AI / Agentic 应用，支持结构化输出、工具调用、多步流程等。</p><p>面试时可以问候选人：</p><ul>
 <li>AI 能力应该放客户端还是服务端？</li>
 <li>Prompt 能否写死在 App？</li>
@@ -1334,8 +1338,8 @@ BluetoothModule
 <li>如何做日志和审计？</li>
 </ul>
 <hr>
-<h2 id="十六、综合实战题">十六、综合实战题</h2>
-<h3 id="81-设计一个扫码登录功能，要求符合企业架构规范。">81. 设计一个扫码登录功能，要求符合企业架构规范。</h3>
+<p><a id="sec-16"></a></p><h2 id="十六、综合实战题">十六、综合实战题</h2>
+<p><a id="q-081"></a></p><h3 id="81-设计一个扫码登录功能，要求符合企业架构规范。">81. 设计一个扫码登录功能，要求符合企业架构规范。</h3>
 <p><strong>参考解析：</strong></p><p>模块结构：</p><pre><code class="language-text">feature/scan_login/
 ├─ bloc/
 ├─ page/
@@ -1358,7 +1362,7 @@ BluetoothModule
 <li>重复扫码要防抖。</li>
 </ul>
 <hr>
-<h3 id="82-设计一个蓝牙设备扫描模块。">82. 设计一个蓝牙设备扫描模块。</h3>
+<p><a id="q-082"></a></p><h3 id="82-设计一个蓝牙设备扫描模块。">82. 设计一个蓝牙设备扫描模块。</h3>
 <p><strong>参考解析：</strong></p><p>模块：</p><pre><code class="language-text">feature/bluetooth/
 ├─ bloc/
 ├─ service/
@@ -1377,7 +1381,7 @@ BluetoothModule
 <li>鸿蒙适配。</li>
 </ul>
 <p><code>flutter_blue_plus</code> 涉及平台能力，因此不能直接散落在 UI 层调用。</p><hr>
-<h3 id="83-设计一个-webview-容器页。">83. 设计一个 WebView 容器页。</h3>
+<p><a id="q-083"></a></p><h3 id="83-设计一个-webview-容器页。">83. 设计一个 WebView 容器页。</h3>
 <p><strong>参考解析：</strong></p><p>需要考虑：</p><ul>
 <li>URL 白名单；</li>
 <li>JS Bridge；</li>
@@ -1391,7 +1395,7 @@ BluetoothModule
 <li>Platform Views 性能。</li>
 </ul>
 <p>Flutter 3.44 的 HCPP 可以作为 Android WebView 性能优化方向，但要看设备和 API 条件。</p><hr>
-<h3 id="84-如何设计-app-的统一登录态？">84. 如何设计 App 的统一登录态？</h3>
+<p><a id="q-084"></a></p><h3 id="84-如何设计-app-的统一登录态？">84. 如何设计 App 的统一登录态？</h3>
 <p><strong>参考解析：</strong></p><p>建议：</p><pre><code class="language-text">AuthRepository
 TokenStorage
 AuthInterceptor
@@ -1411,7 +1415,7 @@ RouteGuard
 <li>退出登录要清理缓存和状态。</li>
 </ul>
 <hr>
-<h3 id="85-如何设计-flutter-项目的-cicd？">85. 如何设计 Flutter 项目的 CI/CD？</h3>
+<p><a id="q-085"></a></p><h3 id="85-如何设计-flutter-项目的-cicd？">85. 如何设计 Flutter 项目的 CI/CD？</h3>
 <p><strong>参考解析：</strong></p><p>流水线建议：</p><pre><code class="language-text">代码提交
 → flutter pub get
 → flutter analyze
@@ -1430,8 +1434,8 @@ RouteGuard
 <li>签名文件安全。</li>
 </ul>
 <hr>
-<h2 id="十七、淘汰题--加分题">十七、淘汰题 / 加分题</h2>
-<h3 id="明显淘汰回答">明显淘汰回答</h3>
+<p><a id="sec-17"></a></p><h2 id="十七、淘汰题--加分题">十七、淘汰题 / 加分题</h2>
+<p><a id="sub-01"></a></p><h3 id="明显淘汰回答">明显淘汰回答</h3>
 <table>
 <thead>
 <tr>
@@ -1468,7 +1472,7 @@ RouteGuard
 <td>“可以，反正会执行”</td>
 </tr>
 </tbody></table>
-<h3 id="高级候选人加分点">高级候选人加分点</h3>
+<p><a id="sub-02"></a></p><h3 id="高级候选人加分点">高级候选人加分点</h3>
 <table>
 <thead>
 <tr>
@@ -1506,7 +1510,7 @@ RouteGuard
 </tr>
 </tbody></table>
 <hr>
-<h2 id="十八、建议面试评分表">十八、建议面试评分表</h2>
+<p><a id="sec-18"></a></p><h2 id="十八、建议面试评分表">十八、建议面试评分表</h2>
 <table>
 <thead>
 <tr>
@@ -1550,7 +1554,7 @@ RouteGuard
 <li>85 分以上：可承担架构和工程规范建设。</li>
 </ul>
 <hr>
-<h2 id="十九、参考依据">十九、参考依据</h2>
+<p><a id="sec-19"></a></p><h2 id="十九、参考依据">十九、参考依据</h2>
 <ol>
 <li>JMC Flutter 应用标准：分层架构、BLoC + Repository、目录结构、状态管理、插件治理、多环境与多渠道要求。</li>
 <li>Flutter 官方 Release Notes / What’s new：Flutter 3.44、SwiftPM、Hybrid Composition++、Impeller、DevTools、Desktop、Web 等更新。</li>

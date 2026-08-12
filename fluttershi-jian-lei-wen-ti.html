@@ -1,27 +1,25 @@
-<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Flutter实践类问题 - HEIN&#x27;s Blog</title><meta name="robots" content="noindex,nofollow"><meta name="generator" content="Publii Open-Source CMS for Static Site"><link rel="alternate" type="application/atom+xml" href="https://blog.nasyes.cn/feed.xml" title="HEIN&#x27;s Blog - RSS"><link rel="alternate" type="application/json" href="https://blog.nasyes.cn/feed.json" title="HEIN&#x27;s Blog - JSON"><meta property="og:title" content="Flutter实践类问题"><meta property="og:site_name" content="HEIN's Blog"><meta property="og:description" content="一、工程与架构类 1. 一个页面同时需要“用户信息 + 车辆信息 + 消息列表”，你会怎么组织？ 场景 现在有一个首页： HomePage ├─ 用户信息 ├─ 车辆信息 └─ 消息列表 三个接口互相独立，但页面需要同时展示。你会怎么设计 Bloc、Repository 和页面状态？ 不建议在 HomePage 中直接写三个 Dio 请求，也不建议做一个巨大的 HomeRepository.getAll()&hellip;"><meta property="og:url" content="https://blog.nasyes.cn/fluttershi-jian-lei-wen-ti.html"><meta property="og:type" content="article"><link rel="preload" href="https://blog.nasyes.cn/assets/dynamic/fonts/jetbrainsmono/jetbrainsmono.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="https://blog.nasyes.cn/assets/css/style.css?v=1f557c81d98d81d721608200b8db7e33"><script type="application/ld+json">{"@context":"http://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.nasyes.cn/fluttershi-jian-lei-wen-ti.html"},"headline":"Flutter实践类问题","datePublished":"2026-08-12T14:54+08:00","dateModified":"2026-08-12T14:54+08:00","description":"一、工程与架构类 1. 一个页面同时需要“用户信息 + 车辆信息 + 消息列表”，你会怎么组织？ 场景 现在有一个首页： HomePage ├─ 用户信息 ├─ 车辆信息 └─ 消息列表 三个接口互相独立，但页面需要同时展示。你会怎么设计 Bloc、Repository 和页面状态？ 不建议在 HomePage 中直接写三个 Dio 请求，也不建议做一个巨大的 HomeRepository.getAll()&hellip;","author":{"@type":"Person","name":"HEIN","url":"https://blog.nasyes.cn/authors/hein/"},"publisher":{"@type":"Organization","name":"HEIN"}}</script><noscript><style>img[loading] {
+<!DOCTYPE html><html lang="zh-cn"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Flutter实践类问题 - HEIN&#x27;s Blog</title><meta name="robots" content="noindex,nofollow"><meta name="generator" content="Publii Open-Source CMS for Static Site"><link rel="alternate" type="application/atom+xml" href="https://blog.nasyes.cn/feed.xml" title="HEIN&#x27;s Blog - RSS"><link rel="alternate" type="application/json" href="https://blog.nasyes.cn/feed.json" title="HEIN&#x27;s Blog - JSON"><meta property="og:title" content="Flutter实践类问题"><meta property="og:site_name" content="HEIN's Blog"><meta property="og:description" content="Flutter 实战面试题及参考答案 适用方向：Flutter 工程方法、架构设计、性能优化、移动端跨平台、蓝牙 / Wi‑Fi 能力接入。 题目风格：以真实项目场景为主，重点考察候选人的工程判断、架构拆分、异常处理和性能意识。 一个首页同时展示： HomePage ├─ 用户信息 ├─ 车辆信息 └─ 消息列表 三个接口互相独立，但页面需要同时展示。你会怎么设计 Bloc、Repository 和页面状态？ 不建议在 HomePage 中直接写三个 Dio 请求，也不建议无脑做一个巨大的 HomeRepository.getAll()&hellip;"><meta property="og:url" content="https://blog.nasyes.cn/fluttershi-jian-lei-wen-ti.html"><meta property="og:type" content="article"><link rel="preload" href="https://blog.nasyes.cn/assets/dynamic/fonts/jetbrainsmono/jetbrainsmono.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="https://blog.nasyes.cn/assets/css/style.css?v=1f557c81d98d81d721608200b8db7e33"><script type="application/ld+json">{"@context":"http://schema.org","@type":"Article","mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.nasyes.cn/fluttershi-jian-lei-wen-ti.html"},"headline":"Flutter实践类问题","datePublished":"2026-08-12T14:54+08:00","dateModified":"2026-08-12T15:08+08:00","description":"Flutter 实战面试题及参考答案 适用方向：Flutter 工程方法、架构设计、性能优化、移动端跨平台、蓝牙 / Wi‑Fi 能力接入。 题目风格：以真实项目场景为主，重点考察候选人的工程判断、架构拆分、异常处理和性能意识。 一个首页同时展示： HomePage ├─ 用户信息 ├─ 车辆信息 └─ 消息列表 三个接口互相独立，但页面需要同时展示。你会怎么设计 Bloc、Repository 和页面状态？ 不建议在 HomePage 中直接写三个 Dio 请求，也不建议无脑做一个巨大的 HomeRepository.getAll()&hellip;","author":{"@type":"Person","name":"HEIN","url":"https://blog.nasyes.cn/authors/hein/"},"publisher":{"@type":"Organization","name":"HEIN"}}</script><noscript><style>img[loading] {
                     opacity: 1;
-                }</style></noscript></head><body><div class="container container--center"><header class="header"><div class="header__logo"><a class="logo" href="https://blog.nasyes.cn/">HEIN&#x27;s Blog</a></div></header><main class="content"><article class="post"><header><h1 class="post__title">Flutter实践类问题</h1><div class="post__meta"><time datetime="2026-08-12T14:54" class="post__date">八月 12, 2026 </time><span class="post__author"><a href="https://blog.nasyes.cn/authors/hein/" class="feed__author">HEIN</a></span></div></header><div class="post__entry"><h1 id="一、工程与架构类">一、工程与架构类</h1><h2 id="1-一个页面同时需要用户信息--车辆信息--消息列表，你会怎么组织？">1. 一个页面同时需要“用户信息 + 车辆信息 + 消息列表”，你会怎么组织？</h2><h3 id="场景">场景</h3><p>现在有一个首页：</p><pre><code class="language-text">HomePage
+                }</style></noscript></head><body><div class="container container--center"><header class="header"><div class="header__logo"><a class="logo" href="https://blog.nasyes.cn/">HEIN&#x27;s Blog</a></div></header><main class="content"><article class="post"><header><h1 class="post__title">Flutter实践类问题</h1><div class="post__meta"><time datetime="2026-08-12T14:54" class="post__date">八月 12, 2026 </time><span class="post__author"><a href="https://blog.nasyes.cn/authors/hein/" class="feed__author">HEIN</a></span></div></header><div class="post__entry"><h1 id="flutter-实战面试题及参考答案">Flutter 实战面试题及参考答案</h1><blockquote><p>适用方向：Flutter 工程方法、架构设计、性能优化、移动端跨平台、蓝牙 / Wi‑Fi 能力接入。<br>题目风格：以真实项目场景为主，重点考察候选人的工程判断、架构拆分、异常处理和性能意识。</p></blockquote><hr><h2 id="目录">目录</h2><ul><li><a href="#q01">1. 首页多接口如何组织 Bloc 与 Repository</a></li><li><a href="#q02">2. 搜索框连续请求如何优化</a></li><li><a href="#q03">3. Repository 是否只是 API 的包装层</a></li><li><a href="#q04">4. 项目到处直接使用 flutter_blue_plus，如何支持鸿蒙</a></li><li><a href="#q05">5. Flutter 页面滚动掉帧如何排查</a></li><li><a href="#q06">6. 20MB JSON 解析导致 UI 卡顿怎么办</a></li><li><a href="#q07">7. Android 有能力而 iOS 没有，Flutter API 怎么设计</a></li><li><a href="#q08">8. BLE 扫描页面退出后仍持续收到结果，怎么排查</a></li><li><a href="#q09">9. Android 11 能扫描 BLE，Android 13 却不能，怎么查</a></li><li><a href="#q10">10. Flutter App 扫描 Wi‑Fi 并连接车机热点，如何设计</a></li><li><a href="#q11">11. BLE 配网后切换 Wi‑Fi 通信，如何设计状态机</a></li><li><a href="#q12">12. 蓝牙每秒上报 100 条数据，页面越来越卡，怎么解决</a></li><li><a href="#score">13. 建议的面试组合与评分方式</a></li></ul><hr><p><a id="q01"></a></p><h2 id="1-首页多接口如何组织-bloc-与-repository">1. 首页多接口如何组织 Bloc 与 Repository</h2><h3 id="场景">场景</h3><p>一个首页同时展示：</p><pre><code class="language-text">HomePage
  ├─ 用户信息
  ├─ 车辆信息
  └─ 消息列表
-</code></pre><p>三个接口互相独立，但页面需要同时展示。你会怎么设计 Bloc、Repository 和页面状态？</p><h3 id="参考答案">参考答案</h3><p>不建议在 <code>HomePage</code> 中直接写三个 Dio 请求，也不建议做一个巨大的 <code>HomeRepository.getAll()</code> 把所有业务绑死。</p><p>可以根据业务生命周期拆成：</p><pre><code class="language-text">HomePage
+</code></pre><p>三个接口互相独立，但页面需要同时展示。你会怎么设计 Bloc、Repository 和页面状态？</p><h3 id="参考答案">参考答案</h3><p>不建议在 <code>HomePage</code> 中直接写三个 Dio 请求，也不建议无脑做一个巨大的 <code>HomeRepository.getAll()</code> 把所有业务绑死。</p><p>可以根据业务生命周期拆成：</p><pre><code class="language-text">HomePage
    │
    ├── UserBloc ─────→ UserRepository
    │
    ├── VehicleBloc ──→ VehicleRepository
    │
    └── MessageBloc ──→ MessageRepository
-</code></pre><p>如果三个数据确实构成一个明确的“首页聚合业务”，也可以：</p><pre><code class="language-text">HomeBloc
+</code></pre><p>如果三个数据确实构成明确的“首页聚合业务”，也可以：</p><pre><code class="language-text">HomeBloc
    │
    ├── UserRepository
    ├── VehicleRepository
    └── MessageRepository
-</code></pre><p>关键不是“一定几个 Bloc”，而是看<strong>状态生命周期和业务边界</strong>。Flutter 官方当前架构建议同样强调职责分离、数据层作为数据访问和更新的重要边界，而不是让 View 直接承担业务数据逻辑。(<a href="https://docs.flutter.dev/app-architecture/recommendations?utm_source=chatgpt.com" title="Architecture recommendations and resources">Flutter 文档</a>)</p><h3 id="继续追问">继续追问</h3><p>三个请求里一个失败了怎么办？</p><p>优秀回答应该提到：</p><pre><code class="language-text">不能简单只有：
-
-Loading
+</code></pre><p>关键不是“一定几个 Bloc”，而是看：</p><ul><li>业务边界；</li><li>状态生命周期；</li><li>是否存在独立刷新；</li><li>是否会被其他页面复用；</li><li>失败是否需要独立处理。</li></ul><h3 id="继续追问">继续追问</h3><p>三个请求里一个失败了怎么办？</p><p>不建议只有：</p><pre><code class="language-text">Loading
 Success
 Failure
-</code></pre><p>而应该允许部分成功，例如：</p><pre><code class="language-dart">class HomeState {
+</code></pre><p>更合理的是支持部分成功：</p><pre><code class="language-dart">class HomeState {
   final User? user;
   final Vehicle? vehicle;
   final List&lt;Message&gt; messages;
@@ -30,37 +28,33 @@ Failure
   final LoadStatus vehicleStatus;
   final LoadStatus messageStatus;
 }
-</code></pre><h3 id="判断候选人水平">判断候选人水平</h3><p><strong>一般：</strong></p><blockquote><p>Future.wait 三个接口，然后 setState。</p></blockquote><p><strong>较好：</strong></p><p>能拆 Repository 和 Bloc。</p><p><strong>优秀：</strong></p><p>会讨论业务边界、部分失败、刷新策略、缓存、请求并发和状态粒度。</p><hr><h1 id="二、状态管理实战">二、状态管理实战</h1><h2 id="2-搜索框每输入一个字符都会请求后端，怎么优化？">2. 搜索框每输入一个字符都会请求后端，怎么优化？</h2><h3 id="场景-1">场景</h3><pre><code class="language-text">用户输入：
-B
+</code></pre><h3 id="判断候选人水平">判断候选人水平</h3><p><strong>一般：</strong></p><blockquote><p>Future.wait 三个接口，然后 setState。</p></blockquote><p><strong>较好：</strong></p><p>能拆 Repository 和 Bloc。</p><p><strong>优秀：</strong></p><p>会讨论业务边界、部分失败、刷新策略、缓存、请求并发和状态粒度。</p><hr><p><a id="q02"></a></p><h2 id="2-搜索框连续请求如何优化">2. 搜索框连续请求如何优化</h2><h3 id="场景-1">场景</h3><p>用户输入：</p><pre><code class="language-text">B
 Bl
 Blu
 Blue
 Bluet
 Blueto
 Bluetooth
-</code></pre><p>现在产生 9 次请求。</p><p>怎么办？</p><h3 id="参考答案-1">参考答案</h3><p>至少应该考虑三个问题：</p><pre><code class="language-text">输入
+</code></pre><p>现在每输入一个字符就产生一次后端请求。</p><p>怎么办？</p><h3 id="参考答案-1">参考答案</h3><p>至少应该考虑：</p><pre><code class="language-text">输入
  ↓
 debounce
  ↓
 取消旧请求
  ↓
 只处理最后一次有效结果
-</code></pre><p>例如 BLoC 中：</p><pre><code class="language-text">SearchChanged
+</code></pre><p>在 BLoC 中可以采用：</p><pre><code class="language-text">SearchChanged
       ↓
-restartable / debounce
+debounce / restartable
       ↓
 Repository.search()
-</code></pre><p>关键不是简单加 500ms 延迟，而是解决<strong>旧请求比新请求晚回来</strong>的问题。</p><p>例如：</p><pre><code class="language-text">请求 A：blue        → 800ms 返回
+</code></pre><p>关键不是简单加 300～500ms 延迟，而是解决<strong>请求乱序返回</strong>问题。</p><p>例如：</p><pre><code class="language-text">请求 A：blue        → 800ms 返回
 请求 B：bluetooth   → 200ms 返回
-
-B先返回
-A后返回
-</code></pre><p>如果没有请求序列控制，最终 UI 可能展示旧的 <code>blue</code> 结果。</p><h3 id="继续追问-1">继续追问</h3><p>如果使用 Dio 怎么做？</p><p>可以：</p><ul><li>CancelToken；</li><li>requestId；</li><li>BLoC <code>restartable</code>；</li><li>Repository 层取消上次查询。</li></ul><p>这是非常实用的一道题，能迅速看出候选人有没有处理过真实异步业务。</p><hr><h1 id="三、repository-设计">三、Repository 设计</h1><h2 id="3-repository-是不是简单把-dio-api-再包一层？">3. Repository 是不是简单把 Dio API 再包一层？</h2><h3 id="场景-2">场景</h3><p>候选人写：</p><pre><code class="language-dart">class UserRepository {
+</code></pre><p>如果 B 先返回、A 后返回，而业务没有取消或版本控制，页面最终可能展示旧的 <code>blue</code> 结果。</p><h3 id="使用-dio-时可考虑">使用 Dio 时可考虑</h3><ul><li><code>CancelToken</code>；</li><li>requestId；</li><li>BLoC <code>restartable</code>；</li><li>Repository 层统一取消上一次搜索；</li><li>结果版本号校验。</li></ul><h3 id="面试关注点">面试关注点</h3><p>看候选人是否真正处理过：</p><ul><li>debounce；</li><li>取消请求；</li><li>异步乱序；</li><li>输入快速变化；</li><li>页面销毁后的返回结果。</li></ul><hr><p><a id="q03"></a></p><h2 id="3-repository-是否只是-api-的包装层">3. Repository 是否只是 API 的包装层</h2><h3 id="场景-2">场景</h3><p>候选人写：</p><pre><code class="language-dart">class UserRepository {
   Future&lt;User&gt; getUser() {
     return userApi.getUser();
   }
 }
-</code></pre><p>问：</p><blockquote><p>如果 Repository 全是这种代码，它还有必要存在吗？</p></blockquote><h3 id="参考答案-2">参考答案</h3><p>这种 Repository 的价值确实有限。</p><p>真正有意义的 Repository 应该屏蔽数据来源和策略，例如：</p><pre><code class="language-text">                 ┌── Remote API
+</code></pre><p>问：</p><blockquote><p>如果 Repository 全是这种代码，它还有必要存在吗？</p></blockquote><h3 id="参考答案-2">参考答案</h3><p>如果 Repository 永远只是机械转发 API，价值确实有限。</p><p>真正有意义的 Repository 应该屏蔽数据来源与数据策略：</p><pre><code class="language-text">                 ┌── Remote API
 UserRepository ──┼── Local DB
                  └── Memory Cache
 </code></pre><p>例如：</p><pre><code class="language-dart">Future&lt;User&gt; getUser() async {
@@ -71,25 +65,24 @@ UserRepository ──┼── Local DB
   }
 
   final dto = await api.getUser();
-
   final user = mapper.toDomain(dto);
 
   await local.save(user);
 
   return user;
 }
-</code></pre><p>Repository 关注的是：</p><pre><code class="language-text">数据从哪里来
+</code></pre><p>Repository 应该关注：</p><pre><code class="language-text">数据从哪里来
 什么时候请求
 什么时候缓存
 如何转换
 失败怎么处理
-</code></pre><p>Flutter 官方当前架构文档同样把 data layer 视为应用数据的 source of truth，并建议把数据访问职责与 UI 分离。(<a href="https://docs.flutter.dev/app-architecture/case-study/data-layer?utm_source=chatgpt.com" title="Data layer - Flutter documentation">Flutter 文档</a>)</p><hr><h1 id="四、架构演进题">四、架构演进题</h1><h2 id="4-项目现在到处直接使用-flutter_blue_plus，准备支持鸿蒙，怎么办？">4. 项目现在到处直接使用 flutter_blue_plus，准备支持鸿蒙，怎么办？</h2><h3 id="场景-3">场景</h3><p>当前代码：</p><pre><code class="language-dart">FlutterBluePlus.startScan();
-</code></pre><p>分散在：</p><pre><code class="language-text">HomePage
+</code></pre><h3 id="加分点">加分点</h3><p>候选人如果能进一步谈到以下问题，说明架构经验较好：</p><ul><li>DTO 与 Domain Model 分离；</li><li>缓存策略；</li><li>stale-while-revalidate；</li><li>离线数据；</li><li>API 与本地数据库融合；</li><li>Repository 接口方便 mock / test。</li></ul><hr><p><a id="q04"></a></p><h2 id="4-项目到处直接使用-flutter_blue_plus，如何支持鸿蒙">4. 项目到处直接使用 flutter_blue_plus，如何支持鸿蒙</h2><h3 id="场景-3">场景</h3><p>当前代码大量直接调用：</p><pre><code class="language-dart">FlutterBluePlus.startScan();
+</code></pre><p>散落在：</p><pre><code class="language-text">HomePage
 BluetoothPage
 DevicePage
 SettingPage
-</code></pre><p>现在要求：</p><blockquote><p>Android + iOS + HarmonyOS。</p></blockquote><p>你会怎么改？</p><h3 id="参考答案-3">参考答案</h3><p>首先不能继续让业务依赖具体插件。</p><p>增加平台能力抽象层：</p><pre><code class="language-dart">abstract interface class BluetoothService {
-
+</code></pre><p>现在要求支持：</p><pre><code class="language-text">Android + iOS + HarmonyOS
+</code></pre><p>怎么改？</p><h3 id="参考答案-3">参考答案</h3><p>不能继续让业务层依赖具体插件。</p><p>应该增加平台能力抽象层：</p><pre><code class="language-dart">abstract interface class BluetoothService {
   Stream&lt;BluetoothDevice&gt; scan();
 
   Future&lt;void&gt; connect(String id);
@@ -100,7 +93,7 @@ SettingPage
 
   Future&lt;void&gt; write(...);
 }
-</code></pre><p>Android/iOS：</p><pre><code class="language-text">BluetoothService
+</code></pre><p>Android / iOS：</p><pre><code class="language-text">BluetoothService
       ↑
 FlutterBlueBluetoothService
 </code></pre><p>鸿蒙：</p><pre><code class="language-text">BluetoothService
@@ -111,72 +104,58 @@ HarmonyBluetoothService
 BluetoothRepository
       ↓
 BluetoothService
-</code></pre><p>最终：</p><pre><code class="language-text">                   ┌ FlutterBlue实现
+</code></pre><p>最终：</p><pre><code class="language-text">                   ┌ FlutterBlue 实现
 Bloc → Repository → BluetoothService
-                   └ Harmony实现
-</code></pre><p>这实际上就是 <strong>Dependency Inversion</strong>。</p><p>Flutter 官方也建议插件通过平台实现与 Dart API 解耦；Flutter 的插件机制本身就是通过平台特定实现连接系统能力。(<a href="https://docs.flutter.dev/packages-and-plugins/developing-packages?utm_source=chatgpt.com" title="Developing packages &amp; plugins">Flutter 文档</a>)</p><p>这道题对你们这种需要考虑鸿蒙/Android 的项目很有区分度。</p><hr><h1 id="五、性能排查">五、性能排查</h1><h2 id="5-flutter-页面滚动明显掉帧，你第一步做什么？">5. Flutter 页面滚动明显掉帧，你第一步做什么？</h2><h3 id="场景-4">场景</h3><p>一个车辆列表：</p><pre><code class="language-text">500 条车辆
+                   └ Harmony 实现
+</code></pre><p>本质是：</p><blockquote><p>业务依赖抽象，不依赖具体平台插件。</p></blockquote><h3 id="继续追问-1">继续追问</h3><p>如何处理平台能力不完全一致？</p><p>可以在接口层体现 capability：</p><pre><code class="language-dart">abstract class BluetoothCapabilities {
+  bool get supportsMtuChange;
+  bool get supportsBackgroundScan;
+  bool get supportsPhyUpdate;
+}
+</code></pre><p>不要让业务代码到处写：</p><pre><code class="language-dart">if (Platform.isAndroid) ...
+</code></pre><hr><p><a id="q05"></a></p><h2 id="5-flutter-页面滚动掉帧如何排查">5. Flutter 页面滚动掉帧如何排查</h2><h3 id="场景-4">场景</h3><p>一个车辆列表：</p><pre><code class="language-text">500 条车辆
 每条：
-图片 + 状态 + 位置 + 5个字段
-</code></pre><p>滑动明显卡顿。</p><p>候选人说：</p><blockquote><p>我会加 const。</p></blockquote><p>这个答案够吗？</p><h3 id="参考答案-4">参考答案</h3><p>不够。</p><p>优秀候选人首先应该说：</p><blockquote><p><strong>先 profile，再优化。</strong></p></blockquote><p>而不是先猜。</p><p>Flutter 官方当前性能指南也强调性能优化首先应该基于可测量指标，并使用 DevTools Performance View 等工具定位问题。(<a href="https://docs.flutter.dev/perf?utm_source=chatgpt.com" title="Performance">Flutter 文档</a>)</p><p>排查：</p><pre><code class="language-text">DevTools Performance
+图片 + 状态 + 位置 + 5 个字段
+</code></pre><p>滑动明显卡顿。</p><p>候选人说：</p><blockquote><p>我会加 const。</p></blockquote><p>这个答案够吗？</p><h3 id="参考答案-4">参考答案</h3><p>不够。</p><p>正确的第一步应该是：</p><blockquote><p><strong>先 Profile，再优化。</strong></p></blockquote><p>不要直接猜。</p><p>排查思路：</p><pre><code class="language-text">DevTools Performance
         ↓
 是 UI Thread？
         ↓
-是 Raster？
+还是 Raster？
         ↓
 找到耗时 Frame
         ↓
 定位 Widget / Layout / Paint
-</code></pre><p>再检查：</p><pre><code class="language-text">ListView.builder
-图片尺寸
-build执行次数
-Bloc刷新范围
-复杂布局
-IntrinsicWidth/Height
-Opacity
-Clip
-Shader
-PlatformView
-JSON解析
-</code></pre><p>Flutter 官方性能建议特别提醒避免不必要的 expensive operations 和过度复杂的 build/layout。(<a href="https://docs.flutter.dev/perf/best-practices?utm_source=chatgpt.com" title="Performance best practices">Flutter 文档</a>)</p><h3 id="继续追问-2">继续追问</h3><p>如果每收到一条车辆状态更新，500 个 item 全部 rebuild 怎么办？</p><p>比较好的回答：</p><pre><code class="language-text">BlocSelector
+</code></pre><p>进一步检查：</p><ul><li>是否使用 <code>ListView.builder</code>；</li><li>图片尺寸是否过大；</li><li>build 执行次数；</li><li>Bloc 是否导致整页刷新；</li><li>是否存在复杂嵌套布局；</li><li><code>IntrinsicWidth</code> / <code>IntrinsicHeight</code>；</li><li>大量 <code>Opacity</code> / <code>Clip</code>；</li><li>Shader；</li><li>Platform View；</li><li>JSON / 数据计算占用主 isolate。</li></ul><h3 id="继续追问-2">继续追问</h3><p>如果每收到一条车辆状态更新，500 个 item 全部 rebuild 怎么办？</p><p>可以考虑：</p><pre><code class="language-text">BlocSelector
 buildWhen
 拆小 Widget
-按 vehicleId 做状态选择
-</code></pre><p>目标是：</p><pre><code class="language-text">以前：
-VehicleBloc变化
+按 vehicleId 选择状态
+</code></pre><p>目标从：</p><pre><code class="language-text">VehicleBloc 变化
  ↓
 500 item rebuild
-
-优化：
-Vehicle #32发生变化
+</code></pre><p>优化为：</p><pre><code class="language-text">Vehicle #32 状态变化
  ↓
 只刷新 VehicleItem #32
-</code></pre><hr><h1 id="六、cpu-密集型任务">六、CPU 密集型任务</h1><h2 id="6-接口返回-20mb-json，解析时-ui-卡住，怎么办？">6. 接口返回 20MB JSON，解析时 UI 卡住，怎么办？</h2><h3 id="参考答案-5">参考答案</h3><p>网络请求本身不是关键问题。</p><p>真正的问题可能是：</p><pre><code class="language-text">HTTP返回
+</code></pre><h3 id="判断候选人水平-1">判断候选人水平</h3><p><strong>一般：</strong> 只会说 const、ListView.builder。<br><strong>较好：</strong> 会谈 rebuild、图片和 DevTools。<br><strong>优秀：</strong> 会区分 UI / Raster / Layout / Paint，并给出验证方法。</p><hr><p><a id="q06"></a></p><h2 id="6-20mb-json-解析导致-ui-卡顿怎么办">6. 20MB JSON 解析导致 UI 卡顿怎么办</h2><h3 id="场景-5">场景</h3><p>接口返回一个约 20MB JSON。</p><p>网络请求完成后，UI 明显卡住一段时间。</p><p>怎么办？</p><h3 id="参考答案-5">参考答案</h3><p>首先要明确：</p><blockquote><p>网络 IO 本身未必是瓶颈，真正卡顿的可能是 CPU 解析。</p></blockquote><p>链路：</p><pre><code class="language-text">HTTP 返回
  ↓
 20MB JSON decode
  ↓
-Model转换
+Model 转换
  ↓
 大量对象创建
  ↓
 占用主 isolate
-</code></pre><p>这类 CPU 密集任务可以考虑放到 isolate。</p><p>例如：</p><pre><code class="language-dart">final result = await Isolate.run(() {
+</code></pre><p>如果确定属于 CPU 密集型任务，可以考虑：</p><pre><code class="language-dart">final result = await Isolate.run(() {
   return parseLargeJson(json);
 });
-</code></pre><p>Flutter / Dart 官方建议在计算量足以阻塞其他工作、导致 UI 无响应时使用 isolate。(<a href="https://docs.flutter.dev/perf/isolates?utm_source=chatgpt.com" title="Concurrency and isolates - Flutter documentation">Flutter 文档</a>)</p><h3 id="陷阱">陷阱</h3><p>问：</p><blockquote><p>那所有 JSON 都放 isolate 好不好？</p></blockquote><p>正确答案：</p><p><strong>不好。</strong></p><p>因为 isolate：</p><ul><li>有创建/调度成本；</li><li>有消息传递成本；</li><li>数据需要跨 isolate 传输。</li></ul><p>几十 KB JSON 没必要为了“优化”硬开 isolate。</p><hr><h1 id="七、跨平台架构题">七、跨平台架构题</h1><h2 id="7-android-有一个能力，ios-没有，flutter-api-怎么设计？">7. Android 有一个能力，iOS 没有，Flutter API 怎么设计？</h2><h3 id="场景-5">场景</h3><p>例如：</p><pre><code class="language-text">Android：
-支持读取某车辆硬件状态
-
-iOS：
-系统根本没有这个接口
-</code></pre><p>是不是应该：</p><pre><code class="language-dart">if (Platform.isAndroid) {
-   ...
+</code></pre><h3 id="继续追问-3">继续追问</h3><p>所有 JSON 都应该放 isolate 吗？</p><p><strong>不应该。</strong></p><p>因为 isolate 本身存在：</p><ul><li>调度成本；</li><li>消息传递成本；</li><li>数据跨 isolate 传输成本。</li></ul><p>几十 KB 的普通 JSON 为了“优化”强行开 isolate，可能得不偿失。</p><h3 id="优秀回答">优秀回答</h3><p>候选人应该先：</p><ol><li>Profile；</li><li>判断真正耗时点；</li><li>确认解析是否阻塞主 isolate；</li><li>再决定是否使用 isolate。</li></ol><hr><p><a id="q07"></a></p><h2 id="7-android-有能力而-ios-没有，flutter-api-怎么设计">7. Android 有能力而 iOS 没有，Flutter API 怎么设计</h2><h3 id="场景-6">场景</h3><p>Android 支持读取某车辆硬件状态，而 iOS 系统根本没有对应接口。</p><p>是否应该在业务代码里到处：</p><pre><code class="language-dart">if (Platform.isAndroid) {
+  ...
 }
-</code></pre><p>到处判断？</p><h3 id="参考答案-6">参考答案</h3><p>不推荐。</p><p>应该：</p><pre><code class="language-text">业务层
+</code></pre><h3 id="参考答案-6">参考答案</h3><p>不推荐。</p><p>应该通过 Capability / Service 抽象：</p><pre><code class="language-text">业务层
  ↓
 Capability Interface
  ↓
 Platform Implementation
 </code></pre><p>例如：</p><pre><code class="language-dart">abstract class VehicleHardwareService {
-
   bool get supported;
 
   Future&lt;VehicleStatus?&gt; getStatus();
@@ -193,35 +172,29 @@ Platform Implementation
   @override
   bool get supported =&gt; false;
 }
-</code></pre><p>这样业务代码不会到处：</p><pre><code class="language-dart">if (Platform.isAndroid)
-</code></pre><p>Flutter 官方 Platform Channel 就是 Dart 与 Kotlin/Swift 等平台代码通信的标准机制。(<a href="https://docs.flutter.dev/platform-integration/platform-channels?utm_source=chatgpt.com" title="Writing custom platform-specific code">Flutter 文档</a>)</p><hr><h1 id="八、蓝牙实战题">八、蓝牙实战题</h1><h2 id="8-ble-扫描页面退出以后，还一直收到扫描结果，怎么排查？">8. BLE 扫描页面退出以后，还一直收到扫描结果，怎么排查？</h2><h3 id="场景-6">场景</h3><p>进入：</p><pre><code class="language-text">BluetoothPage
-</code></pre><p>开始扫描。</p><p>退出页面以后日志仍然不停打印设备。</p><p>重新进页面以后：</p><blockquote><p>每台设备打印两遍。</p></blockquote><p>第三次进去：</p><blockquote><p>打印三遍。</p></blockquote><p>为什么？</p><h3 id="参考答案-7">参考答案</h3><p>典型问题：</p><p><strong>Stream subscription 没有取消。</strong></p><p>例如：</p><pre><code class="language-dart">subscription =
-    bluetooth.scanResults.listen(...);
-</code></pre><p>页面/Bloc dispose 时没有：</p><pre><code class="language-dart">await subscription.cancel();
-</code></pre><p>还可能存在：</p><ul><li>Bloc 生命周期管理错误；</li><li>BluetoothService 被重复初始化；</li><li>EventChannel 重复监听；</li><li>原生 listener 未 unregister；</li><li>scan 没调用 stop；</li><li>全局 singleton 和页面级 Bloc 生命周期混用。</li></ul><p>优秀候选人还应该提出：</p><pre><code class="language-text">扫描状态最好由 BluetoothService
-统一管理，而不是页面控制底层生命周期
-</code></pre><hr><h1 id="九、android-蓝牙权限题">九、Android 蓝牙权限题</h1><h2 id="9-android-11-能扫描-ble，升级到-android-13-后突然不能扫描，怎么查？">9. Android 11 能扫描 BLE，升级到 Android 13 后突然不能扫描，怎么查？</h2><h3 id="参考答案-8">参考答案</h3><p>第一反应不应该是：</p><blockquote><p>flutter_blue_plus 有 bug。</p></blockquote><p>应该先看：</p><pre><code class="language-text">targetSdk
-Android版本
+</code></pre><p>业务层依赖统一抽象，而不是依赖平台判断。</p><h3 id="加分点-1">加分点</h3><p>如果候选人提到以下内容可加分：</p><ul><li>capability discovery；</li><li>feature flag；</li><li>graceful degradation；</li><li>Platform Channel；</li><li>federated plugin；</li><li>平台实现注册机制。</li></ul><hr><p><a id="q08"></a></p><h2 id="8-ble-扫描页面退出后仍持续收到结果，怎么排查">8. BLE 扫描页面退出后仍持续收到结果，怎么排查</h2><h3 id="场景-7">场景</h3><p>进入：</p><pre><code class="language-text">BluetoothPage
+</code></pre><p>开始扫描。</p><p>退出页面后日志仍不停打印设备。</p><p>重新进入页面：</p><blockquote><p>每台设备打印两遍。</p></blockquote><p>第三次进入：</p><blockquote><p>每台设备打印三遍。</p></blockquote><p>为什么？</p><h3 id="参考答案-7">参考答案</h3><p>首先怀疑：</p><blockquote><p><strong>StreamSubscription 没有取消。</strong></p></blockquote><p>例如：</p><pre><code class="language-dart">subscription = bluetooth.scanResults.listen(...);
+</code></pre><p>页面或 Bloc dispose 后没有：</p><pre><code class="language-dart">await subscription.cancel();
+</code></pre><p>还应该检查：</p><ul><li>Bloc 生命周期管理错误；</li><li><code>BluetoothService</code> 被重复初始化；</li><li>EventChannel 重复监听；</li><li>原生 Listener 没有 unregister；</li><li>Scan 没有 stop；</li><li>Singleton 与页面级对象生命周期冲突；</li><li>页面退出后 Bloc 是否仍存在。</li></ul><h3 id="优秀回答-1">优秀回答</h3><p>更好的设计是：</p><pre><code class="language-text">BluetoothService
+   ↓
+统一管理扫描生命周期
+</code></pre><p>而不是让每个页面直接控制底层 Bluetooth Plugin。</p><hr><p><a id="q09"></a></p><h2 id="9-android-11-能扫描-ble，android-13-却不能，怎么查">9. Android 11 能扫描 BLE，Android 13 却不能，怎么查</h2><h3 id="场景-8">场景</h3><p>同一个 Flutter App：</p><ul><li>Android 11 正常扫描；</li><li>Android 13 扫描不到设备。</li></ul><p>你会怎么排查？</p><h3 id="参考答案-8">参考答案</h3><p>第一反应不应该是：</p><blockquote><p>flutter_blue_plus 有 Bug。</p></blockquote><p>应该先检查：</p><pre><code class="language-text">targetSdk
+Android OS Version
 Manifest
 Runtime Permission
-蓝牙状态
-定位/附近设备权限
-</code></pre><p>Android 12 / API 31 开始采用新的 Bluetooth runtime permissions，包括扫描/连接等附近设备权限；旧版蓝牙权限需要兼容处理。(<a href="https://developer.android.com/develop/connectivity/bluetooth/bt-permissions?utm_source=chatgpt.com" title="Bluetooth permissions | Connectivity">Android Developers</a>)</p><p>所以需要做<strong>按 OS Version 的权限策略</strong>：</p><pre><code class="language-text">Android &lt;= 11
-       ↓
-旧权限逻辑
-
-Android &gt;= 12
-       ↓
-BLUETOOTH_SCAN
-BLUETOOTH_CONNECT
-...
-</code></pre><h3 id="这道题看什么？">这道题看什么？</h3><p>如果候选人的第一反应永远是：</p><blockquote><p>升插件。</p></blockquote><p>通常说明原生 Android 基础偏弱。</p><p>真正做过 BLE 的开发人员，一般首先检查：</p><pre><code class="language-text">权限
+Bluetooth Adapter State
+定位 / 附近设备权限
+</code></pre><p>Android 12 以后蓝牙权限模型发生明显变化，需要针对新系统处理附近设备相关权限。</p><p>架构上应该有：</p><pre><code class="language-text">BluetoothPermissionService
+        ↓
+根据 OS Version
+        ↓
+选择权限策略
+</code></pre><p>而不是权限逻辑散落在页面。</p><h3 id="面试关注点-1">面试关注点</h3><p>真正做过 BLE 的开发人员通常会优先检查：</p><pre><code class="language-text">权限
 OS Version
 Adapter State
 Scan Lifecycle
 原生日志
-</code></pre><hr><h1 id="十、wi-fi-实战题">十、Wi-Fi 实战题</h1><h2 id="10-flutter-app-想扫描附近-wi-fi，然后连接某个车机热点，怎么设计？">10. Flutter App 想扫描附近 Wi-Fi，然后连接某个车机热点，怎么设计？</h2><h3 id="参考答案-9">参考答案</h3><p>不要让业务直接依赖某一个 Wi-Fi plugin。</p><p>应该先定义业务接口：</p><pre><code class="language-dart">abstract class WifiService {
-
+</code></pre><p>而不是先升级插件。</p><hr><p><a id="q10"></a></p><h2 id="10-flutter-app-扫描-wifi-并连接车机热点，如何设计">10. Flutter App 扫描 Wi‑Fi 并连接车机热点，如何设计</h2><h3 id="场景-9">场景</h3><p>App 需要：</p><ol><li>扫描附近 Wi‑Fi；</li><li>找到指定车机热点；</li><li>连接热点；</li><li>建立后续 TCP / HTTP 通信。</li></ol><p>怎么设计？</p><h3 id="参考答案-9">参考答案</h3><p>不要让业务直接依赖某个 Wi‑Fi Plugin。</p><p>先定义统一接口：</p><pre><code class="language-dart">abstract class WifiService {
   Future&lt;List&lt;WifiDevice&gt;&gt; scan();
 
   Future&lt;WifiConnectResult&gt; connect(
@@ -230,33 +203,34 @@ Scan Lifecycle
 
   Stream&lt;WifiState&gt; observeState();
 }
-</code></pre><p>然后：</p><pre><code class="language-text">WifiBloc
+</code></pre><p>业务架构：</p><pre><code class="language-text">WifiBloc
    ↓
 WifiRepository
    ↓
 WifiService
    ↓
 Android / iOS / Harmony
-</code></pre><p>而且需要认识到：</p><blockquote><p><strong>Wi-Fi 并不是一个真正“一套 Flutter API 就可以完全跨平台”的能力。</strong></p></blockquote><p>底层权限、安全限制和可调用 API 都受 OS 控制。Android 13 及以上针对附近 Wi-Fi 设备引入了 <code>NEARBY_WIFI_DEVICES</code> runtime permission，并保留了旧版本的兼容权限策略。(<a href="https://developer.android.com/develop/connectivity/wifi/wifi-permissions?utm_source=chatgpt.com" title="Request permission to access nearby Wi-Fi devices">Android Developers</a>)</p><p>所以正确架构应该允许：</p><pre><code class="language-text">Android：实现 A
+</code></pre><h3 id="关键判断">关键判断</h3><p>Wi‑Fi 不是一个真正意义上“同一套 Flutter API 就能完全跨平台”的能力。</p><p>底层受到：</p><ul><li>系统权限；</li><li>API 限制；</li><li>用户确认机制；</li><li>Wi‑Fi 扫描限制；</li><li>后台限制；</li><li>OS 版本差异；</li></ul><p>等影响。</p><p>因此正确思路是：</p><pre><code class="language-text">Android：实现 A
 iOS：实现 B
 Harmony：实现 C
 
-但 Flutter 业务看到：
+Flutter 业务统一看到：
 WifiService
-</code></pre><hr><h1 id="十一、蓝牙--wi-fi-综合题">十一、蓝牙 + Wi-Fi 综合题</h1><h2 id="11-设备通过-ble-配网，最终切换到-wi-fi-通信，怎么设计状态机？">11. 设备通过 BLE 配网，最终切换到 Wi-Fi 通信，怎么设计状态机？</h2><p>这是我比较推荐拿来面高级 Flutter 的一道题。</p><h3 id="场景-7">场景</h3><p>智能设备配网：</p><pre><code class="language-text">扫描 BLE
+</code></pre><h3 id="加分点-2">加分点</h3><p>候选人如果能主动提到：</p><ul><li>iOS 无法像 Android 一样随意扫描附近 Wi‑Fi；</li><li>系统设置跳转；</li><li>SSID 获取限制；</li><li>Android Nearby Wi‑Fi 权限；</li><li>连接失败与网络切换回调；</li></ul><p>说明跨平台经验较真实。</p><hr><p><a id="q11"></a></p><h2 id="11-ble-配网后切换-wifi-通信，如何设计状态机">11. BLE 配网后切换 Wi‑Fi 通信，如何设计状态机</h2><h3 id="场景-10">场景</h3><p>设备配网流程：</p><pre><code class="language-text">扫描 BLE
  ↓
 连接设备
  ↓
-发送 Wi-Fi SSID / Password
+发送 Wi‑Fi SSID / Password
  ↓
-设备加入 Wi-Fi
+设备加入 Wi‑Fi
  ↓
-手机连接设备 Wi-Fi
+手机连接设备 Wi‑Fi
  ↓
 切换 TCP / HTTP 通信
-</code></pre><p>怎么设计？</p><h3 id="参考答案-10">参考答案</h3><p>不建议：</p><pre><code class="language-dart">if (...) {
+</code></pre><p>怎么设计？</p><h3 id="参考答案-10">参考答案</h3><p>不建议堆大量嵌套：</p><pre><code class="language-dart">if (...) {
   if (...) {
-     if (...) {
+    if (...) {
+      ...
 </code></pre><p>建议明确状态机：</p><pre><code class="language-text">Idle
  ↓
 Scanning
@@ -274,10 +248,11 @@ WifiConnecting
 NetworkConnected
  ↓
 Ready
-</code></pre><p>同时任何状态都可能进入：</p><pre><code class="language-text">Failure
+</code></pre><p>任何状态还可能进入：</p><pre><code class="language-text">Failure
 Disconnected
 Timeout
-</code></pre><p>BLoC 非常适合表达这种业务：</p><pre><code class="language-text">Event
+Cancelled
+</code></pre><p>BLoC 很适合表达这种业务：</p><pre><code class="language-text">Event
  ↓
 ProvisionBloc
  ↓
@@ -287,8 +262,8 @@ State
 ProvisionRepo
               \
                WifiService
-</code></pre><h3 id="优秀候选人应该进一步考虑">优秀候选人应该进一步考虑</h3><ul><li>超时；</li><li>用户取消；</li><li>蓝牙断开；</li><li>Wi-Fi 密码错误；</li><li>App 切后台；</li><li>页面退出；</li><li>重试；</li><li>恢复上次状态；</li><li>OS 权限被拒绝；</li><li>BLE 和 Wi-Fi 回调乱序。</li></ul><p>如果能主动谈到这些，基本可以判断做过复杂设备连接类业务。</p><hr><h1 id="十二、最有区分度的一道性能--架构综合题">十二、最有区分度的一道性能 + 架构综合题</h1><h2 id="12-蓝牙每秒上报-100-条数据，页面越来越卡，怎么解决？">12. 蓝牙每秒上报 100 条数据，页面越来越卡，怎么解决？</h2><h3 id="场景-8">场景</h3><p>BLE：</p><pre><code class="language-text">100 message/s
-</code></pre><p>每条消息：</p><pre><code class="language-text">Bluetooth Plugin
+</code></pre><h3 id="优秀候选人应该进一步考虑">优秀候选人应该进一步考虑</h3><ul><li>超时；</li><li>用户取消；</li><li>蓝牙断开；</li><li>Wi‑Fi 密码错误；</li><li>App 切后台；</li><li>页面退出；</li><li>重试；</li><li>状态恢复；</li><li>OS 权限被拒绝；</li><li>BLE / Wi‑Fi 回调乱序；</li><li>重复进入流程；</li><li>幂等处理。</li></ul><p>这是一道很适合高级 Flutter 工程师的题。</p><hr><p><a id="q12"></a></p><h2 id="12-蓝牙每秒上报-100-条数据，页面越来越卡，怎么解决">12. 蓝牙每秒上报 100 条数据，页面越来越卡，怎么解决</h2><h3 id="场景-11">场景</h3><p>BLE 每秒：</p><pre><code class="language-text">100 message/s
+</code></pre><p>当前链路：</p><pre><code class="language-text">Bluetooth Plugin
  ↓
 Stream
  ↓
@@ -299,7 +274,7 @@ emit()
 BlocBuilder
  ↓
 整个页面 rebuild
-</code></pre><p>运行几分钟以后明显卡顿。</p><p>怎么处理？</p><h3 id="参考答案-11">参考答案</h3><p>不能简单回答：</p><blockquote><p>用 isolate。</p></blockquote><p>首先判断瓶颈在哪。</p><p>整个链路拆开：</p><pre><code class="language-text">BLE IO
+</code></pre><p>运行一段时间后页面越来越卡。</p><p>怎么办？</p><h3 id="参考答案-11">参考答案</h3><p>不能简单回答：</p><blockquote><p>用 isolate。</p></blockquote><p>第一步应该拆解瓶颈：</p><pre><code class="language-text">BLE IO
  ↓
 数据解包
  ↓
@@ -307,41 +282,32 @@ BlocBuilder
  ↓
 状态合并
  ↓
-UI刷新
-</code></pre><p><strong>IO 不一定是问题。</strong></p><p>真正问题通常可能是：</p><pre><code class="language-text">100次/s Event
-100次/s emit
-100次/s rebuild
-</code></pre><p>优化方向：</p><h3 id="数据层">数据层</h3><p>把原始数据和 UI 数据分开。</p><pre><code class="language-text">100Hz BLE Raw Data
+UI 刷新
+</code></pre><h3 id="1-数据层">1. 数据层</h3><p>原始数据和 UI 状态分开。</p><pre><code class="language-text">100Hz BLE Raw Data
         ↓
 Data Processor
         ↓
 业务状态
-</code></pre><h3 id="cpu-层">CPU 层</h3><p>复杂解析/算法必要时放 isolate。Dart 官方建议 isolate 用于可能阻塞 UI isolate 的计算密集型工作。(<a href="https://dart.dev/language/isolates?utm_source=chatgpt.com" title="Isolates">Dart</a>)</p><h3 id="状态层">状态层</h3><p>不应该每个 packet 都：</p><pre><code class="language-dart">emit(...)
-</code></pre><p>可以：</p><pre><code class="language-text">BLE：100 Hz
+</code></pre><p>不要让每个底层 packet 都直接驱动 UI。</p><h3 id="2-cpu-层">2. CPU 层</h3><p>如果协议解析、校验、算法计算很重，可以评估 isolate。</p><p>重点是：</p><blockquote><p>isolate 用于 CPU 密集型工作，不是为了把所有异步代码都“多线程化”。</p></blockquote><h3 id="3-状态层">3. 状态层</h3><p>不要每个 packet 都：</p><pre><code class="language-dart">emit(...)
+</code></pre><p>可以做聚合、采样或节流：</p><pre><code class="language-text">BLE：100 Hz
  ↓
-聚合
+数据聚合
  ↓
 State：10 Hz
  ↓
 UI：10 Hz
-</code></pre><h3 id="ui-层">UI 层</h3><p>例如：</p><pre><code class="language-text">车辆速度 → 只刷新速度Widget
-电量 → 只刷新电量Widget
-GPS → 只刷新地图数据
-</code></pre><p>使用：</p><pre><code class="language-text">BlocSelector
-buildWhen
-ValueNotifier（局部高频状态）
-CustomPainter
-</code></pre><h3 id="很优秀的回答">很优秀的回答</h3><p>候选人会主动说：</p><blockquote><p>UI 的刷新频率不应该等于底层数据采样频率。</p></blockquote><p>例如传感器：</p><pre><code class="language-text">采集：100Hz
-业务：50Hz
-UI：10~30Hz
-</code></pre><p><strong>这是我认为这组题里区分度最高的一题。</strong></p><hr><h1 id="面试时我建议这样组合">面试时我建议这样组合</h1><p>如果只安排 <strong>40～60 分钟技术面</strong>，其实不需要问几十道题。我会挑下面 <strong>6 道核心题</strong>：</p><table><thead><tr><th>题目</th><th>主要判断能力</th><th align="right">建议分值</th></tr></thead><tbody><tr><td>首页三个接口怎么设计</td><td>BLoC / Repository 架构</td><td align="right">15</td></tr><tr><td>搜索连续请求</td><td>异步、并发控制</td><td align="right">10</td></tr><tr><td>flutter_blue_plus 如何支持鸿蒙</td><td>跨平台架构</td><td align="right">20</td></tr><tr><td>500条列表掉帧怎么查</td><td>Flutter 性能</td><td align="right">15</td></tr><tr><td>Android 13 BLE 扫描失败</td><td>原生平台能力</td><td align="right">15</td></tr><tr><td>BLE 100Hz 导致 UI 卡顿</td><td>综合工程能力</td><td align="right">25</td></tr></tbody></table><p>其中最后一道可以直接作为<strong>高级 Flutter 工程师分水岭</strong>。</p><p>一个候选人如果能够把：</p><pre><code class="language-text">BLE 100Hz
-→ 数据处理层
-→ Repository
-→ Bloc状态聚合
-→ UI低频刷新
-→ isolate处理CPU密集计算
-→ BlocSelector控制局部重建
-</code></pre><p>这条链路完整说清楚，基本可以判断他不只是“会 Flutter”，而是具备真正的<strong>跨平台客户端工程设计能力</strong>。Flutter 官方当前也明确将 isolate 用于计算密集型任务，并建议性能问题先基于 DevTools 和实际指标定位，而不是凭感觉优化。(<a href="https://docs.flutter.dev/perf/isolates?utm_source=chatgpt.com" title="Concurrency and isolates - Flutter documentation">Flutter 文档</a>)</p></div><footer class="wrapper post__footer"><p class="post__last-updated">This article was updated on 八月 12, 2026</p><div class="post__share"></div></footer><nav class="pagination"><div class="pagination__title"><span>Read other posts</span></div><div class="pagination__buttons"><a href="https://blog.nasyes.cn/flutter-ji-shu-mian-shi-ti-ku-ji-jie-xi2026nian-6yue-ban.html" class="btn previous" rel="prev" aria-label="[MISSING TRANSLATION]:  Flutter 技术面试题库及解析（2026年6月版） "><span class="btn__icon">←</span> <span class="btn__text">Flutter 技术面试题库及解析（2026年6月版）</span></a></div></nav></article></main><footer class="footer"><div class="footer__inner"><div class="footer__copyright"><p>© 2024 Powered by Publii CMS :: <a href="https://github.com/panr/hugo-theme-terminal" target="_blank" rel="noopener">Theme</a> ported by the <a href="https://getpublii.com/customization-service/" target="_blank" rel="noopener">Publii Team</a></p></div></div></footer></div><script defer="defer" src="https://blog.nasyes.cn/assets/js/scripts.min.js?v=74fad06980c30243d91d72c7c57fcdb8"></script><script>window.publiiThemeMenuConfig={mobileMenuMode:'sidebar',animationSpeed:300,submenuWidth: 'auto',doubleClickTime:500,mobileMenuExpandableSubmenus:true,relatedContainerForOverlayMenuSelector:'.top'};</script><script>var images = document.querySelectorAll('img[loading]');
+</code></pre><h3 id="4-ui-层">4. UI 层</h3><p>将刷新粒度拆细：</p><pre><code class="language-text">车辆速度 → 速度 Widget
+电量     → 电量 Widget
+GPS      → 地图数据
+</code></pre><p>可考虑：</p><ul><li><code>BlocSelector</code>；</li><li><code>buildWhen</code>；</li><li><code>ValueNotifier</code>；</li><li>局部高频状态对象；</li><li><code>CustomPainter</code>；</li><li>避免整页 rebuild。</li></ul><h3 id="高级回答的关键点">高级回答的关键点</h3><p>优秀候选人通常会主动说：</p><blockquote><p><strong>UI 刷新频率不应该等于底层采样频率。</strong></p></blockquote><p>例如：</p><pre><code class="language-text">采集：100Hz
+业务计算：50Hz
+UI：10～30Hz
+</code></pre><p>这是非常有区分度的一道 Flutter 性能 + 架构综合题。</p><hr><p><a id="score"></a></p><h2 id="13-建议的面试组合与评分方式">13. 建议的面试组合与评分方式</h2><p>如果技术面只有 <strong>40～60 分钟</strong>，不建议把 12 题全部问完。</p><p>推荐选择以下 6 道：</p><table><thead><tr><th>题目</th><th>主要判断能力</th><th align="right">建议分值</th></tr></thead><tbody><tr><td>首页三个接口怎么设计</td><td>BLoC / Repository 架构</td><td align="right">15</td></tr><tr><td>搜索连续请求</td><td>异步、并发控制</td><td align="right">10</td></tr><tr><td>flutter_blue_plus 如何支持鸿蒙</td><td>跨平台架构</td><td align="right">20</td></tr><tr><td>500 条列表掉帧怎么查</td><td>Flutter 性能</td><td align="right">15</td></tr><tr><td>Android 13 BLE 扫描失败</td><td>原生平台能力</td><td align="right">15</td></tr><tr><td>BLE 100Hz 导致 UI 卡顿</td><td>综合工程能力</td><td align="right">25</td></tr></tbody></table><p><strong>总分：100 分</strong></p><h3 id="推荐判断标准">推荐判断标准</h3><h4 id="60-分以下">60 分以下</h4><p>更偏页面开发，对工程化和架构理解不足。</p><h4 id="60～75-分">60～75 分</h4><p>能够独立完成常规 Flutter 业务模块。</p><h4 id="75～85-分">75～85 分</h4><p>具备较好的工程设计和问题定位能力，可以承担核心模块。</p><h4 id="85-分以上">85 分以上</h4><p>具备高级 Flutter / 跨平台客户端工程师能力，可以参与架构设计、性能治理和平台能力抽象。</p><hr><h2 id="面试官重点观察">面试官重点观察</h2><p>不要只看候选人是否“答出关键字”，更应该观察他有没有主动讨论：</p><ul><li>生命周期；</li><li>异步乱序；</li><li>超时与取消；</li><li>状态恢复；</li><li>平台差异；</li><li>权限变化；</li><li>原生层定位；</li><li>数据采样频率；</li><li>UI 刷新频率；</li><li>服务抽象；</li><li>Repository 边界；</li><li>可测试性；</li><li>可维护性；</li><li>异常与降级。</li></ul><p>真正做过复杂 Flutter 项目的人，回答通常不会停留在：</p><pre><code class="language-text">Bloc
+Repository
+const
+ListView.builder
+MethodChannel
+</code></pre><p>而是会继续解释：</p><blockquote><p>为什么这样设计、异常怎么处理、生命周期怎么管、平台差异怎么隔离、性能如何验证。</p></blockquote></div><footer class="wrapper post__footer"><p class="post__last-updated">This article was updated on 八月 12, 2026</p><div class="post__share"></div></footer><nav class="pagination"><div class="pagination__title"><span>Read other posts</span></div><div class="pagination__buttons"><a href="https://blog.nasyes.cn/flutter-ji-shu-mian-shi-ti-ku-ji-jie-xi2026nian-6yue-ban.html" class="btn previous" rel="prev" aria-label="[MISSING TRANSLATION]:  Flutter 技术面试题库及解析（2026年6月版） "><span class="btn__icon">←</span> <span class="btn__text">Flutter 技术面试题库及解析（2026年6月版）</span></a></div></nav></article></main><footer class="footer"><div class="footer__inner"><div class="footer__copyright"><p>© 2024 Powered by Publii CMS :: <a href="https://github.com/panr/hugo-theme-terminal" target="_blank" rel="noopener">Theme</a> ported by the <a href="https://getpublii.com/customization-service/" target="_blank" rel="noopener">Publii Team</a></p></div></div></footer></div><script defer="defer" src="https://blog.nasyes.cn/assets/js/scripts.min.js?v=74fad06980c30243d91d72c7c57fcdb8"></script><script>window.publiiThemeMenuConfig={mobileMenuMode:'sidebar',animationSpeed:300,submenuWidth: 'auto',doubleClickTime:500,mobileMenuExpandableSubmenus:true,relatedContainerForOverlayMenuSelector:'.top'};</script><script>var images = document.querySelectorAll('img[loading]');
         for (var i = 0; i < images.length; i++) {
             if (images[i].complete) {
                 images[i].classList.add('is-loaded');

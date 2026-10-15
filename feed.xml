@@ -3,12 +3,658 @@
     <title>HEIN&#x27;s Blog</title>
     <link href="https://blog.nasyes.cn/feed.xml" rel="self" />
     <link href="https://blog.nasyes.cn" />
-    <updated>2026-08-12T15:08:39+08:00</updated>
+    <updated>2026-10-15T16:42:59+08:00</updated>
     <author>
         <name>HEIN</name>
     </author>
     <id>https://blog.nasyes.cn</id>
 
+    <entry>
+        <title>HOScrcpy 扩展 for FSC 方案设计</title>
+        <author>
+            <name>HEIN</name>
+        </author>
+        <link href="https://blog.nasyes.cn/hoscrcpy-kuo-zhan-for-fsc-fang-an-she-ji.html"/>
+        <id>https://blog.nasyes.cn/hoscrcpy-kuo-zhan-for-fsc-fang-an-she-ji.html</id>
+
+        <updated>2026-10-15T16:42:59+08:00</updated>
+            <summary type="html">
+                <![CDATA[
+                    设计一套通用的进程型扩展机制，HOScrcpy 只是第一个实现，而不是在 FSC 内部增加大量鸿蒙专用分支。 核心边界是： 下面是一份可用于后续实施评审的详细设计。本次仍未修改代码，也未执行实机验证。 当前仓库版本为 2.6.3+263，工作区干净。上一轮鸿蒙接入方案尚未实施。 当前 DeviceProvider 依赖 ADB，MirrorSessionProvider 保存 FScrcpyClient，MirrorPage 也直接使用 Android 控制接口。因此它们还不是通用设备后端接口。 相关代码：设备管理、镜像会话、镜像页面。 这里的“改动最小”应理解为尽量不侵入 Android 业务链，而不是完全零改动。安全下载、运行管理和公共协议必须由主程序提供。 已核对你提供的实际文件： 因此扩展不应携带原始 Swing 示例，更不需要再装一套&hellip;
+                ]]>
+            </summary>
+        <content type="html">
+            <![CDATA[
+                <p>设计一套<strong>通用的进程型扩展机制</strong>，HOScrcpy 只是第一个实现，而不是在 FSC 内部增加大量鸿蒙专用分支。</p><p>核心边界是：</p><ul>
+<li><strong>主程序负责扩展管理、标准协议、设备展示、媒体解码和通用交互。</strong></li>
+<li><strong>扩展包负责 SDK、设备通信、平台命令、运行时及系统差异。</strong></li>
+<li><strong>现有 Android 链路保留，首期不进行全项目后端重构。</strong></li>
+</ul>
+<p>下面是一份可用于后续实施评审的详细设计。本次仍未修改代码，也未执行实机验证。</p><h1 id="1-当前状态与设计目标">1. 当前状态与设计目标</h1>
+<h2 id="11-当前已经具备什么">1.1 当前已经具备什么</h2>
+<p>当前仓库版本为 <code>2.6.3+263</code>，工作区干净。上一轮鸿蒙接入方案尚未实施。</p><table>
+<thead>
+<tr>
+<th>已有基础</th>
+<th>可以如何复用</th>
+<th>仍然缺少什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>FFmpeg 视频解码与 macOS Texture 显示</td>
+<td>接收扩展输出的标准视频数据</td>
+<td>SDK 字节流到完整编码包的适配</td>
+</tr>
+<tr>
+<td><code>DecodedVideoFrame</code>、<code>VideoDecoder</code></td>
+<td>共用媒体显示边界</td>
+<td>独立于 Android 页面的显示组件</td>
+</tr>
+<tr>
+<td>文件名、保存位置、大小格式化等公共服务</td>
+<td>扩展截图、下载等功能复用</td>
+<td>扩展文件安装与版本管理</td>
+</tr>
+<tr>
+<td><code>UpdateService</code> 流式下载与进度反馈</td>
+<td>提取公共下载基础设施</td>
+<td>签名、解压、自检、回滚、卸载</td>
+</tr>
+<tr>
+<td>设置页紧凑表单组件</td>
+<td>扩展设置及安装界面</td>
+<td>扩展参数描述与权限提示</td>
+</tr>
+<tr>
+<td>设备与镜像生命周期管理经验</td>
+<td>参考状态机、引用计数设计</td>
+<td>与 Android 无关的扩展会话管理</td>
+</tr>
+</tbody></table>
+<p>当前 <code>DeviceProvider</code> 依赖 ADB，<code>MirrorSessionProvider</code> 保存 <code>FScrcpyClient</code>，<code>MirrorPage</code> 也直接使用 Android 控制接口。因此它们<strong>还不是通用设备后端接口</strong>。</p><p>相关代码：<a href="C:/my-programs/Codex/F-scrcpy/lib/providers/device_provider.dart">设备管理</a>、<a href="C:/my-programs/Codex/F-scrcpy/lib/providers/mirror_session_provider.dart">镜像会话</a>、<a href="C:/my-programs/Codex/F-scrcpy/lib/pages/mirror_page.dart">镜像页面</a>。</p><h2 id="12-本次设计的约束">1.2 本次设计的约束</h2>
+<ol>
+<li>FSC 安装包不包含 HOScrcpy、HDC、JRE 或鸿蒙设备端库。</li>
+<li>用户从 APP 内显式安装扩展后，才具有对应能力。</li>
+<li>扩展更新尽量不要求更新 FSC。</li>
+<li>Android 既有行为、性能和配置不受影响。</li>
+<li>后续其他系统可以使用同一套扩展管理和通信协议。</li>
+<li>不追求首期实现任意第三方代码、任意 UI、任意原生插件的动态加载。</li>
+</ol>
+<p>这里的“改动最小”应理解为<strong>尽量不侵入 Android 业务链</strong>，而不是完全零改动。安全下载、运行管理和公共协议必须由主程序提供。</p><h1 id="2-hoscrcpy-的实际支持边界">2. HOScrcpy 的实际支持边界</h1>
+<h2 id="21-本地-sdk-基线">2.1 本地 SDK 基线</h2>
+<p>已核对你提供的实际文件：</p><ul>
+<li>SDK：<code>hosScrcpy-1.0.18-beta.jar</code>。</li>
+<li>大小：约 17.6 MiB。</li>
+<li><code>libs</code> 下标为 <code>1.0.14</code> 的文件与其哈希相同，属于文件名与实际内容不一致。</li>
+<li>公开 API 的字节码版本为 Java 8；Manifest 的构建环境为 JDK 21。</li>
+<li>SDK 内含 gRPC、Guava、JSON 等依赖。</li>
+<li>SDK 内没有 JavaCV/FFmpeg；这些属于示例程序额外引入的依赖。</li>
+<li>支持视频流、图片流、触摸、鼠标、分辨率缩放、帧率/码率设置、显示屏设置、关键帧请求。</li>
+<li>公开 API 未提供音频流和双向剪贴板接口。</li>
+</ul>
+<p>因此扩展不应携带原始 Swing 示例，更不需要再装一套 JavaCV 解码链路。</p><p>依据：<a href="C:/TEMP/HOScrcpy-main/README.md">项目说明</a>、[API 文档](&lt;C:/TEMP/HOScrcpy-main/hoscrcpy API介绍.md&gt;)、<a href="C:/TEMP/HOScrcpy-main/pom.xml">示例依赖</a>。</p><h2 id="22-电脑端桌面平台">2.2 电脑端桌面平台</h2>
+<p>必须区分“有接入基础”和“已经实测支持”。</p><table>
+<thead>
+<tr>
+<th>电脑端平台</th>
+<th>静态分析结论</th>
+<th>发布建议</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Windows x64</td>
+<td>上游提供使用说明；可采用 x64 JRE、HDC，复用 FSC 解码</td>
+<td>首批验证平台</td>
+</tr>
+<tr>
+<td>macOS Intel x64</td>
+<td>上游明确提供 macOS 使用说明和对应依赖</td>
+<td>首批验证平台</td>
+</tr>
+<tr>
+<td>macOS Apple Silicon ARM64</td>
+<td>项目 POM 包含 ARM64 依赖；Java SDK 本身具备跨架构基础</td>
+<td>首批验证平台，但不能仅凭 POM 宣称已验证</td>
+</tr>
+<tr>
+<td>Linux x64</td>
+<td>FSC 和 HDC 有平台基础；上游 README 未提供完整 Linux 示例构建说明</td>
+<td>实验支持，验证 SDK 运行后再开放</td>
+</tr>
+<tr>
+<td>Windows ARM64</td>
+<td>当前 FSC 运行时、FFmpeg、HDC 分发链未完整覆盖</td>
+<td>首期不支持</td>
+</tr>
+<tr>
+<td>Linux ARM64</td>
+<td>同样缺少已验证的 FSC 媒体和工具分发组合</td>
+<td>首期不支持</td>
+</tr>
+<tr>
+<td>鸿蒙电脑作为 FSC 宿主</td>
+<td>属于新的应用宿主平台适配</td>
+<td>不由本扩展自动解决</td>
+</tr>
+</tbody></table>
+<p>HDC 官方文档确认其支持 Windows、Linux、macOS，并指出独立运行时可能需要随带 <code>libusb_shared</code>，不能只复制一个 <code>hdc</code> 文件。<a href="https://github.com/openharmony/docs/blob/master/zh-cn/application-dev/dfx/hdc.md">HDC 官方文档</a></p><p><strong>结论：首批目标是 Windows x64、macOS ARM64/x64；Linux x64作为验证后开放的平台。本次没有跨平台实测，不能把这些候选平台标为“已验证支持”。</strong></p><h2 id="23-被投屏设备的架构">2.3 被投屏设备的架构</h2>
+<p>JAR 内 <code>.so</code> 是推送到鸿蒙设备执行的，不是电脑端加载的 JNI 库。</p><table>
+<thead>
+<tr>
+<th>被投屏设备</th>
+<th>当前 SDK 包的基础</th>
+<th>应如何处理</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ARM64 鸿蒙 NEXT 真机</td>
+<td>视频采集库均为 ARM64</td>
+<td>核心接入目标，仍需核对系统/内核兼容性</td>
+</tr>
+<tr>
+<td>ARM64 鸿蒙模拟器</td>
+<td>有 ARM64、带 emulator 名称的采集库</td>
+<td>候选支持，需验证实际模拟器系统</td>
+</tr>
+<tr>
+<td>x86_64 鸿蒙模拟器</td>
+<td>视频采集库仍是 ARM64；输入代理包含 x86_64 版本</td>
+<td>不能承诺视频模式；验证图片流兜底</td>
+</tr>
+<tr>
+<td>ARM32 设备</td>
+<td>未发现相应视频采集库</td>
+<td>不支持</td>
+</tr>
+<tr>
+<td>OpenHarmony 开发板</td>
+<td>CPU 相同不代表系统 ABI、权限和服务都兼容</td>
+<td>按具体系统单独认证</td>
+</tr>
+<tr>
+<td>鸿蒙电脑作为被投屏端</td>
+<td>不能从手机支持情况直接推导</td>
+<td>单独验证，不默认开放</td>
+</tr>
+</tbody></table>
+<p>具备 ADB/Android 兼容能力的旧款华为设备，仍优先使用现有 Android 后端，<strong>不要根据品牌自动选择 HOScrcpy</strong>。</p><p>SDK 中有按内核版本区分的采集库，但这不等于支持所有相应内核或所有鸿蒙版本。最终兼容性应记录为：</p><blockquote>
+<p>SDK 版本 + HDC 版本 + 设备型号/架构 + 系统构建号 + 视频/控制模式。</p></blockquote>
+<h1 id="3-总体架构">3. 总体架构</h1>
+<p>建议分成四个边界：</p><table>
+<thead>
+<tr>
+<th>层</th>
+<th>职责</th>
+<th>是否随 FSC 安装</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>扩展宿主</td>
+<td>安装、校验、版本、进程、协议连接</td>
+<td>是</td>
+</tr>
+<tr>
+<td>通用设备与镜像 UI</td>
+<td>展示设备、播放媒体、发送标准交互</td>
+<td>是</td>
+</tr>
+<tr>
+<td>系统适配扩展</td>
+<td>发现、连接、控制、媒体采集适配</td>
+<td>否，按需下载</td>
+</tr>
+<tr>
+<td>设备端代理</td>
+<td>由对应扩展通过合法通道部署和管理</td>
+<td>否，包含在扩展中或由设备自身提供</td>
+</tr>
+</tbody></table>
+<p>鸿蒙链路为：</p><pre><code class="language-text">FSC 通用扩展客户端
+  ↕ 本机标准 IPC
+鸿蒙桥接服务
+  ├─ HDC：设备发现、连接、命令执行
+  └─ HOScrcpy：采集和反向控制
+       ↕
+     鸿蒙设备
+</code></pre>
+<p>视频进入 FSC 后：</p><pre><code class="language-text">H.264 字节流 → 分帧适配 → 现有 FFmpeg → 共用画面组件
+JPEG 图片   → 图片解码 → 共用画面组件
+</code></pre>
+<p>这里“Java”只是鸿蒙扩展的实现语言，不是插件规范的一部分。未来插件可以使用 Rust、C++、C#、Go 等，只要提供兼容的进程和协议即可。</p><h1 id="4-主程序接口设计">4. 主程序接口设计</h1>
+<h2 id="41-核心对象">4.1 核心对象</h2>
+<p>建议新增以下中立对象，避免使用 <code>adbSerial</code>、Android KeyCode 等平台概念：</p><table>
+<thead>
+<tr>
+<th>对象</th>
+<th>核心内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>ExtensionDescriptor</code></td>
+<td>ID、版本、平台、协议范围、运行入口、声明能力</td>
+</tr>
+<tr>
+<td><code>ExtensionRuntime</code></td>
+<td>进程启动、鉴权、连接、健康检查、退出</td>
+</tr>
+<tr>
+<td><code>DeviceDescriptor</code></td>
+<td>后端 ID、设备唯一键、名称、系统、连接方式、状态</td>
+</tr>
+<tr>
+<td><code>DeviceCapabilities</code></td>
+<td>设备此时实际可用的能力</td>
+</tr>
+<tr>
+<td><code>MirrorSession</code></td>
+<td>会话状态、媒体流、输入控制、停止</td>
+</tr>
+<tr>
+<td><code>DisplayDescriptor</code></td>
+<td>显示屏 ID、原始尺寸、旋转、编码尺寸</td>
+</tr>
+<tr>
+<td><code>ExtensionError</code></td>
+<td>错误码、阶段、详情、可重试性</td>
+</tr>
+</tbody></table>
+<p>设备标识采用结构化形式：</p><pre><code class="language-text">extensionId + backendId + endpointId + opaqueDeviceId
+</code></pre>
+<p>其中 <code>opaqueDeviceId</code> 对宿主是不透明的。主程序不能根据冒号、前缀或名称猜测设备类型。</p><h2 id="42-最小标准方法">4.2 最小标准方法</h2>
+<p>扩展协议首版需要明确支持：</p><ul>
+<li>扩展：<code>hello</code>、<code>health</code>、<code>shutdown</code>。</li>
+<li>设备：<code>devices.list</code>、<code>devices.watch</code>、<code>devices.getCapabilities</code>。</li>
+<li>会话：<code>sessions.open</code>、<code>sessions.close</code>、<code>sessions.configure</code>。</li>
+<li>媒体：<code>streams.requestKeyFrame</code>。</li>
+<li>控制：<code>input.pointer</code>、<code>input.scroll</code>、<code>input.key</code>、<code>input.text</code>。</li>
+</ul>
+<p>连接、文件、应用、日志等作为可选接口，不要求每个插件实现。</p><p>宿主必须区分：</p><ul>
+<li>不支持。</li>
+<li>支持但未获授权。</li>
+<li>当前设备不可用。</li>
+<li>暂时失败。</li>
+</ul>
+<p>不能把它们统一当作“执行失败”。</p><h2 id="43-能力协商">4.3 能力协商</h2>
+<p>能力在三个层级确定：</p><ol>
+<li>安装包声明“这个扩展可能提供什么”。</li>
+<li>运行时报告“当前平台能提供什么”。</li>
+<li>设备/会话报告“当前目标实际能提供什么”。</li>
+</ol>
+<p>最终可用能力取宿主理解范围和上述能力的交集。</p><p>例如鸿蒙会话：</p><pre><code class="language-json">{
+  &quot;mirror.video&quot;: true,
+  &quot;mirror.image&quot;: true,
+  &quot;input.touch&quot;: true,
+  &quot;input.mouse&quot;: true,
+  &quot;input.text&quot;: false,
+  &quot;audio.capture&quot;: false,
+  &quot;clipboard.read&quot;: false,
+  &quot;clipboard.write&quot;: false,
+  &quot;recording.encoded&quot;: false
+}
+</code></pre>
+<p>能力可以在运行中变化，例如授权撤销、显示屏断开、视频模式降级。UI 应响应能力变化，而不是只在页面创建时读取一次。</p><h1 id="5-扩展包与版本规范">5. 扩展包与版本规范</h1>
+<h2 id="51-包结构">5.1 包结构</h2>
+<p>以鸿蒙为例：</p><pre><code class="language-text">harmony-mirror/&lt;version&gt;/
+├─ manifest.json
+├─ bridge/
+│  └─ fsc-hos-bridge.jar
+├─ sdk/
+│  └─ hosScrcpy-1.0.18-beta.jar
+├─ runtime/
+│  └─ 对应平台的私有 Java 运行时
+├─ tools/
+│  └─ HDC 及必要依赖
+└─ licenses/
+</code></pre>
+<p>同一个 JAR 可以进入多个平台包，但 JRE、HDC、系统依赖必须匹配平台。</p><p>不依赖系统 <code>JAVA_HOME</code>，不要求用户修改 PATH。私有运行时版本固定并经过测试；首期可选择经过验证的 JRE 21组合，而不是同时支持任意系统 Java。</p><h2 id="52-三种版本分别管理">5.2 三种版本分别管理</h2>
+<table>
+<thead>
+<tr>
+<th>版本</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>扩展包版本</td>
+<td>更新整个可运行组件</td>
+</tr>
+<tr>
+<td>IPC/API 版本</td>
+<td>判断是否能和主程序通信</td>
+</tr>
+<tr>
+<td>SDK/HDC/JRE 版本</td>
+<td>设备兼容、安全维护和故障定位</td>
+</tr>
+</tbody></table>
+<p>SDK 升级不应自动等于协议升级。</p><p>协议采用“主版本 + 次版本”：</p><ul>
+<li>主版本不兼容：拒绝启动并提示升级。</li>
+<li>次版本新增可选能力：通过协商使用。</li>
+<li>新增未知字段：忽略。</li>
+<li>未知方法：返回标准“不支持”。</li>
+<li>禁止在同一主版本下改变已有字段含义。</li>
+</ul>
+<h2 id="53-清单与下载目录">5.3 清单与下载目录</h2>
+<p>发布清单至少包含：</p><ul>
+<li>扩展 ID、发布者、包版本。</li>
+<li>主程序兼容范围、协议范围。</li>
+<li>OS、CPU 架构和必要系统依赖。</li>
+<li>下载大小、解压大小上限、SHA-256。</li>
+<li>SDK/HDC/JRE 版本。</li>
+<li>签名、签名密钥 ID。</li>
+<li>发布通道、撤回/停用信息。</li>
+</ul>
+<p>签名应覆盖版本、平台、哈希等关键元数据。<strong>只提供 HTTPS 和哈希不足以建立独立的发布信任链。</strong></p><p>首期建议仅接入官方维护的扩展目录，不直接开放任意第三方扩展市场。</p><h1 id="6-安装、更新、停用与卸载">6. 安装、更新、停用与卸载</h1>
+<h2 id="61-本地目录">6.1 本地目录</h2>
+<p>使用应用用户数据目录，不修改 FSC 安装目录或 macOS <code>.app</code>：</p><pre><code class="language-text">extensions/
+├─ registry.json
+├─ staging/
+└─ harmony-mirror/
+   ├─ versions/
+   ├─ data/
+   ├─ cache/
+   └─ logs/
+</code></pre>
+<p>版本目录安装后保持只读式使用；配置、缓存、日志不写进去。</p><h2 id="62-安装事务">6.2 安装事务</h2>
+<p>流程为：</p><ol>
+<li>获取匹配平台且兼容的版本。</li>
+<li>用户确认下载和所需访问范围。</li>
+<li>下载到唯一临时目录。</li>
+<li>校验签名、文件哈希、大小。</li>
+<li>防护解压路径穿越、符号链接逃逸、解压炸弹。</li>
+<li>检查可执行文件和平台架构。</li>
+<li>执行不连接设备的自检与协议握手。</li>
+<li>原子切换活动版本。</li>
+</ol>
+<p>任何一步失败都不影响已安装版本。</p><p>既有 <code>UpdateService</code> 仅提供部分下载基础，不应把其临时安装器目录和启动安装程序逻辑直接套用于扩展。<a href="C:/my-programs/Codex/F-scrcpy/lib/services/update_service.dart:160">现有实现</a></p><h2 id="63-更新与回滚">6.3 更新与回滚</h2>
+<ul>
+<li>正在使用的会话固定到启动时的扩展版本。</li>
+<li>新包可以后台下载，但默认在会话结束后激活。</li>
+<li>保留上一可用版本。</li>
+<li>新版本启动失败可回退；设备不兼容则提示选择已认证版本。</li>
+<li>被明确撤回的安全问题版本不能静默回退。</li>
+<li>断网时已安装扩展仍能使用。</li>
+<li>主程序升级或降级后，重新判断协议兼容性。</li>
+</ul>
+<h2 id="64-停用与卸载">6.4 停用与卸载</h2>
+<p>停用：停止发现和会话，不再启动进程，保留配置。</p><p>卸载：先停止自己的工作进程和端口转发，再删除版本文件。用户数据、日志、认证信息是否清理需单独选择，不能默认删除已有 DevEco/HDC 的认证材料。</p><h1 id="7-运行进程与通信协议">7. 运行进程与通信协议</h1>
+<h2 id="71-鸿蒙进程模型">7.1 鸿蒙进程模型</h2>
+<p>首期推荐：</p><ul>
+<li>一个扩展管理进程：设备发现、HDC 配置、工作进程管理。</li>
+<li>每个活动投屏设备一个 SDK 工作进程。</li>
+</ul>
+<p>这样能够隔离设备故障，也避免闭源 SDK 内部状态和端口互相影响。</p><p>代价是多 JVM 会增加内存占用。需要设置并发上限并测量实际资源，再决定是否合并工作进程；不能预先保证多设备内存很小。</p><h2 id="72-启动握手">7.2 启动握手</h2>
+<ol>
+<li>宿主使用扩展目录内的绝对路径启动运行时。</li>
+<li>随机鉴权信息通过标准输入等受控通道传入，不放在命令行参数或 URL。</li>
+<li>服务绑定 <code>127.0.0.1</code> 的动态端口。</li>
+<li>Bootstrap 通道返回端口、协议和进程信息。</li>
+<li>宿主连接并鉴权，完成版本及能力协商。</li>
+<li>成功后才允许设备操作。</li>
+</ol>
+<p>SDK 普通日志必须与 Bootstrap/协议输出隔离，宿主持续消费 stdout、stderr，避免堵塞进程。</p><p>不要沿用示例中的固定 <code>8899</code>、全局 <code>remoteDevice</code> 和 <code>broadcast()</code>。<a href="C:/TEMP/HOScrcpy-main/web_demo/src/main/java/MyWebSocket.java">示例代码</a></p><h2 id="73-控制与媒体">7.3 控制与媒体</h2>
+<p>首版采用本机 WebSocket：</p><ul>
+<li>JSON-RPC 风格消息：请求、响应、错误和事件。</li>
+<li>二进制消息：视频、图片及未来音频。</li>
+<li>所有请求有 ID、超时和取消语义。</li>
+<li>启动/停止请求应可重复处理，避免重试产生重复会话。</li>
+<li>会话与流分别编号，不能通过当前全局设备推断消息归属。</li>
+<li>未鉴权连接、异常 Origin、超大消息应拒绝。</li>
+</ul>
+<p>二进制协议建议使用固定头部，至少包含：</p><p><code>协议版本、消息类型、流 ID、序列号、时间戳、标志位、负载长度</code>。</p><p>媒体格式要明确区分：</p><ul>
+<li>H.264 Annex-B <strong>字节流块</strong>。</li>
+<li>H.264 Annex-B <strong>完整访问单元/编码包</strong>。</li>
+<li>JPEG/PNG 图片。</li>
+<li>后续协商支持的其他格式。</li>
+</ul>
+<p>不能只写一个含义不明的 <code>video</code>。</p><h1 id="8-视频、时间戳与输入细节">8. 视频、时间戳与输入细节</h1>
+<h2 id="81-h264-适配">8.1 H.264 适配</h2>
+<p>HOScrcpy 的 <code>ByteBuffer</code> 不是已证明一包一帧的数据。</p><p>项目示例调用 <code>av_parser_parse2</code>，而 FSC 当前 <code>feed()</code> 接口直接向解码器提交编码包。因此需新增独立的流适配器，处理：</p><ul>
+<li>跨回调拆包和粘包。</li>
+<li>SPS/PPS、IDR 检测及缓存。</li>
+<li>分辨率变化、旋转、解码重建。</li>
+<li>断流后的缓存清理。</li>
+<li>队列积压和关键帧恢复。</li>
+</ul>
+<p>当前各平台 FFmpeg 构建脚本已启用 H.264 parser，但 Dart FFI 尚需增加对应绑定；应验证实际随包库的导出和行为，而非仅依赖编译脚本文字。</p><p>依据：<a href="C:/TEMP/HOScrcpy-main/src/main/java/forms/MainForm.java:247">HOScrcpy 示例</a>、<a href="C:/my-programs/Codex/F-scrcpy/lib/services/fscrcpy_client/decoder/ffmpeg_bindings.dart">FSC 解码绑定</a>。</p><h2 id="82-时间戳与录制">8.2 时间戳与录制</h2>
+<p>SDK 公开回调没有直接提供逐帧 PTS。</p><p>因此：</p><ul>
+<li>协议必须允许“时间戳未知”，不能把零或到达时间冒充设备采集时间。</li>
+<li>直播显示可采用经过验证的播放节奏策略。</li>
+<li>录制需要另行解决逐帧时间和可变帧率问题。</li>
+<li>不能因为能解码 H.264，就直接宣布 MP4 录制已支持。</li>
+</ul>
+<p>后续若增加录制，优先让一次采集同时服务预览和录制，不默认再开一个 SDK 采集连接。关闭预览仅取消显示订阅，录制仍持有采集引用。</p><h2 id="83-图片流与首帧">8.3 图片流与首帧</h2>
+<ul>
+<li>图片与状态消息先识别再解码。</li>
+<li>静止画面保持最后一帧，不按“长时间没帧”直接判定断线。</li>
+<li><code>onReady</code> 和收到首帧是两个状态。</li>
+<li>视频解码器就绪后请求 IDR。</li>
+<li>超时提供重新请求或图片模式降级。</li>
+<li>不通过偷偷注入触摸、电源键来触发首帧。</li>
+</ul>
+<p>图片流的刷新频率和静止补帧效果仍需按设备验证。</p><h2 id="84-输入模型">8.4 输入模型</h2>
+<p>宿主发送语义操作，扩展负责系统映射：</p><ul>
+<li>指针按下、移动、抬起、取消。</li>
+<li>鼠标按钮及滚轮。</li>
+<li>返回、主页、音量等语义按键。</li>
+<li>文本提交。</li>
+</ul>
+<p>同时协商原始设备尺寸、编码尺寸、旋转及坐标空间。输入必须绑定当前显示屏和画面版本，旋转时取消旧手势。</p><p>移动事件可以合并，按下/抬起/取消不能丢失。失焦、断线时释放按键和指针，避免设备残留“按住”状态。</p><p>文本输入应做转义、长度和字符范围处理。不能把用户文本直接拼接为 shell 命令，也不能沿用 Android KeyCode 数值。</p><h1 id="9-hdc-专项设计">9. HDC 专项设计</h1>
+<p>HDC 自身也有客户端、电脑端服务器和设备端守护进程。</p><p>必须区分：</p><ul>
+<li>HDC 服务端地址。</li>
+<li>设备 target key。</li>
+<li>无线设备 IP/端口。</li>
+</ul>
+<p><code>hdc -s</code> 指向电脑端 HDC 服务，<code>tconn</code> 才是连接网络设备，二者不能共用一个模糊的“IP”字段。<a href="https://github.com/openharmony/docs/blob/master/zh-cn/application-dev/dfx/hdc.md">官方说明</a></p><p>建议：</p><ul>
+<li>默认使用扩展包内固定版本 HDC。</li>
+<li>检测已有 DevEco 服务，检查版本和兼容性。</li>
+<li>必要时使用应用管理的独立服务端口。</li>
+<li>记录自己创建的转发和进程，只清理自己拥有的资源。</li>
+<li>不执行全局杀进程、全局重置 HDC 来修复单设备问题。</li>
+<li>设备扫描可见时正常刷新，隐藏或空闲时降低频率。</li>
+<li>未启用扩展时不扫描、不启动 HDC。</li>
+</ul>
+<p>同时测试 Windows 驱动、Linux USB 权限、macOS 本地网络授权，以及路径中包含空格和中文的情况。</p><h1 id="10-对现有代码的具体改动范围">10. 对现有代码的具体改动范围</h1>
+<p>建议沿用上一方案的旁路策略，但新增页面应做成<strong>通用扩展页面</strong>，而不是鸿蒙专用页面。</p><table>
+<thead>
+<tr>
+<th>现有位置</th>
+<th>拟改动</th>
+<th>Android 影响控制</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>main.dart</code></td>
+<td>注册扩展状态、增加路由/入口</td>
+<td>不改变原 Android Provider 初始化语义</td>
+</tr>
+<tr>
+<td>设备页</td>
+<td>增加设备来源切换，原 Android 内容继续使用</td>
+<td>鸿蒙不进入现有 ADB 刷新和名称查询</td>
+</tr>
+<tr>
+<td>设置页</td>
+<td>增加扩展管理卡片或独立管理页</td>
+<td>既有偏好不迁移</td>
+</tr>
+<tr>
+<td><code>mirror_page.dart</code> 的纯显示部分</td>
+<td>抽取共用画面组件</td>
+<td>原输入、UHID、剪贴板逻辑保留</td>
+</tr>
+<tr>
+<td>FFmpeg bindings</td>
+<td>增加 parser 绑定，独立流适配器调用</td>
+<td>不改变 Android 编码包路径</td>
+</tr>
+<tr>
+<td>公共下载基础</td>
+<td>按需抽取下载/进度底层</td>
+<td>原主程序更新行为保持</td>
+</tr>
+<tr>
+<td>macOS 配置与分发流程</td>
+<td>校验权限描述、辅助程序签名和公证</td>
+<td>作为跨平台发布专项验证</td>
+</tr>
+<tr>
+<td>本地化与测试</td>
+<td>增加扩展状态、错误及能力提示</td>
+<td>保留现有回归套件</td>
+</tr>
+</tbody></table>
+<p>主要新增模块：</p><ul>
+<li>扩展目录与安装器。</li>
+<li>扩展运行监督器和协议客户端。</li>
+<li>通用扩展设备 Provider。</li>
+<li>通用扩展会话 Provider。</li>
+<li>通用扩展设备页、镜像页和参数表单。</li>
+<li>鸿蒙 Java 桥接工程及能力包构建流水线。</li>
+</ul>
+<p>首期扩展镜像可作为二级页面打开，避免立即重写现有按 Android serial 管理的投屏网格。</p><p>如果要求 Android、鸿蒙同时混排在同一投屏网格，应另做一次小范围路由改造，将槽位标识改为通用设备引用。<strong>不要把这项需求隐藏为“无需改动”。</strong></p><h1 id="11-ui-与配置扩展性">11. UI 与配置扩展性</h1>
+<h2 id="111-扩展管理">11.1 扩展管理</h2>
+<p>至少展示：</p><ul>
+<li>未安装、下载中、校验中、已安装、启用、运行中。</li>
+<li>待激活更新、异常、与主程序不兼容。</li>
+<li>包版本、SDK 版本、平台和磁盘占用。</li>
+<li>安装、取消、重试、停用、更新、回滚、卸载。</li>
+<li>“复制诊断信息”和查看日志。</li>
+</ul>
+<p>错误详情保留原始 SDK/HDC 信息，但不显示令牌、认证密钥等敏感内容。</p><h2 id="112-插件不直接注入-ui-代码">11.2 插件不直接注入 UI 代码</h2>
+<p>首版允许插件声明有限的表单：</p><ul>
+<li>布尔值、数字、字符串、枚举。</li>
+<li>范围、默认值、说明和校验规则。</li>
+<li>设备选择、显示屏选择。</li>
+<li>标准动作及危险操作确认。</li>
+</ul>
+<p>主程序用现有 <code>Settings*Field</code> 渲染，不执行插件提供的 HTML、JS、Dart 或任意 Widget。</p><p>这样新的投屏插件只需声明参数和能力，不必为每个系统新增专用设置页。</p><p>但边界也应明确：需要全新原生控件、特殊播放器或主程序尚不认识的媒体格式时，仍需升级宿主，不能无限依赖配置扩展。</p><h1 id="12-后续接入其他操作系统">12. 后续接入其他操作系统</h1>
+<p>插件接口应围绕“设备、流、输入、权限”，不能绑定 HDC 或 Java。</p><table>
+<thead>
+<tr>
+<th>后续方向</th>
+<th>可选实现方式</th>
+<th>不能预设的能力</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>其他鸿蒙设备/SDK</td>
+<td>新后端或更新现有桥接</td>
+<td>不同设备、内核和权限不自动兼容</td>
+</tr>
+<tr>
+<td>Android 其他投屏方案</td>
+<td>独立进程适配，未来也可包装现有 Android 后端</td>
+<td>不要求立即把现有 Android 功能插件化</td>
+</tr>
+<tr>
+<td>iOS/iPadOS</td>
+<td>设备端发送应用、系统允许的采集框架，或获得授权的供应商 SDK</td>
+<td>不能默认支持全系统反控、USB 即插即用或无感授权</td>
+</tr>
+<tr>
+<td>Windows 被控端</td>
+<td>远端采集代理或既有远程桌面协议适配</td>
+<td>采集授权、控制权限和安全桌面需单独处理</td>
+</tr>
+<tr>
+<td>macOS 被控端</td>
+<td>远端代理使用系统采集能力</td>
+<td>屏幕采集与辅助控制权限分别管理</td>
+</tr>
+<tr>
+<td>Linux 被控端</td>
+<td>X11/Wayland 对应采集与控制后端</td>
+<td>不能把 X11 行为直接套用于 Wayland</td>
+</tr>
+<tr>
+<td>RDP/VNC 等协议</td>
+<td>扩展实现协议，再输出宿主支持的媒体与输入接口</td>
+<td>协议图形指令不能直接当 H.264 使用</td>
+</tr>
+</tbody></table>
+<p>Windows 提供 <code>Windows.Graphics.Capture</code> 等采集接口；Linux Wayland 可通过 ScreenCast/RemoteDesktop portal 协商画面和输入权限；Apple 平台需按目标系统版本选择采集框架并遵循用户授权。<a href="https://learn.microsoft.com/en-us/windows/apps/develop/media-authoring-processing/screen-capture">Windows 文档</a>、<a href="https://flatpak.github.io/xdg-desktop-portal/docs/doc-org.freedesktop.portal.RemoteDesktop.html">XDG RemoteDesktop</a>、<a href="https://developer.apple.com/documentation/screencapturekit">Apple ScreenCaptureKit</a></p><p>需要特别区分：</p><blockquote>
+<p>桌面扩展包是接收端适配；某些系统还需要被控设备安装发送端/代理。扩展机制不会自动创造操作系统不允许的采集或控制能力。</p></blockquote>
+<p>对未来插件，媒体格式不匹配时有两个选择：</p><ol>
+<li>插件转换成宿主已有格式，独立更新即可，但可能增加延迟和资源消耗。</li>
+<li>宿主增加新格式/原生通道支持，需要升级 FSC。</li>
+</ol>
+<p>首期不建设动态加载第三方原生 DLL 的播放器机制。后续确有性能瓶颈，再设计共享内存、系统句柄或零拷贝传输，不能提前把不稳定的跨平台 ABI 固化为插件协议。</p><h1 id="13-安全、授权与发布维护">13. 安全、授权与发布维护</h1>
+<h2 id="131-信任模型">13.1 信任模型</h2>
+<p>首期建议只允许：</p><ul>
+<li>官方维护并签名的在线包。</li>
+<li>使用同一信任体系签名的离线导入包。</li>
+</ul>
+<p>第三方开发者模式单独设计，默认关闭。</p><p>**独立进程不是安全沙箱。**扩展以当前用户权限执行，声明“只访问设备”并不能从技术上阻止恶意进程读取用户文件。首期安全基础是可信发布者、签名校验、最小运行权限和明确用户授权，而非虚假的权限隔离承诺。</p><h2 id="132-平台安全">13.2 平台安全</h2>
+<ul>
+<li>macOS：扩展内 JRE、HDC、辅助可执行程序纳入签名、公证和本地网络权限验证，不要求用户关闭系统安全机制。<a href="https://developer.apple.com/documentation/security/notarizing-macos-software-before-distribution">Apple 分发要求</a></li>
+<li>Windows：安装及运行不默认提权，进程树退出可采用 Job Object 等机制。</li>
+<li>Linux：明确最低系统依赖和 USB 权限要求，不能简单承诺一个包适用全部发行版。</li>
+<li>本机 IPC 只监听回环地址，随机鉴权，拒绝任意网页调用。</li>
+<li>宿主退出、控制管道关闭、心跳丢失均应触发清理；不能只依赖可能被复用的 PID 判断父进程存活。</li>
+</ul>
+<h2 id="133-许可证与供应链">13.3 许可证与供应链</h2>
+<p>此次核对发现，JAR 内 <code>META-INF/LICENSE.txt</code> 对应 <strong>Checker Framework qualifiers</strong>，不能据此推定整个 HOScrcpy SDK 及设备端库都允许再分发。</p><p>公开发布前需要确认：</p><ul>
+<li>SDK JAR 与设备端库的再分发范围。</li>
+<li>HDC、libusb 和 JRE 的分发要求。</li>
+<li>必须保留的许可证与声明。</li>
+<li>内嵌第三方依赖的 SBOM 和安全更新方式。</li>
+</ul>
+<p>不能因为“扩展单独下载”就绕过授权问题。若暂未获得再分发确认，可设计用户导入合法取得的 SDK 模式，但不能视为全部合规问题已经解决。</p><h1 id="14-验证、发布顺序与最终边界">14. 验证、发布顺序与最终边界</h1>
+<h2 id="141-必须覆盖的测试">14.1 必须覆盖的测试</h2>
+<table>
+<thead>
+<tr>
+<th>类别</th>
+<th>重点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>安装事务</td>
+<td>断网、取消、磁盘不足、损坏包、错误平台、解压攻击、进程崩溃</td>
+</tr>
+<tr>
+<td>协议</td>
+<td>版本不兼容、未知字段、错误长度、超大消息、未鉴权连接</td>
+</tr>
+<tr>
+<td>视频</td>
+<td>拆包粘包、静止首帧、SPS/PPS、旋转、尺寸改变、积压、关键帧恢复</td>
+</tr>
+<tr>
+<td>输入</td>
+<td>缩放映射、旋转、越界、失焦释放、中文和特殊字符</td>
+</tr>
+<tr>
+<td>生命周期</td>
+<td>反复开关、拔线、SDK 卡死、父进程退出、双设备隔离</td>
+</tr>
+<tr>
+<td>共存</td>
+<td>DevEco Studio、不同 HDC 版本、Android 投屏同时运行</td>
+</tr>
+<tr>
+<td>跨平台</td>
+<td>Windows x64、macOS ARM64/x64，Linux x64独立验证</td>
+</tr>
+<tr>
+<td>回归</td>
+<td>未装扩展时，原 Android 行为与性能保持</td>
+</tr>
+</tbody></table>
+<p>平台和设备兼容性测试结果形成版本化清单。不得根据 Java 能启动或 <code>hdc list targets</code> 成功就标记“投屏已支持”。</p><h2 id="142-实施阶段">14.2 实施阶段</h2>
+<ol>
+<li><p><strong>P0：许可与 PoC</strong><br>确认分发范围，验证 ARM64 真机视频、图片模式、输入、关键帧、多设备及退出清理。</p></li>
+<li><p><strong>P1：最小扩展宿主</strong><br>安装、校验、进程、协议、通用扩展设备页和镜像页。首先交付 USB 投屏与基础控制。</p></li>
+<li><p><strong>P2：产品化</strong><br>跨平台认证、自动更新/回滚、诊断、网络连接和远程 HDC，按验证结果增加截图与录制。</p></li>
+<li><p><strong>P3：多系统扩展</strong><br>用第二种非鸿蒙后端检验协议通用性，再决定是否统一 Android 设备列表和混合投屏网格。</p></li>
+</ol>
+<p>最终应形成的产品边界是：</p><blockquote>
+<p>FSC 内置一个轻量、稳定的投屏扩展宿主；鸿蒙 SDK、HDC、JRE 和适配逻辑由能力包独立分发。以后新增系统，只要能使用既有设备、媒体和控制契约，就可以独立安装和更新；超出契约的能力再通过宿主升级扩展，而不破坏已有插件。</p></blockquote>
+
+            ]]>
+        </content>
+    </entry>
     <entry>
         <title>Flutter实践类问题</title>
         <author>

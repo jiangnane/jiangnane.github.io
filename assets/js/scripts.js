@@ -427,13 +427,14 @@
     init();
 })(window.publiiThemeMenuConfig);
 
+
 // Share buttons pop-up
 (function () {
     // share popup
-    let shareButton = document.querySelector('.js-post__share-button');
-    let sharePopup = document.querySelector('.js-post__share-popup');
+    const shareButton = document.querySelector('.js-content__share-button');
+    const sharePopup = document.querySelector('.js-content__share-popup');
 
-    if (shareButton) {
+    if (shareButton && sharePopup) {
         sharePopup.addEventListener('click', function (e) {
             e.stopPropagation();
         });
@@ -450,40 +451,52 @@
     }
 
     // link selector and pop-up window size
-    var Config = {
+    const Config = {
         Link: ".js-share",
         Width: 500,
         Height: 500
     };
-    // add handler links
-    var slink = document.querySelectorAll(Config.Link);
-    for (var a = 0; a < slink.length; a++) {
-        slink[a].onclick = PopupHandler;
-    }
+
+    // add handler to links
+    const shareLinks = document.querySelectorAll(Config.Link);
+    shareLinks.forEach(link => {
+        link.addEventListener('click', PopupHandler);
+    });
+
     // create popup
     function PopupHandler(e) {
-        e = (e ? e : window.event);
-        var t = (e.target ? e.target : e.srcElement);
+        e.preventDefault();
+
+        const target = e.target.closest(Config.Link);
+        if (!target) return;
+
         // hide share popup
         if (sharePopup) {
             sharePopup.classList.remove('is-visible');
         }
+
         // popup position
-        var px = Math.floor(((screen.availWidth || 1024) - Config.Width) / 2),
-            py = Math.floor(((screen.availHeight || 700) - Config.Height) / 2);
+        const px = Math.floor((window.innerWidth - Config.Width) / 2);
+        const py = Math.floor((window.innerHeight - Config.Height) / 2);
+
         // open popup
-        var link_href = t.href ? t.href : t.parentNode.href;
-        var popup = window.open(link_href, "social",
-            "width=" + Config.Width + ",height=" + Config.Height +
-            ",left=" + px + ",top=" + py +
-            ",location=0,menubar=0,toolbar=0,status=0,scrollbars=1,resizable=1");
+        const linkHref = target.href;
+        const popup = window.open(linkHref, "social", `
+            width=${Config.Width},
+            height=${Config.Height},
+            left=${px},
+            top=${py},
+            location=0,
+            menubar=0,
+            toolbar=0,
+            status=0,
+            scrollbars=1,
+            resizable=1
+        `);
+
         if (popup) {
             popup.focus();
-            if (e.preventDefault) e.preventDefault();
-            e.returnValue = false;
         }
-
-        return !!popup;
     }
 })();
 

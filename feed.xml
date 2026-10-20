@@ -3,7 +3,7 @@
     <title>HEIN&#x27;s Blog</title>
     <link href="https://blog.nasyes.cn/feed.xml" rel="self" />
     <link href="https://blog.nasyes.cn" />
-    <updated>2026-10-20T15:06:25+08:00</updated>
+    <updated>2026-10-20T15:11:16+08:00</updated>
     <author>
         <name>HEIN</name>
     </author>
@@ -182,17 +182,17 @@ decision = Fake</code></pre>
             </summary>
         <content type="html">
             <![CDATA[
-                <p><strong>1. 整体流程如何运作</strong></p><pre><code class="language-mermaid">flowchart TD
-    A[&quot;入口交易：PID、UID、项目、供应商&quot;] --&gt; B[&quot;security-check 安全检查页&quot;]
-    B --&gt; C[&quot;Verisoul SDK：设备与行为采集&quot;]
-    C --&gt; D[&quot;取得 session_id&quot;]
-    D --&gt; E[&quot;提交问卷后台 saveVeriSoulResponse&quot;]
-    N[&quot;网络观测：IP、TLS、HTTP/2、STUN、时延&quot;] --&gt; R[&quot;Verisoul 风险评估&quot;]
-    C --&gt; R
-    R -. &quot;推断：后台获取并关联报告&quot; .-&gt; E
-    E --&gt; F[&quot;问卷项目规则&quot;]
-    F --&gt; G[&quot;进入问卷或终止回调&quot;]
-</code></pre>
+                <p><strong>1. 整体流程如何运作</strong></p><pre class="mermaid">flowchart TD
+    A[&quot;入口交易：PID、UID、项目、供应商&quot;] --> B[&quot;security-check 安全检查页&quot;]
+    B --> C[&quot;Verisoul SDK：设备与行为采集&quot;]
+    C --> D[&quot;取得 session_id&quot;]
+    D --> E[&quot;提交问卷后台 saveVeriSoulResponse&quot;]
+    N[&quot;网络观测：IP、TLS、HTTP/2、STUN、时延&quot;] --> R[&quot;Verisoul 风险评估&quot;]
+    C --> R
+    R -. &quot;推断：后台获取并关联报告&quot; .-> E
+    E --> F[&quot;问卷项目规则&quot;]
+    F --> G[&quot;进入问卷或终止回调&quot;]
+</pre>
 <p>浏览器侧请求及最终报告支持这条流程；服务器之间获取风险报告的具体调用没有被抓到，图中已标为推断。这与 Verisoul 官方描述的“客户端采集、后台评分、应用执行规则”架构一致。<a href="https://docs.verisoul.ai/overview/how-verisoul-works">官方架构说明</a></p><p><strong>2. 它具体检查哪些东西</strong></p><table>
 <thead>
 <tr>

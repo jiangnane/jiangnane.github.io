@@ -3,7 +3,7 @@
     <title>HEIN&#x27;s Blog</title>
     <link href="https://blog.nasyes.cn/feed.xml" rel="self" />
     <link href="https://blog.nasyes.cn" />
-    <updated>2026-11-02T10:42:06+08:00</updated>
+    <updated>2026-11-02T14:39:42+08:00</updated>
     <author>
         <name>HEIN</name>
     </author>
@@ -25,7 +25,7 @@
             </summary>
         <content type="html">
             <![CDATA[
-                <p>以下针对<strong>自动落锁、ESC</strong>。“客户端”包含 API 包，缓存读取、补发由 API 内部完成，业务方只需注册监听。</p><p><strong>1. 客户端先注册，中间件或 SDK 稍后就绪</strong></p><pre class="mermaid">sequenceDiagram
+                <p>以下针对<strong>自动落锁、ESC</strong>。“客户端”包含 API 包，缓存读取、补发由 API 内部完成，业务方只需注册监听。</p><p><strong>1. 客户端先注册，中间件或 SDK 稍后就绪</strong> </p><pre class="mermaid">sequenceDiagram
     participant C as 客户端及API
     participant M as 中间件服务
     participant S as SDK服务
